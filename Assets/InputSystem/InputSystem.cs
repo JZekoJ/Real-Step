@@ -31,18 +31,18 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""name"": ""TouchInput"",
                     ""type"": ""PassThrough"",
                     ""id"": ""1cfc79b1-6330-4851-94c4-19157fe37138"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""TouchPress"",
-                    ""type"": ""Button"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""02300aea-8b8f-4b33-844c-13b184bde9a9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {

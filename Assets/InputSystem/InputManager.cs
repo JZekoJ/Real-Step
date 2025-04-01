@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(-1)]
 public class InputManager : MonoBehaviour
 {
    
@@ -17,6 +18,7 @@ public class InputManager : MonoBehaviour
     {
         inputSystem = new InputSystem();
         mainCamera = Camera.main;
+        
     }
 
     private void OnEnable()
