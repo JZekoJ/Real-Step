@@ -4,7 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Portal - Test.unity
+    guid: 72b760c62b0fd7044af1d3595966ac23
+  - enabled: 1
+    path: Assets/Scenes/HackNSlash - Test.unity
+    guid: 6693c0c3239c9d346a24d91fbbccb39e
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: de6ed695f7a9296488387b3cc04374fa, type: 2}
