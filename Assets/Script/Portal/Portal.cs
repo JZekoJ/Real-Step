@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class Portal : MonoBehaviour
     [SerializeField] private ScriptablePortal m_ScriptObj;
     [Header("UI")]
     public GameObject m_goPortalUIPrefab;
+
+    private TextMeshProUGUI m_tDifficulty;
     private GameObject m_goPortalUI;
     private Button m_bEnterDungeon;
     private Button m_bCloseWindow;
@@ -22,8 +25,8 @@ public class Portal : MonoBehaviour
     void Start()
     {
 
-
-
+       
+        
         Scenechange = (SceneChange)FindAnyObjectByType(typeof(SceneChange));
         
 
@@ -44,9 +47,11 @@ public class Portal : MonoBehaviour
                 m_goPortalUI = Instantiate(m_goPortalUIPrefab);
                 m_bEnterDungeon = m_goPortalUI.GetComponentsInChildren<Button>()[0];
                 m_bCloseWindow = m_goPortalUI.GetComponentsInChildren<Button>()[1];
+                m_tDifficulty = m_goPortalUI.GetComponentInChildren<TextMeshProUGUI>();
 
                 m_bEnterDungeon.onClick.AddListener(() => Scenechange.ChangeScene("HackNSlash - Test"));
                 m_bCloseWindow.onClick.AddListener(CloseWindow);
+                m_tDifficulty.text = "Difficulty : " + m_ScriptObj.m_iDificulty.ToString();
                 m_bWindowOpen = true;
             }
         }

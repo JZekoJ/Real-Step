@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edef960c22819c04a826807cebb274d0, type: 3}
-  m_Name: Medium-Portal
+  m_Name: High-Portal
   m_EditorClassIdentifier: 
   m_iIndex: 1
-  m_iDificulty: 2
+  m_iDificulty: 3
   m_mMaterial: {fileID: 2100000, guid: 7a66be6d2cc1f22468d499997715aba4, type: 2}
