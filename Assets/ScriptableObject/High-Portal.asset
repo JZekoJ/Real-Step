@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_iIndex: 1
   m_iDificulty: 3
-  m_mMaterial: {fileID: 2100000, guid: 7a66be6d2cc1f22468d499997715aba4, type: 2}
+  m_mMaterial: {fileID: 2100000, guid: e5aa60bdd8b462641a9f3d7fcae86931, type: 2}

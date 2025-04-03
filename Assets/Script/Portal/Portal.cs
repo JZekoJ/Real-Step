@@ -9,7 +9,9 @@ public class Portal : MonoBehaviour
     // Start is called before the first frame update
 
 
-    [SerializeField] private ScriptablePortal m_ScriptObj;
+    [SerializeField] private List<ScriptablePortal> m_ScriptObjList;
+
+    private ScriptablePortal m_ScriptObj;
     [Header("UI")]
     public GameObject m_goPortalUIPrefab;
 
@@ -18,17 +20,17 @@ public class Portal : MonoBehaviour
     private Button m_bEnterDungeon;
     private Button m_bCloseWindow;
 
-    
+    private SpawnerPortal spawnerPortal;
     private SceneChange Scenechange;
 
-    private bool m_bWindowOpen ;
     void Start()
     {
 
-       
-        
+
+        m_ScriptObj = m_ScriptObjList[Random.Range(0, m_ScriptObjList.Count)];
         Scenechange = (SceneChange)FindAnyObjectByType(typeof(SceneChange));
-        
+        spawnerPortal = (SpawnerPortal)FindAnyObjectByType(typeof(SpawnerPortal));
+        GetComponent<MeshRenderer>().material = m_ScriptObj.m_mMaterial;
 
     }
 
@@ -40,7 +42,7 @@ public class Portal : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!m_bWindowOpen)
+        if (!spawnerPortal.m_bPortalOpen)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -52,7 +54,9 @@ public class Portal : MonoBehaviour
                 m_bEnterDungeon.onClick.AddListener(() => Scenechange.ChangeScene("HackNSlash - Test"));
                 m_bCloseWindow.onClick.AddListener(CloseWindow);
                 m_tDifficulty.text = "Difficulty : " + m_ScriptObj.m_iDificulty.ToString();
-                m_bWindowOpen = true;
+                //m_bWindowOpen = true;
+                spawnerPortal.m_bPortalOpen = true;
+
             }
         }
         
@@ -61,6 +65,6 @@ public class Portal : MonoBehaviour
     public void CloseWindow()
     {
         Destroy(m_goPortalUI);
-        m_bWindowOpen = false;
+        spawnerPortal.m_bPortalOpen = false;
     }
 }
