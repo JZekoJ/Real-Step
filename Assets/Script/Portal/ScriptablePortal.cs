@@ -9,7 +9,10 @@ public class ScriptablePortal : ScriptableObject
 
     [SerializeField] public int m_iIndex;
 
-    [SerializeField] public int m_iDificulty;
+    [SerializeField] public int m_iDificulty;//peut être fait en enum ?
 
     [SerializeField] public Material m_mMaterial;
+
+    //type d'ennemie possible
+    //récompense possible ?
 }

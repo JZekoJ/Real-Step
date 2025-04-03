@@ -23,6 +23,8 @@ public class Portal : MonoBehaviour
     private SpawnerPortal spawnerPortal;
     private SceneChange Scenechange;
 
+    private bool m_bCanEnter = false;
+
     void Start()
     {
 
@@ -42,7 +44,7 @@ public class Portal : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!spawnerPortal.m_bPortalOpen)
+        if (!spawnerPortal.m_bPortalOpen && m_bCanEnter)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -66,5 +68,22 @@ public class Portal : MonoBehaviour
     {
         Destroy(m_goPortalUI);
         spawnerPortal.m_bPortalOpen = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "DetectionBox")
+        {
+            m_bCanEnter = true;
+        }
+    }
+    
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "DetectionBox")
+        {
+            m_bCanEnter = false;
+        }
     }
 }
