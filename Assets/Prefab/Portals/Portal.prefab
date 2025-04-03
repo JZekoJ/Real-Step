@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2098546293839631727}
   - component: {fileID: 8362026385405804081}
   m_Layer: 0
-  m_Name: High-Portal
+  m_Name: Portal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3783630885897577157}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4156715, y: 0.5754747, z: -0.55684644, w: -0.43124023}
+  m_LocalRotation: {x: 0.6279598, y: -0.28978375, z: 0.2854509, w: 0.663483}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.0485, z: 1}
   m_ConstrainProportionsScale: 0
@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52e0b5e75f35ca4d91f7286999dcc70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ScriptObj: {fileID: 11400000, guid: 4c4426f4859e36c48ab073786595a183, type: 2}
+  m_ScriptObjList:
+  - {fileID: 11400000, guid: 4c4426f4859e36c48ab073786595a183, type: 2}
+  - {fileID: 11400000, guid: c5589ba89db34754eb6a0259cd754d85, type: 2}
+  - {fileID: 11400000, guid: f5d98e2b2b3d7dd469a5f2be33011ec1, type: 2}
   m_goPortalUIPrefab: {fileID: 1749478230240778643, guid: 917099ea2cbd9d9439710824ba69c549,
     type: 3}
