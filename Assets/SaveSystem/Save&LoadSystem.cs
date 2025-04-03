@@ -16,6 +16,7 @@ public class SaveLoadSystem : MonoBehaviour
     {
         playerDataPath = Application.persistentDataPath + "/playerData.json";
         inventoryDataPath = Application.persistentDataPath + "/inventoryData.json";
+        Debug.Log(playerDataPath);
         if (instance != null)
         {
             Destroy(this.gameObject);
