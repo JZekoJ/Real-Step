@@ -4,8 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/HackNSlash.unity
+    guid: f8eead0e05b0278479e0382cf6c05aa2
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
+      guid: a0938050518641d42a4f59776123f089, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 82c07ae862dc442429ccbd188d3c997d,
       type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
