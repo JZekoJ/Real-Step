@@ -1,18 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Enemy_Zombie : MonoBehaviour
+public class Enemy_Zombie : Enemy_Base
 {
-    // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
+        FindPlayer();
         
+        health = 80f;
+        speed = 2f;
+        attackDamage = 15f;
+        attackSpeed = 0.8f;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public override void Attack()
     {
-        
+        if (Time.time >= lastAttackTime + (1f / attackSpeed))
+        {
+            if (CheckRange())
+            {
+                PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(attackDamage);
+                }
+            }
+            
+            lastAttackTime = Time.time;
+        }
+    }
+    
+    protected override void Die()
+    {
+        base.Die();
     }
 }

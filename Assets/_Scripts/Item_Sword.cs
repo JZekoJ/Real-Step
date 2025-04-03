@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Item_Sword : MonoBehaviour
+public class Item_Sword : Item_Base
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Propriétés d'épée")]
+    public float damage;
+    public float attackSpeed;
+
+    public GameObject slashEffect;
+
+    public virtual void Attack(Transform target)
     {
-        
+        if (target != null)
+        {
+            EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damage);
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Use()
     {
-        
+        Attack(null);
     }
 }

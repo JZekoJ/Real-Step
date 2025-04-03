@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Item_Base : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Propriétés de base")]
+    public int itemId;
+    public string itemName;
+    public string description;
+    public int value;
+    
+    protected bool isEquipped = false;
+    
+    public virtual void Use()
     {
-        
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public virtual void Pickup()
     {
-        
+        gameObject.SetActive(true);
+    }
+    
+    public virtual void Drop()
+    {
+        isEquipped = false;
+        gameObject.SetActive(true);
     }
 }
