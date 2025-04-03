@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy_Base : MonoBehaviour
 {
-    [Header("Statistiques")]
+    [Header("Variables")]
     public float health;
     public float speed;
     public float attackDamage;
@@ -42,10 +42,9 @@ public class Enemy_Base : MonoBehaviour
         {
             if (CheckRange())
             {
-                PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
-                if (playerHealth != null)
+                if (target.CompareTag("Player"))
                 {
-                    playerHealth.TakeDamage(attackDamage);
+                    target.GetComponent<Player>().TakeDamage(attackDamage);
                 }
             }
             
