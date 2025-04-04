@@ -5,4 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes: []
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: c3a0bc74e5b8d854f8c48a886a4aae10, type: 2}
+  m_UseUCBPForAssetBundles: 0
