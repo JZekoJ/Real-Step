@@ -7,7 +7,6 @@ public class SpawnerPortal : MonoBehaviour
     public GameObject m_gPortal;
     float time;
 
-    public bool m_bPortalOpen;
     // Start is called before the first frame update
     void Start()
     {
