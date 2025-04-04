@@ -20,8 +20,9 @@ public class Portal : MonoBehaviour
     private Button m_bEnterDungeon;
     private Button m_bCloseWindow;
 
-    private SpawnerPortal spawnerPortal;
     private SceneChange Scenechange;
+
+    private Utils utils;
 
     private bool m_bCanEnter = false;
 
@@ -31,7 +32,7 @@ public class Portal : MonoBehaviour
 
         m_ScriptObj = m_ScriptObjList[Random.Range(0, m_ScriptObjList.Count)];
         Scenechange = (SceneChange)FindAnyObjectByType(typeof(SceneChange));
-        spawnerPortal = (SpawnerPortal)FindAnyObjectByType(typeof(SpawnerPortal));
+        utils = (Utils)FindAnyObjectByType(typeof(Utils));
         GetComponent<MeshRenderer>().material = m_ScriptObj.m_mMaterial;
 
     }
@@ -44,7 +45,7 @@ public class Portal : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!spawnerPortal.m_bPortalOpen && m_bCanEnter)
+        if (!utils.IsPointerOverUIElement() && m_bCanEnter)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -56,8 +57,6 @@ public class Portal : MonoBehaviour
                 m_bEnterDungeon.onClick.AddListener(() => Scenechange.ChangeScene("HackNSlash - Test"));
                 m_bCloseWindow.onClick.AddListener(CloseWindow);
                 m_tDifficulty.text = "Difficulty : " + m_ScriptObj.m_iDificulty.ToString();
-                //m_bWindowOpen = true;
-                spawnerPortal.m_bPortalOpen = true;
 
             }
         }
@@ -67,7 +66,6 @@ public class Portal : MonoBehaviour
     public void CloseWindow()
     {
         Destroy(m_goPortalUI);
-        spawnerPortal.m_bPortalOpen = false;
     }
 
     private void OnTriggerEnter(Collider other)
