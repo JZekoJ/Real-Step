@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public int _iLevel = 1;
-    public int _iHp = 1;
-    public string _sName = "";
+    public PlayerData PlayerData;
 
     [SerializeField] 
     TextMeshProUGUI lvlUI;
@@ -17,28 +15,48 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     TMP_InputField nameUI;
 
-    public void SetData(PlayerData data)
+    public void Start()
     {
-        _iLevel = data._iLevel;
-        _iHp = data._iHp;
-
-        UpdateUI();
+        PlayerData = new PlayerData();
+        AddItem(12, ItemRarity.Legendary, ItemType.Weapon);
     }
+
+    #region Inventory
+    public void AddItem(Item item)
+    {
+        PlayerData._itemList.Add(item);
+    }
+    public void AddItem(int iLevel, ItemRarity Rarity, ItemType Type)
+    {
+        Item i = new Item();
+        i._iLevel = iLevel;
+        i._Rarity = Rarity;
+        i._Type = Type;
+        PlayerData._itemList.Add(i);
+    }
+    public void SellItem(Item item)
+    {
+        PlayerData._itemList.Remove(item);
+    }
+    #endregion
+
+    #region Stats
     public void ChangeLevel(int amount)
     {
-        _iLevel += amount;
+        PlayerData._iLevel += amount;
         UpdateUI();
     }
     public void ChangeHp(int amount)
     {
-        _iHp += amount;
+        PlayerData._iHp += amount;
         UpdateUI();
     }
+    #endregion
 
     public void UpdateUI()
     {
-        lvlUI.text = "lvl : " + _iLevel;
-        hpUI.text = "hp : " + _iHp;
+        lvlUI.text = "lvl : " + PlayerData._iLevel;
+        hpUI.text = "hp : " + PlayerData._iHp;
     }
 
 }
