@@ -15,7 +15,6 @@ public class SaveLoadSystem : MonoBehaviour
     private void Awake()
     {
         playerDataPath = Application.persistentDataPath + "/playerData.json";
-        inventoryDataPath = Application.persistentDataPath + "/inventoryData.json";
         Debug.Log(playerDataPath);
         if (instance != null)
         {
@@ -31,17 +30,17 @@ public class SaveLoadSystem : MonoBehaviour
     #endregion
 
     private static string playerDataPath;
-    private static string inventoryDataPath;
 
+    #region Save
     public static void Save(PlayerScript player = null)
     {
         if (player != null)
         {
-            PlayerData data = new PlayerData(player);
-            string json = JsonUtility.ToJson(data);
+            string json = JsonUtility.ToJson(player.PlayerData);
             File.WriteAllText(playerDataPath, json);
         }
     }
+    #endregion
 
     public static void Load(PlayerScript player = null)
     {
@@ -50,14 +49,13 @@ public class SaveLoadSystem : MonoBehaviour
             if (File.Exists(playerDataPath))
             {
                 string json = File.ReadAllText(playerDataPath);
-                PlayerData data = JsonUtility.FromJson<PlayerData>(json);
-                player.SetData(data);
+                Debug.Log(json);
+                player.PlayerData = JsonUtility.FromJson<PlayerData>(json);
             }
             else
             {
                 Debug.LogError("Failed to find file at path" + playerDataPath);
             }
         }
-
     }
 }
