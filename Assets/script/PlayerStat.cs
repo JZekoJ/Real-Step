@@ -15,6 +15,8 @@ public class PlayerStat : MonoBehaviour
     private int m_iLevel { get; set; }
     // sa liste d'équipement ?
 
+    public Weapon m_wCurrentWeapon; //faire tri avec enum ?
+    public Weapon m_wCurrentHelmet; //etc..
 
     // Start is called before the first frame update
     void Start()
