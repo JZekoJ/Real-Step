@@ -40,5 +40,11 @@ public class PlayerStat : MonoBehaviour
     {
         //est ce que je fais strenght + arme strnght = Actual strength ?
     }
+
+    public void Equip(Object obj)
+    {
+        //déséquipez l'actuelle + affichez le truc actuel + enlevez de l'inventaire? 
+        Debug.Log("euh");
+    }
     
 }
