@@ -12,12 +12,17 @@ public class Weapon : MonoBehaviour
     //equiper faire en sorte que quand on clique sur l'îcone ça affiche que les mêmes trucs, fin démerdes toi
     void Start()
     {
-        GetComponent<Image>().sprite = m_weapon.m_sSprite;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Init()
+    {
+        GetComponent<Image>().sprite = m_weapon.m_sSprite;
     }
 }
