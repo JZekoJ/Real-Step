@@ -180,6 +180,8 @@ MonoBehaviour:
   maximumTime: 1
   directionTreshold: 0.9
   trail: {fileID: 1656941393}
+  longPressDuration: 0.2
+  longPressMaxDuration: 2
 --- !u!1 &1368913845
 GameObject:
   m_ObjectHideFlags: 0
