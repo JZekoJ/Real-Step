@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75d8bff98236fe44a9ae7ce035e2a01d, type: 3}
-  m_Name: Helmet
+  m_Name: NoWeapon
   m_EditorClassIdentifier: 
-  m_iIndex: 0
+  m_iIndex: 12
   m_iDamage: 0
-  sprite: {fileID: 21300000, guid: d00a97fec0ddfde49bb6a9ae8d67a45b, type: 3}
-  type: 0
+  sprite: {fileID: 0}
+  type: 1

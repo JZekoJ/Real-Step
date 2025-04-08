@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Boots
   m_EditorClassIdentifier: 
   m_iIndex: 2
-  m_iDamage: 0
+  m_iDamage: 10
   sprite: {fileID: 21300000, guid: ee1a12069c8273149801819a62088d65, type: 3}
   type: 2
