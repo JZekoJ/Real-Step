@@ -11,6 +11,13 @@ public class SwipeDetection : MonoBehaviour
     private float directionTreshold = 0.9f;
     [SerializeField]
     private GameObject trail;
+    [SerializeField]
+    private float longPressDuration = 0.5f;
+    [SerializeField]
+    private float longPressMaxDuration = 2f;
+
+
+
 
     private InputManager inputManager;
 
@@ -18,8 +25,10 @@ public class SwipeDetection : MonoBehaviour
     private float startTime;
     private Vector2 endPosition;
     private float endTime;
+    private bool isBlocking = false;
 
     private Coroutine coroutine;
+    private Coroutine shieldCoroutine;
 
     private void Awake()
     {
@@ -42,10 +51,11 @@ public class SwipeDetection : MonoBehaviour
     {
         startPosition = position;
         startTime = time;
-        trail.SetActive(true);
+        trail.GetComponent<TrailRenderer>().Clear();
         trail.transform.position = position;
+        trail.SetActive(true);
         coroutine = StartCoroutine(Trail());
-
+        StartCoroutine(LongPressDetection());
     }
 
     private IEnumerator Trail()
@@ -59,8 +69,18 @@ public class SwipeDetection : MonoBehaviour
 
     private void SwipeEnd(Vector2 position, float time)
     {
-        trail.SetActive(false);
         StopCoroutine(coroutine);
+        trail.SetActive(false);
+        trail.GetComponent<TrailRenderer>().Clear();
+
+        if (isBlocking)
+        {
+            isBlocking = false;
+            if (shieldCoroutine != null) StopCoroutine(shieldCoroutine);
+            Debug.Log(" Bouclier désactivé (fin de touch) !");
+            return; // pas de swipe
+        }
+
         endPosition = position;
         endTime = time;
         DetectSwipe();
@@ -88,6 +108,47 @@ public class SwipeDetection : MonoBehaviour
         endPosition = Vector2.zero;
         startTime = 0f;
         endTime = 0f;
+    }
+
+    private void ActivateShield()
+    {
+        isBlocking = true;
+        Debug.Log(" Bouclier activé !");
+
+        if (shieldCoroutine != null)
+            StopCoroutine(shieldCoroutine);
+        shieldCoroutine = StartCoroutine(ShieldDuration());
+    }
+
+    private IEnumerator ShieldDuration()
+    {
+        yield return new WaitForSeconds(2f);
+        if (isBlocking)
+        {
+            isBlocking = false;
+            Debug.Log("Bouclier désactivé automatiquement après 2s !");
+            // Tu peux aussi ici faire une animation de fin de blocage
+        }
+    }
+
+
+    private IEnumerator LongPressDetection()
+    {
+        float timer = 0f;
+
+        while (timer < longPressDuration)
+        {
+            if (Vector2.Distance(inputManager.PrimaryPosition(), startPosition) > 0.1f)
+            {
+                // Le doigt a bougé, ce n’est pas un long press
+                yield break;
+            }
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        // Long press détecté
+        ActivateShield();
     }
 
     private void SwipeDirection(Vector2 direction)
