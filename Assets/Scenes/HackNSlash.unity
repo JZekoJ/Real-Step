@@ -131,6 +131,8 @@ GameObject:
   - component: {fileID: 713021697}
   - component: {fileID: 713021699}
   - component: {fileID: 713021700}
+  - component: {fileID: 713021702}
+  - component: {fileID: 713021701}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -199,6 +201,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e09e347739407469a0826ad9eebcce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &713021701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713021696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd81a8508ec08345a368fd2ebd0f273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawnPoint: {fileID: 0}
+  spawnDelay: 1
+  onWaveCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  onEnemySpawned:
+    m_PersistentCalls:
+      m_Calls: []
+  onEnemyDefeated:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &713021702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713021696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850e04283557a974f90abce1d4b294e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rooms: []
+  currentRoomIndex: 0
+  roomTransitionDelay: 2
+  roomSpawnPoint: {fileID: 0}
+  waveManager: {fileID: 0}
+  onDungeonCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  onRoomChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1368913845
 GameObject:
   m_ObjectHideFlags: 0

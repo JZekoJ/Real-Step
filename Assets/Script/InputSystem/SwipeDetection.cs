@@ -89,7 +89,7 @@ public class SwipeDetection : MonoBehaviour
         {
             isBlocking = false;
             if (shieldCoroutine != null) StopCoroutine(shieldCoroutine);
-            Debug.Log(" Bouclier désactivé (fin de touch) !");
+            Debug.Log(" Bouclier dÃ©sactivÃ© (fin de touch) !");
             return; // pas de swipe
         }
 
@@ -125,7 +125,7 @@ public class SwipeDetection : MonoBehaviour
     private void ActivateShield()
     {
         isBlocking = true;
-        Debug.Log(" Bouclier activé !");
+        Debug.Log(" Bouclier activÃ© !");
 
         if (shieldCoroutine != null)
             StopCoroutine(shieldCoroutine);
@@ -138,7 +138,7 @@ public class SwipeDetection : MonoBehaviour
         if (isBlocking)
         {
             isBlocking = false;
-            Debug.Log("Bouclier désactivé automatiquement après 2s !");
+            Debug.Log("Bouclier dÃ©sactivÃ© automatiquement aprÃ¨s 2s !");
             // Tu peux aussi ici faire une animation de fin de blocage
         }
     }
@@ -152,14 +152,14 @@ public class SwipeDetection : MonoBehaviour
         {
             if (Vector2.Distance(inputManager.PrimaryPosition(), startPosition) > 0.1f)
             {
-                // Le doigt a bougé, ce n’est pas un long press
+                // Le doigt a bougÃ©, ce nâ€™est pas un long press
                 yield break;
             }
             timer += Time.deltaTime;
             yield return null;
         }
 
-        // Long press détecté
+        // Long press dÃ©tectÃ©
         ActivateShield();
     }
 
@@ -167,7 +167,7 @@ public class SwipeDetection : MonoBehaviour
     {
         if (combatSystem == null)
         {
-            Debug.LogError("CombatSystem n’est pas assigné ! Ajoute-le dans l’inspecteur !");
+            Debug.LogError("CombatSystem nâ€™est pas assignÃ© ! Ajoute-le dans lâ€™inspecteur !");
             return;
         }
 
@@ -191,7 +191,7 @@ public class SwipeDetection : MonoBehaviour
             return;
         }
 
-        Debug.Log("PV restants après attaque : " + pv);
+        Debug.Log("PV restants aprÃ¨s attaque : " + pv);
     }
 
 }
