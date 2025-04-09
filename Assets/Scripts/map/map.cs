@@ -21,7 +21,8 @@ public class map : MonoBehaviour
     private int mapHeight = 1080;
     private Rect rect;
     private bool updateMap = true;
-    private bool locationServiceStarted = false;
+
+    public float locationUpdateInterval = 5f; // Intervalle en secondes
 
     void Start()
     {
@@ -29,12 +30,13 @@ public class map : MonoBehaviour
         {
             Permission.RequestUserPermission(Permission.FineLocation);
         }
+
         rect = gameObject.GetComponent<RawImage>().rectTransform.rect;
         mapWidth = (int)Math.Round(rect.width);
         mapHeight = (int)Math.Round(rect.height);
 
-        // Démarrer la localisation
-        StartCoroutine(StartLocationService());
+        StartCoroutine(StartLocationServiceOnce());
+        StartCoroutine(UpdateLocationPeriodically());
     }
 
     void Update()
@@ -66,7 +68,7 @@ public class map : MonoBehaviour
         }
     }
 
-    IEnumerator StartLocationService()
+    IEnumerator StartLocationServiceOnce()
     {
         if (!Input.location.isEnabledByUser)
         {
@@ -75,6 +77,7 @@ public class map : MonoBehaviour
         }
 
         Input.location.Start();
+
         int maxWait = 20;
         while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
         {
@@ -88,11 +91,26 @@ public class map : MonoBehaviour
             yield break;
         }
 
-        lat = Input.location.lastData.latitude;
-        lon = Input.location.lastData.longitude;
-        Debug.Log("Localisation détectée : " + lat + ", " + lon);
+        Debug.Log("Service de localisation démarré.");
+    }
 
-        locationServiceStarted = true;
-        updateMap = true;
+    IEnumerator UpdateLocationPeriodically()
+    {
+        while (true)
+        {
+            if (Input.location.status == LocationServiceStatus.Running)
+            {
+                lat = Input.location.lastData.latitude;
+                lon = Input.location.lastData.longitude;
+                Debug.Log("Localisation mise à jour : " + lat + ", " + lon);
+                updateMap = true;
+            }
+            else
+            {
+                Debug.LogWarning("Service de localisation non disponible.");
+            }
+
+            yield return new WaitForSeconds(locationUpdateInterval);
+        }
     }
 }

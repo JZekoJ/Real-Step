@@ -1,0 +1,11 @@
+# ninja log v5
+42	271	7657494475076247	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	2b669c70f0efe7aa
+273	578	7657494476738336	C:/Users/Dylan/Documents/GitHub/Real-Step/Library/PramData/AndroidApplicationController/Cache/com.DefaultCompany.RealStep/gradle-project/unityLibrary/build/intermediates/cxx/Debug/3y1l5u69/obj/arm64-v8a/libswappywrapper.so	83cd3076cbb127e0
+12	1275	7657494485010905	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	23f1cc0bff0bc44d
+22	1284	7657494485165237	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	9c36a779ced0ae35
+28	1300	7657494485322414	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	51f246449c729518
+34	1305	7657494485404019	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	721e63b2c5de75a0
+6	1341	7657494485779759	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	6e9cffa013ff7bdc
+17	1398	7657494486304664	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	7b9b4e03df46c910
+1	1443	7657494486746637	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	23152cc9a028a45d
+1443	1648	7657494488010159	C:/Users/Dylan/Documents/GitHub/Real-Step/Library/PramData/AndroidApplicationController/Cache/com.DefaultCompany.RealStep/gradle-project/unityLibrary/build/intermediates/cxx/Debug/3y1l5u69/obj/arm64-v8a/libgame.so	89b0e487fee47799
