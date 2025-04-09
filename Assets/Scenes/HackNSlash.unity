@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 713021698}
   - component: {fileID: 713021697}
   - component: {fileID: 713021699}
+  - component: {fileID: 713021700}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -182,6 +183,22 @@ MonoBehaviour:
   trail: {fileID: 1656941393}
   longPressDuration: 0.2
   longPressMaxDuration: 2
+  combatSystem: {fileID: 713021700}
+  pv: 100
+  attaque: 20
+  defense: 10
+--- !u!114 &713021700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713021696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e09e347739407469a0826ad9eebcce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1368913845
 GameObject:
   m_ObjectHideFlags: 0
