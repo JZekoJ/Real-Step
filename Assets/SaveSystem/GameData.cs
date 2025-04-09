@@ -15,7 +15,10 @@ public enum ItemType
 {
     Head,
     Chest,
-    Weapon
+    Weapon,
+    Gauntlet,
+    Boot,
+    Legging
 }
 public enum ItemRarity
 {

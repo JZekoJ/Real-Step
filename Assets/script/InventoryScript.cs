@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InventoryScript : MonoBehaviour
@@ -9,21 +10,48 @@ public class InventoryScript : MonoBehaviour
     public GameObject _PrefabUI;
     public GameObject _InventoryContent;
 
+    private ItemType _SeletedItemType;
 
-    private void Start()
+    private void Awake()
     {
-        Debug.Log("test2");
-        ReferenceManager.SaveLoader.OnLoadSave.AddListener(InitInventory); 
+        ReferenceManager.SaveLoader.OnLoadSave.AddListener(InitInventory);
     }
+
+    #region PlayerInventory
     public void InitInventory()
     {
-        Debug.Log("test");
         foreach (Item obj in ReferenceManager.Player.PlayerData._itemList)
         {
             GameObject UIBtn = Instantiate(_PrefabUI, _InventoryContent.transform);
             UIBtn.GetComponent<ItemUIScript>().Init(obj);
+
         }
     }
+    #endregion
+
+    private void LoadSortInventory()
+    {
+        foreach (Transform child in _InventoryContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Item obj in ReferenceManager.Player.PlayerData._itemList)
+        {
+            if (obj._Type == _SeletedItemType)
+            {
+                GameObject UIBtn = Instantiate(_PrefabUI, _InventoryContent.transform);
+                UIBtn.GetComponent<ItemUIScript>().Init(obj);
+            }
+        }
+    }
+
+
+    public void SetSort(int i)
+    {
+        _SeletedItemType = (ItemType)i;
+        LoadSortInventory();
+    }
+
 
     //public void OpenInventory(int type)//pas récupérable sur un bouton
     //{

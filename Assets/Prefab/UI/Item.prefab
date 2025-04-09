@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5478680081101951456}
   - component: {fileID: 5875809184645913140}
   - component: {fileID: 9204599844771317964}
-  - component: {fileID: 4056927450690990780}
+  - component: {fileID: 2123280130399896423}
+  - component: {fileID: 5703299114464157817}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -30,14 +31,14 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5478680081101951456
 CanvasRenderer:
@@ -121,7 +122,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4056927450690990780
+--- !u!114 &2123280130399896423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7439101323876934957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 3, y: 3}
+  m_UseGraphicAlpha: 0
+--- !u!114 &5703299114464157817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,3 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55b9604aec16d409d72cc23298cac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Weapon: {fileID: 21300000, guid: 6f08f5b2b7781e54d8b2717bff3bd47b, type: 3}
+  Head: {fileID: 21300000, guid: 9ede615266965584f9b9480844ea4a8a, type: 3}
+  Chest: {fileID: 21300000, guid: d61f2e053e126f64cb5d548cf26b5167, type: 3}
+  Boot: {fileID: 21300000, guid: 1dc78a82ee34d0f4fa45c3f0d3ad73ff, type: 3}
+  Legging: {fileID: 21300000, guid: 0354d193adadbb14791d1156bfe6fefd, type: 3}
+  Gauntlet: {fileID: 21300000, guid: 663e6c0d129bee04abd654d67e80ef7b, type: 3}

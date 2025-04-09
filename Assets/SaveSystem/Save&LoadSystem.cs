@@ -25,6 +25,7 @@ public class SaveLoadSystem
             if (File.Exists(playerDataPath))
             {
                 string json = File.ReadAllText(playerDataPath);
+                Debug.Log(playerDataPath);
                 Debug.Log(json);
                 player.PlayerData = JsonUtility.FromJson<PlayerData>(json);
             }
