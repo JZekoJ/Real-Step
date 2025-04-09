@@ -41,7 +41,7 @@ public class InputManager : Singleton<InputManager>
        
         if (OnStartTouch != null)
         {
-            OnStartTouch(Utils.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>()),(float)context.startTime);
+            OnStartTouch(Tools.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>()),(float)context.startTime);
         }
     }
 
@@ -50,13 +50,13 @@ public class InputManager : Singleton<InputManager>
 
         if (OnEndTouch != null)
         {
-            OnEndTouch(Utils.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
+            OnEndTouch(Tools.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
         }
     }
 
     public Vector2 PrimaryPosition()
     {
-        return Utils.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>());
+        return Tools.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>());
     }
 
 

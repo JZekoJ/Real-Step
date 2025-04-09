@@ -22,7 +22,7 @@ public class Portal : MonoBehaviour
 
     private SceneChange Scenechange;
 
-    private Utils utils;
+    private Tools utils;
 
     private bool m_bCanEnter = false;
 
@@ -32,7 +32,7 @@ public class Portal : MonoBehaviour
 
         m_ScriptObj = m_ScriptObjList[Random.Range(0, m_ScriptObjList.Count)];
         Scenechange = (SceneChange)FindAnyObjectByType(typeof(SceneChange));
-        utils = (Utils)FindAnyObjectByType(typeof(Utils));
+        utils = (Tools)FindAnyObjectByType(typeof(Tools));
         GetComponent<MeshRenderer>().material = m_ScriptObj.m_mMaterial;
 
     }

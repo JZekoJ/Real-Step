@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Utils : MonoBehaviour
+public class Tools : MonoBehaviour
 {
     int UILayer;
 
@@ -46,6 +46,12 @@ public class Utils : MonoBehaviour
         List<RaycastResult> raysastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raysastResults);
         return raysastResults;
+    }
+
+    public static Vector3 ScreenToWorld(Camera camera, Vector3 position)
+    {
+        position.z = 10f;
+        return camera.ScreenToWorldPoint(position);
     }
 
 }
