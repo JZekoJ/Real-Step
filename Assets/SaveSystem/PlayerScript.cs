@@ -8,12 +8,17 @@ public class PlayerScript : MonoBehaviour
 {
     public PlayerData PlayerData;
 
-    [SerializeField] 
-    TextMeshProUGUI lvlUI;
-    [SerializeField]
-    TextMeshProUGUI hpUI;
-    [SerializeField]
-    TMP_InputField nameUI;
+    //[SerializeField] 
+    //TextMeshProUGUI lvlUI;
+    //[SerializeField]
+    //TextMeshProUGUI hpUI;
+    //[SerializeField]
+    //TMP_InputField nameUI;
+
+    private void Awake()
+    {
+        ReferenceManager.Player = this;
+    }
 
     public void Start()
     {
@@ -40,23 +45,23 @@ public class PlayerScript : MonoBehaviour
     }
     #endregion
 
-    #region Stats
-    public void ChangeLevel(int amount)
-    {
-        PlayerData._iLevel += amount;
-        UpdateUI();
-    }
-    public void ChangeHp(int amount)
-    {
-        PlayerData._iHp += amount;
-        UpdateUI();
-    }
-    #endregion
+    //#region Stats
+    //public void ChangeLevel(int amount)
+    //{
+    //    PlayerData._iLevel += amount;
+    //    UpdateUI();
+    //}
+    //public void ChangeHp(int amount)
+    //{
+    //    PlayerData._iHp += amount;
+    //    UpdateUI();
+    //}
+    //#endregion
 
-    public void UpdateUI()
-    {
-        lvlUI.text = "lvl : " + PlayerData._iLevel;
-        hpUI.text = "hp : " + PlayerData._iHp;
-    }
+    //public void UpdateUI()
+    //{
+    //    lvlUI.text = "lvl : " + PlayerData._iLevel;
+    //    hpUI.text = "hp : " + PlayerData._iHp;
+    //}
 
 }

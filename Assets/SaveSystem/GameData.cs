@@ -10,6 +10,7 @@ public class PlayerData
     public List<Item> _itemList = new List<Item>();
 }
 
+#region ItemClass
 public enum ItemType
 {
     Head,
@@ -30,4 +31,12 @@ public class Item
     public int _iLevel;
     public ItemRarity _Rarity;
     public ItemType _Type;
+
+    public int _iStrength;
+    public int _iSpirit;
+    public int _iIntel;
+    public int _iVita;
+    public int _iChar;
+    public int _iDext;
 }
+#endregion
