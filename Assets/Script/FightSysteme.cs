@@ -20,7 +20,7 @@ namespace FightSysteme
             float degats = (attaque / (defense * 0.5f)) * multiplicateur;
             float nouveauPV = pv - degats;
 
-            //Debug.Log($"PV avant attaque : {pv}, Attaque : {attaque}, Defense : {defense}, Type d'attaque : {typeAttaque}, Degats infligés : {degats}, PV restant : {nouveauPV}");
+            //Debug.Log($"PV avant attaque : {pv}, Attaque : {attaque}, Defense : {defense}, Type d'attaque : {typeAttaque}, Degats infligÃ©s : {degats}, PV restant : {nouveauPV}");
             return Mathf.Max(nouveauPV, 0);
 
         }
@@ -36,7 +36,7 @@ namespace FightSysteme
                 case TypeAttaque.Lourde:
                     return 4.0f;
                 default:
-                    Debug.LogWarning("Type d'attaque inconnu, valeur par défaut appliquée !");
+                    Debug.LogWarning("Type d'attaque inconnu, valeur par dÃ©faut appliquÃ©e !");
                     return 1.0f;
             }
         }
