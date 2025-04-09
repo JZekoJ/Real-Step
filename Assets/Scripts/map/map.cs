@@ -21,8 +21,11 @@ public class map : MonoBehaviour
     private int mapHeight = 1080;
     private Rect rect;
     private bool updateMap = true;
+    private bool locationServiceStarted = false;
 
-    public float locationUpdateInterval = 5f; // Intervalle en secondes
+    float timer = 0f;
+    public float updateInterval = 0.5f;
+
 
     void Start()
     {
@@ -30,23 +33,31 @@ public class map : MonoBehaviour
         {
             Permission.RequestUserPermission(Permission.FineLocation);
         }
-
         rect = gameObject.GetComponent<RawImage>().rectTransform.rect;
         mapWidth = (int)Math.Round(rect.width);
         mapHeight = (int)Math.Round(rect.height);
 
-        StartCoroutine(StartLocationServiceOnce());
-        StartCoroutine(UpdateLocationPeriodically());
+        // Démarrer la localisation
+        StartCoroutine(StartLocationService());
     }
-
     void Update()
     {
-        if (updateMap)
+        timer += Time.deltaTime;
+
+        if (timer >= updateInterval)
         {
-            StartCoroutine(GetGoogleMap());
-            updateMap = false;
+            timer = 0f; // Reset le timer
+
+            StartCoroutine(StartLocationService());
+
+            if (updateMap)
+            {
+                StartCoroutine(GetGoogleMap());
+                updateMap = false;
+            }
         }
     }
+
 
     IEnumerator GetGoogleMap()
     {
@@ -65,10 +76,11 @@ public class map : MonoBehaviour
         else
         {
             gameObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            StopCoroutine(StartLocationService());
         }
     }
 
-    IEnumerator StartLocationServiceOnce()
+    IEnumerator StartLocationService()
     {
         if (!Input.location.isEnabledByUser)
         {
@@ -77,7 +89,6 @@ public class map : MonoBehaviour
         }
 
         Input.location.Start();
-
         int maxWait = 20;
         while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
         {
@@ -91,26 +102,12 @@ public class map : MonoBehaviour
             yield break;
         }
 
-        Debug.Log("Service de localisation démarré.");
-    }
+        lat = Input.location.lastData.latitude;
+        lon = Input.location.lastData.longitude;
+        Debug.Log("Localisation détectée : " + lat + ", " + lon);
 
-    IEnumerator UpdateLocationPeriodically()
-    {
-        while (true)
-        {
-            if (Input.location.status == LocationServiceStatus.Running)
-            {
-                lat = Input.location.lastData.latitude;
-                lon = Input.location.lastData.longitude;
-                Debug.Log("Localisation mise à jour : " + lat + ", " + lon);
-                updateMap = true;
-            }
-            else
-            {
-                Debug.LogWarning("Service de localisation non disponible.");
-            }
-
-            yield return new WaitForSeconds(locationUpdateInterval);
-        }
+        locationServiceStarted = true;
+        updateMap = true;
+        StopCoroutine(GetGoogleMap());
     }
 }
