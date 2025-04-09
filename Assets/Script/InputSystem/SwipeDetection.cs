@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using FightSysteme;
 
 public class SwipeDetection : MonoBehaviour
 {
@@ -15,12 +16,22 @@ public class SwipeDetection : MonoBehaviour
     private float longPressDuration = 0.5f;
     [SerializeField]
     private float longPressMaxDuration = 2f;
-
+    [SerializeField] 
+    private FightSystem combatSystem;
+    [SerializeField]
+    float pv = 100f;
+    [SerializeField]
+    float attaque = 20f;
+    [SerializeField]
+    float defense = 10f;
+    
+    
 
 
 
     private InputManager inputManager;
-
+   
+    private float pvRestant;
     private Vector2 startPosition;
     private float startTime;
     private Vector2 endPosition;
@@ -33,6 +44,7 @@ public class SwipeDetection : MonoBehaviour
     private void Awake()
     {
         inputManager = InputManager.Instance;
+        combatSystem = GetComponent<FightSystem>();
     }
     
     private void OnEnable()
@@ -153,22 +165,33 @@ public class SwipeDetection : MonoBehaviour
 
     private void SwipeDirection(Vector2 direction)
     {
-        if (Vector2.Dot(Vector2.up, direction)> directionTreshold)
+        if (combatSystem == null)
         {
-            Debug.Log("Swipe Up");
+            Debug.LogError("CombatSystem n’est pas assigné ! Ajoute-le dans l’inspecteur !");
+            return;
+        }
+
+      
+
+        if (Vector2.Dot(Vector2.up, direction) > directionTreshold)
+        {
+            pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Legere);
         }
         else if (Vector2.Dot(Vector2.down, direction) > directionTreshold)
         {
-            Debug.Log("Swipe Down");
+            pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Lourde);
         }
         else if (Vector2.Dot(Vector2.right, direction) > directionTreshold)
         {
-            Debug.Log("Swipe Right");
+            pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Moyenne);
         }
         else if (Vector2.Dot(Vector2.left, direction) > directionTreshold)
         {
-            Debug.Log("Swipe Left");
+            Debug.Log("Swipe Left ");
+            return;
         }
+
+        Debug.Log("PV restants après attaque : " + pv);
     }
 
 }
