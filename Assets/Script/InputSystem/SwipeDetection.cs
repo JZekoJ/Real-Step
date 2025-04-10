@@ -195,6 +195,7 @@ public class SwipeDetection : MonoBehaviour
             if (lightAttackCoroutine != null)
                 StopCoroutine(lightAttackCoroutine);
             lightAttackCoroutine = StartCoroutine(LightAttack());
+            pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Legere);
         }
         else if (Vector2.Dot(Vector2.down, direction) > directionTreshold)
         {
