@@ -11,7 +11,10 @@ public class DungeonManager : MonoBehaviour
         public string roomName;
         public GameObject roomPrefab;
         public List<GameObject> enemyPrefabs = new List<GameObject>();
+        
     }
+
+    [SerializeField] private SwipeDetection swipeDetection;
 
     [Header("Paramètres des Rooms")]
     [SerializeField] private List<Room> rooms = new List<Room>();
@@ -35,7 +38,9 @@ public class DungeonManager : MonoBehaviour
     
     private bool isDungeonCompleted = false;
     private GameObject currentRoomInstance;
+
     
+
     private List<GameObject> currentRoomEnemies = new List<GameObject>();
     private int currentEnemyIndex = 0;
     private GameObject currentEnemy;
@@ -58,6 +63,7 @@ public class DungeonManager : MonoBehaviour
 
     private void Start()
     {
+        
         StartDungeon();
     }
 
@@ -185,31 +191,36 @@ public class DungeonManager : MonoBehaviour
             CompleteWave();
         }
     }
-    
+
     private void SpawnEnemy(int index)
     {
         if (index < 0 || index >= currentRoomEnemies.Count)
             return;
-        
+
         currentEnemy = Instantiate(currentRoomEnemies[index], enemySpawnPoint.position, enemySpawnPoint.rotation);
 
-        // S'abonner à l'événement de mort de l'ennemi
+        // ✅ S'abonner à la mort de l'ennemi
         Enemy enemyComponent = currentEnemy.GetComponent<Enemy>();
         if (enemyComponent != null)
         {
             enemyComponent.onDeath.AddListener(() => OnEnemyDefeated(currentEnemy));
+
+            // ✅ Set dans SwipeDetection
+            if (swipeDetection != null)
+            {
+                swipeDetection.SetCurrentEnemy(enemyComponent);
+            }
         }
         else
         {
             Debug.LogWarning("Le préfab d'ennemi n'a pas de composant Enemy!");
         }
 
-        // Informer les systèmes externes (UI, effets sonores, etc.) qu'un nouvel ennemi est apparu
         onEnemySpawned?.Invoke(currentEnemy);
 
         Debug.Log($"Ennemi {index + 1} sur {currentRoomEnemies.Count} apparu");
     }
-    
+
     private void OnEnemyDefeated(GameObject enemy)
     {
         onEnemyDefeated?.Invoke(enemy);
