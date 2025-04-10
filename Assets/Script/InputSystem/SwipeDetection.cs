@@ -31,15 +31,17 @@ public class SwipeDetection : MonoBehaviour
 
     private InputManager inputManager;
    
-    private float pvRestant;
+    
     private Vector2 startPosition;
     private float startTime;
     private Vector2 endPosition;
     private float endTime;
     private bool isBlocking = false;
+    private bool isDelay = false;   
 
     private Coroutine coroutine;
     private Coroutine shieldCoroutine;
+    private Coroutine lightAttackCoroutine;
 
     private void Awake()
     {
@@ -139,7 +141,18 @@ public class SwipeDetection : MonoBehaviour
         {
             isBlocking = false;
             Debug.Log("Bouclier désactivé automatiquement après 2s !");
-            // Tu peux aussi ici faire une animation de fin de blocage
+            // start anim here
+        }
+    }
+
+    private IEnumerator LightAttack()
+    {
+        yield return new WaitForSeconds(0.25f);
+        if (isDelay)
+        {
+            isDelay = false;
+            Debug.Log("Delay light attack");
+           
         }
     }
 
@@ -176,6 +189,12 @@ public class SwipeDetection : MonoBehaviour
         if (Vector2.Dot(Vector2.up, direction) > directionTreshold)
         {
             pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Legere);
+            isDelay = true;
+            Debug.Log(" Delay Light attack !");
+
+            if (lightAttackCoroutine != null)
+                StopCoroutine(lightAttackCoroutine);
+            lightAttackCoroutine = StartCoroutine(LightAttack());
         }
         else if (Vector2.Dot(Vector2.down, direction) > directionTreshold)
         {
