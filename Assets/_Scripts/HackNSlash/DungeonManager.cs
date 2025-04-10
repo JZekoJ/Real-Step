@@ -31,12 +31,11 @@ public class DungeonManager : MonoBehaviour
 
     // Note: Ces événements sont destinés aux systèmes externes (UI, effets, etc.)
     // et ne sont plus nécessaires pour la communication interne
-
-    // État du donjon
+    
+    
     private bool isDungeonCompleted = false;
     private GameObject currentRoomInstance;
-
-    // État des ennemis
+    
     private List<GameObject> currentRoomEnemies = new List<GameObject>();
     private int currentEnemyIndex = 0;
     private GameObject currentEnemy;
@@ -44,7 +43,6 @@ public class DungeonManager : MonoBehaviour
 
     private void Awake()
     {
-        // Vérifier si les points de spawn sont assignés
         if (roomSpawnPoint == null)
         {
             roomSpawnPoint = transform;
@@ -60,7 +58,6 @@ public class DungeonManager : MonoBehaviour
 
     private void Start()
     {
-        // Démarrer le donjon
         StartDungeon();
     }
 
@@ -70,8 +67,7 @@ public class DungeonManager : MonoBehaviour
     {
         isDungeonCompleted = false;
         currentRoomIndex = 0;
-
-        // Démarrer avec la première room
+        
         SpawnRoom(currentRoomIndex);
     }
 
@@ -84,14 +80,12 @@ public class DungeonManager : MonoBehaviour
         }
 
         Room currentRoom = rooms[roomIndex];
-
-        // Détruire l'ancienne room si elle existe
+        
         if (currentRoomInstance != null)
         {
             Destroy(currentRoomInstance);
         }
-
-        // Instancier la nouvelle room
+        
         if (currentRoom.roomPrefab != null)
         {
             currentRoomInstance = Instantiate(currentRoom.roomPrefab, roomSpawnPoint.position, roomSpawnPoint.rotation);
@@ -162,13 +156,11 @@ public class DungeonManager : MonoBehaviour
     #endregion
 
     #region Gestion des Ennemis
-
-    // Démarrer une nouvelle vague avec les préfabs d'ennemis donnés
+    
     private void StartWave(List<GameObject> enemyPrefabs)
     {
         if (isWaveActive)
         {
-            // Si une vague est déjà active, la nettoyer d'abord
             ClearCurrentWave();
         }
 
@@ -179,8 +171,7 @@ public class DungeonManager : MonoBehaviour
         // Commencer à faire apparaître les ennemis
         StartCoroutine(SpawnNextEnemyAfterDelay());
     }
-
-    // Faire apparaître le prochain ennemi dans la vague
+    
     private IEnumerator SpawnNextEnemyAfterDelay()
     {
         yield return new WaitForSeconds(enemySpawnDelay);
@@ -191,18 +182,15 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            // Tous les ennemis ont été générés et vaincus
             CompleteWave();
         }
     }
-
-    // Faire apparaître un ennemi spécifique par index
+    
     private void SpawnEnemy(int index)
     {
         if (index < 0 || index >= currentRoomEnemies.Count)
             return;
-
-        // Instancier l'ennemi au point de spawn
+        
         currentEnemy = Instantiate(currentRoomEnemies[index], enemySpawnPoint.position, enemySpawnPoint.rotation);
 
         // S'abonner à l'événement de mort de l'ennemi
@@ -221,19 +209,16 @@ public class DungeonManager : MonoBehaviour
 
         Debug.Log($"Ennemi {index + 1} sur {currentRoomEnemies.Count} apparu");
     }
-
-    // Appelé quand un ennemi est vaincu
+    
     private void OnEnemyDefeated(GameObject enemy)
     {
-        // Déclencher l'événement d'ennemi vaincu (pour les systèmes externes)
         onEnemyDefeated?.Invoke(enemy);
 
         // Passer à l'ennemi suivant
         currentEnemyIndex++;
         StartCoroutine(SpawnNextEnemyAfterDelay());
     }
-
-    // Terminer la vague actuelle
+    
     private void CompleteWave()
     {
         isWaveActive = false;
@@ -242,35 +227,29 @@ public class DungeonManager : MonoBehaviour
         // Passer à la room suivante
         MoveToNextRoom();
     }
-
-    // Nettoyer la vague actuelle (utilisé lors des transitions de rooms)
+    
     private void ClearCurrentWave()
     {
-        // Détruire l'ennemi actuel s'il existe
         if (currentEnemy != null)
         {
             Destroy(currentEnemy);
         }
-
-        // Réinitialiser l'état de la vague
+        
         currentRoomEnemies.Clear();
         currentEnemyIndex = 0;
         isWaveActive = false;
     }
-
-    // Vérifier si la vague est actuellement active
+    
     public bool IsWaveActive()
     {
         return isWaveActive;
     }
-
-    // Obtenir l'ennemi actuel en combat
+    
     public GameObject GetCurrentEnemy()
     {
         return currentEnemy;
     }
-
-    // Obtenir la progression de la vague actuelle (0-1)
+    
     public float GetWaveProgress()
     {
         if (currentRoomEnemies.Count == 0)
@@ -278,8 +257,7 @@ public class DungeonManager : MonoBehaviour
 
         return (float)currentEnemyIndex / currentRoomEnemies.Count;
     }
-
-    // Obtenir le nombre d'ennemis restants dans la vague
+    
     public int GetRemainingEnemyCount()
     {
         return currentRoomEnemies.Count - currentEnemyIndex;
