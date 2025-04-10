@@ -12,6 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/HackNSlash - Test.unity
     guid: 6693c0c3239c9d346a24d91fbbccb39e
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
+      guid: a0938050518641d42a4f59776123f089, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
-      guid: de6ed695f7a9296488387b3cc04374fa, type: 2}
+      guid: b84e097bb606c3447b6646cbc44d87ae, type: 2}
   m_UseUCBPForAssetBundles: 0
