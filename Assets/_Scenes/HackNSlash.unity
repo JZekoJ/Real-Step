@@ -244,12 +244,15 @@ MonoBehaviour:
   maximumTime: 1
   directionTreshold: 0.9
   trail: {fileID: 1656941393}
-  longPressDuration: 0.2
-  longPressMaxDuration: 2
   combatSystem: {fileID: 713021700}
   pv: 100
   attaque: 20
   defense: 10
+  cooldownLegere: 1
+  cooldownMoyenne: 2
+  cooldownLourde: 3
+  longPressDuration: 0.2
+  longPressMaxDuration: 2
 --- !u!114 &713021700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850e04283557a974f90abce1d4b294e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swipeDetection: {fileID: 713021699}
   rooms:
   - roomName: Room1
     roomPrefab: {fileID: 7011396332953542708, guid: 38e88cdaa4c3688499a5591cac7c6e2a,
