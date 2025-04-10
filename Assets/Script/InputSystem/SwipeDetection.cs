@@ -4,40 +4,63 @@ using FightSysteme;
 
 public class SwipeDetection : MonoBehaviour
 {
+
+    [Header("Paramètres de Swipe")]
     [SerializeField] 
     private float minimumDistance = .2f;
     [SerializeField]
     private float maximumTime = 1f;
     [SerializeField, Range(0f,1f)]
     private float directionTreshold = 0.9f;
+    
+    
+
+    [Header("Références Externes")]
     [SerializeField]
     private GameObject trail;
-    [SerializeField]
-    private float longPressDuration = 0.5f;
-    [SerializeField]
-    private float longPressMaxDuration = 2f;
     [SerializeField] 
     private FightSystem combatSystem;
+
+    [Header("Stats Joueur")]
     [SerializeField]
     float pv = 100f;
     [SerializeField]
     float attaque = 20f;
     [SerializeField]
     float defense = 10f;
-    
-    
+
+    [Header("Cooldowns des Attaques")]
+    [SerializeField] 
+    private float cooldownLegere = 1f;
+    [SerializeField] 
+    private float cooldownMoyenne = 2f;
+    [SerializeField] 
+    private float cooldownLourde = 3f;
+    [SerializeField]
+    private float longPressDuration = 0.5f;
+    [SerializeField]
+    private float longPressMaxDuration = 2f;
+
+
+
 
 
 
     private InputManager inputManager;
-   
-    
+    private Enemy enemy;
+
+
     private Vector2 startPosition;
     private float startTime;
     private Vector2 endPosition;
     private float endTime;
     private bool isBlocking = false;
-    private bool isDelay = false;   
+    private bool isDelay = false;
+    private Enemy currentEnemy;
+
+    private float lastLegereTime = -999f;
+    private float lastMoyenneTime = -999f;
+    private float lastLourdeTime = -999f;
 
     private Coroutine coroutine;
     private Coroutine shieldCoroutine;
@@ -53,6 +76,10 @@ public class SwipeDetection : MonoBehaviour
     {
         inputManager.OnStartTouch += SwipeStart;
         inputManager.OnEndTouch += SwipeEnd;
+    }
+    public void SetCurrentEnemy(Enemy enemy)
+    {
+        currentEnemy = enemy;
     }
 
     private void OnDisable()
@@ -184,34 +211,61 @@ public class SwipeDetection : MonoBehaviour
             return;
         }
 
-      
-
-        if (Vector2.Dot(Vector2.up, direction) > directionTreshold)
+        if (currentEnemy == null)
         {
-            pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Legere);
-            isDelay = true;
-            Debug.Log(" Delay Light attack !");
-
-            if (lightAttackCoroutine != null)
-                StopCoroutine(lightAttackCoroutine);
-            lightAttackCoroutine = StartCoroutine(LightAttack());
-            pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Legere);
-        }
-        else if (Vector2.Dot(Vector2.down, direction) > directionTreshold)
-        {
-            pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Lourde);
-        }
-        else if (Vector2.Dot(Vector2.right, direction) > directionTreshold)
-        {
-            pv = combatSystem.CalculerDegats(pv, attaque, defense, FightSystem.TypeAttaque.Moyenne);
-        }
-        else if (Vector2.Dot(Vector2.left, direction) > directionTreshold)
-        {
-            Debug.Log("Swipe Left ");
+            Debug.Log("Aucun ennemi actif !");
             return;
         }
 
-        Debug.Log("PV restants après attaque : " + pv);
+        if (Vector2.Dot(Vector2.up, direction) > directionTreshold)
+        {
+            if (Time.time - lastLegereTime >= cooldownLegere)
+            {
+
+                float degats = combatSystem.CalculerDegats(0, attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
+                currentEnemy.TakeDamage((int)degats);
+                lastLegereTime = Time.time;
+                Debug.Log("Attaque légère lancée. PV restants : " + pv);
+            }
+            else
+            {
+                Debug.Log("Attaque légère en cooldown !");
+            }
+        }
+        else if (Vector2.Dot(Vector2.down, direction) > directionTreshold)
+        {
+            if (Time.time - lastLourdeTime >= cooldownLourde)
+            {
+                float degats = combatSystem.CalculerDegats(0, attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
+                currentEnemy.TakeDamage((int)degats);
+                lastLourdeTime = Time.time;
+                Debug.Log("Attaque lourde lancée. PV restants : " + pv);
+            }
+            else
+            {
+                Debug.Log("Attaque lourde en cooldown !");
+            }
+        }
+        else if (Vector2.Dot(Vector2.right, direction) > directionTreshold)
+        {
+            if (Time.time - lastMoyenneTime >= cooldownMoyenne)
+            {
+                float degats = combatSystem.CalculerDegats(0, attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
+                currentEnemy.TakeDamage((int)degats);
+                lastMoyenneTime = Time.time;
+                Debug.Log("Attaque moyenne lancée. PV restants : " + pv);
+            }
+            else
+            {
+                Debug.Log("Attaque moyenne en cooldown !");
+            }
+        }
+        else if (Vector2.Dot(Vector2.left, direction) > directionTreshold)
+        {
+            Debug.Log("Swipe Left — aucune attaque ici");
+        }
+
+        Debug.Log("PV restants après attaque : " + GetComponent<Enemy>().GetHealth());
     }
 
 }
