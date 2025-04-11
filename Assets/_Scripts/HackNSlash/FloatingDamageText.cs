@@ -23,6 +23,11 @@ public class FloatingDamageText : MonoBehaviour
     private void Update()
     {
         transform.position += Vector3.up * floatSpeed * Time.deltaTime;
-        transform.LookAt(Camera.main.transform); // Toujours vers la caméra
+
+        if (Camera.main != null)
+        {
+           
+            transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        }
     }
 }
