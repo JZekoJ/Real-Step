@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerScript : MonoBehaviour
 {
     public PlayerData PlayerData;
+    public UnityEvent onEquip;
 
     //[SerializeField] 
     //TextMeshProUGUI lvlUI;
@@ -23,7 +26,20 @@ public class PlayerScript : MonoBehaviour
     public void Start()
     {
         PlayerData = new PlayerData();
-        AddItem(12, ItemRarity.Legendary, ItemType.Weapon);
+        foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
+        {
+            PlayerData.ItemSlot[type] = null;
+        }
+    }
+    public void EquipItem(Item item)
+    {
+        if (PlayerData.ItemSlot[item._Type] != null)
+        {
+            PlayerData.ItemSlot[item._Type]._bIsEquiped = false;
+        }
+        PlayerData.ItemSlot[item._Type] = item;
+        item._bIsEquiped = true;
+        onEquip.Invoke();
     }
 
     #region Inventory

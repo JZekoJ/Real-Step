@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SavekLoader : MonoBehaviour
+public class SaveLoader : MonoBehaviour
 {
 
     public UnityEvent OnLoadSave;
@@ -17,6 +17,5 @@ public class SavekLoader : MonoBehaviour
         SaveLoadSystem.Load(ReferenceManager.Player);
         OnLoadSave.Invoke();
     }
-
     
 }

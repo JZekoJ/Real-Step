@@ -4,11 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryScript : MonoBehaviour
 {
     public GameObject _PrefabUI;
     public GameObject _InventoryContent;
+    public GameObject _SortedInventoryContent;
+    public GameObject _ItemInfo;
+
+    public Dictionary<ItemType, GameObject> ItemSlotUI = new Dictionary<ItemType, GameObject>();
 
     private ItemType _SeletedItemType;
 
@@ -40,11 +45,27 @@ public class InventoryScript : MonoBehaviour
             if (obj._Type == _SeletedItemType)
             {
                 GameObject UIBtn = Instantiate(_PrefabUI, _InventoryContent.transform);
-                UIBtn.GetComponent<ItemUIScript>().Init(obj);
+                UIBtn.GetComponent<ItemUIScript>()._EquipItem = obj;
+                UIBtn.GetComponent<ItemUIScript>().Init();
+                UIBtn.GetComponent<Button>().onClick.AddListener(() => OpenItemInfo(obj));
             }
         }
     }
 
+    private void OpenItemInfo(Item item)
+    {
+        _ItemInfo.SetActive(true);
+        Button[] listButton = _ItemInfo.GetComponentsInChildren<Button>();
+        _ItemInfo.GetComponentInChildren<ItemUIScript>()._EquipItem = item;
+        _ItemInfo.GetComponentInChildren<ItemUIScript>().Init();
+        foreach (Button button in listButton)
+        {
+            if (button.name == "Equip")
+            {
+                button.onClick.AddListener(() => ReferenceManager.Player.EquipItem(item));
+            }
+        }
+    }
 
     public void SetSort(int i)
     {

@@ -8,6 +8,8 @@ public class PlayerData
     public int _iLevel;
     public int _iHp;
     public List<Item> _itemList = new List<Item>();
+
+    public Dictionary<ItemType, Item> ItemSlot = new Dictionary<ItemType, Item>();
 }
 
 #region ItemClass
@@ -34,6 +36,7 @@ public class Item
     public int _iLevel;
     public ItemRarity _Rarity;
     public ItemType _Type;
+    public bool _bIsEquiped;
 
     public int _iStrength;
     public int _iSpirit;
