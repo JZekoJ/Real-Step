@@ -4,10 +4,10 @@ using UnityEngine.Events;
 public class Enemy : MonoBehaviour
 {
     [Header("Statistiques")]
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
-    [SerializeField] private int attackPower = 10;
-    [SerializeField] private int defense = 5;
+    [SerializeField] private float maxHealth = 100;
+    [SerializeField] private float currentHealth;
+    [SerializeField] private float attackPower = 10;
+    [SerializeField] private float defense = 5;
     
     public UnityEvent onDeath;
 
@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
             onDeath = new UnityEvent();
     }
     
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         
@@ -41,8 +41,8 @@ public class Enemy : MonoBehaviour
     }
     
     // Accesseurs pour les statistiques
-    public int GetHealth() { return currentHealth; }
-    public int GetMaxHealth() { return maxHealth; }
-    public int GetAttackPower() { return attackPower; }
-    public int GetDefense() { return defense; }
+    public float GetHealth() { return currentHealth; }
+    public float GetMaxHealth() { return maxHealth; }
+    public float GetAttackPower() { return attackPower; }
+    public float GetDefense() { return defense; }
 }
