@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Tools : MonoBehaviour
 {
@@ -52,6 +53,12 @@ public class Tools : MonoBehaviour
     {
         position.z = 10f;
         return camera.ScreenToWorldPoint(position);
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+
     }
 
 }

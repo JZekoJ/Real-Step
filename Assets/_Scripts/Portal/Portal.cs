@@ -20,7 +20,7 @@ public class Portal : MonoBehaviour
     private Button m_bEnterDungeon;
     private Button m_bCloseWindow;
 
-    private SceneChange Scenechange;
+    //private SceneChange Scenechange;
 
     private Tools utils;
 
@@ -31,7 +31,7 @@ public class Portal : MonoBehaviour
 
 
         m_ScriptObj = m_ScriptObjList[Random.Range(0, m_ScriptObjList.Count)];
-        Scenechange = (SceneChange)FindAnyObjectByType(typeof(SceneChange));
+        //Scenechange = (SceneChange)FindAnyObjectByType(typeof(SceneChange));
         utils = (Tools)FindAnyObjectByType(typeof(Tools));
         GetComponent<MeshRenderer>().material = m_ScriptObj.m_mMaterial;
 
@@ -45,7 +45,7 @@ public class Portal : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!utils.IsPointerOverUIElement() && m_bCanEnter)
+        if (!utils.IsPointerOverUIElement())//m_bCanEnter
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -54,7 +54,7 @@ public class Portal : MonoBehaviour
                 m_bCloseWindow = m_goPortalUI.GetComponentsInChildren<Button>()[1];
                 m_tDifficulty = m_goPortalUI.GetComponentInChildren<TextMeshProUGUI>();
 
-                m_bEnterDungeon.onClick.AddListener(() => Scenechange.ChangeScene("HackNSlash - Test"));
+                m_bEnterDungeon.onClick.AddListener(() => utils.ChangeScene("HackNSlash"));
                 m_bCloseWindow.onClick.AddListener(CloseWindow);
                 m_tDifficulty.text = "Difficulty : " + m_ScriptObj.m_iDificulty.ToString();
 
