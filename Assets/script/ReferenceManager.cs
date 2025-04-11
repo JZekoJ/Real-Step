@@ -6,5 +6,5 @@ using UnityEngine;
 public class  ReferenceManager : MonoBehaviour
 {
     public static PlayerScript Player;
-    public static SavekLoader SaveLoader;
+    public static SaveLoader SaveLoader;
 }

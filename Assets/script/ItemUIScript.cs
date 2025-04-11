@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ItemUIScript : MonoBehaviour
 {
+    public Item _EquipItem;
 
     [SerializeField] private Sprite Weapon;
     [SerializeField] private Sprite Head;
@@ -14,9 +15,10 @@ public class ItemUIScript : MonoBehaviour
     [SerializeField] private Sprite Boot;
     [SerializeField] private Sprite Legging;
     [SerializeField] private Sprite Gauntlet;
-    public void Init(Item i)
+
+    public void Init()
     {
-        switch (i._Rarity)
+        switch (_EquipItem._Rarity)
         {
             case ItemRarity.Commun:
                 GetComponent<Outline>().effectColor = Color.green;
@@ -35,7 +37,7 @@ public class ItemUIScript : MonoBehaviour
                 break;
         }
 
-        switch (i._Type)
+        switch (_EquipItem._Type)
         {
             case ItemType.Weapon:
                 GetComponent<Image>().sprite = Weapon;
@@ -59,5 +61,6 @@ public class ItemUIScript : MonoBehaviour
             default:
                 break;
         }
+
     }
 }
