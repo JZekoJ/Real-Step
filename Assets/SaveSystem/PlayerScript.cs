@@ -1,15 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerScript : MonoBehaviour
 {
     public PlayerData PlayerData;
-    public UnityEvent onEquip;
+    public UnityEvent<Item> onEquip;
 
     //[SerializeField] 
     //TextMeshProUGUI lvlUI;
@@ -21,16 +18,16 @@ public class PlayerScript : MonoBehaviour
     private void Awake()
     {
         ReferenceManager.Player = this;
-    }
-
-    public void Start()
-    {
         PlayerData = new PlayerData();
+        PlayerData.ItemSlot = new Dictionary<ItemType, Item>();
+
         foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
         {
-            PlayerData.ItemSlot[type] = null;
+            PlayerData.ItemSlot.Add(type,default(Item));
         }
+        Debug.Log(PlayerData.ItemSlot[ItemType.Head]);
     }
+
     public void EquipItem(Item item)
     {
         if (PlayerData.ItemSlot[item._Type] != null)
@@ -39,7 +36,7 @@ public class PlayerScript : MonoBehaviour
         }
         PlayerData.ItemSlot[item._Type] = item;
         item._bIsEquiped = true;
-        onEquip.Invoke();
+        onEquip.Invoke(item);
     }
 
     #region Inventory

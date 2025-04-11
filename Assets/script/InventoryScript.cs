@@ -28,7 +28,8 @@ public class InventoryScript : MonoBehaviour
         foreach (Item obj in ReferenceManager.Player.PlayerData._itemList)
         {
             GameObject UIBtn = Instantiate(_PrefabUI, _InventoryContent.transform);
-            UIBtn.GetComponent<ItemUIScript>().Init(obj);
+            UIBtn.GetComponent<ItemUIScript>()._EquipItem = obj;
+            UIBtn.GetComponent<ItemUIScript>().Init();
 
         }
     }
@@ -54,10 +55,15 @@ public class InventoryScript : MonoBehaviour
 
     private void OpenItemInfo(Item item)
     {
-        _ItemInfo.SetActive(true);
-        Button[] listButton = _ItemInfo.GetComponentsInChildren<Button>();
+        if (_ItemInfo.activeSelf == false)
+        {
+            _ItemInfo.SetActive(true);
+        }
+        
         _ItemInfo.GetComponentInChildren<ItemUIScript>()._EquipItem = item;
         _ItemInfo.GetComponentInChildren<ItemUIScript>().Init();
+
+        Button[] listButton = _ItemInfo.GetComponentsInChildren<Button>();
         foreach (Button button in listButton)
         {
             if (button.name == "Equip")
