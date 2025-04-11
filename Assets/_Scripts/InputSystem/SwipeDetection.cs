@@ -20,6 +20,8 @@ public class SwipeDetection : MonoBehaviour
     private GameObject trail;
     [SerializeField] 
     private FightSystem combatSystem;
+    [SerializeField] 
+    private GameObject floatingDamagePrefab;
 
     [Header("Stats Joueur")]
     [SerializeField]
@@ -224,6 +226,7 @@ public class SwipeDetection : MonoBehaviour
 
                 float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
                 currentEnemy.TakeDamage(degats);
+                ShowFloatingDamage(degats, currentEnemy.transform.position + Vector3.up);
                 lastLegereTime = Time.time;
                 //Debug.Log("Attaque légère lancée. PV restants : " + pv);
             }
@@ -238,6 +241,7 @@ public class SwipeDetection : MonoBehaviour
             {
                 float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
                 currentEnemy.TakeDamage(degats);
+                ShowFloatingDamage(degats, currentEnemy.transform.position + Vector3.up);
                 lastLourdeTime = Time.time;
                 //Debug.Log("Attaque lourde lancée. PV restants : " + pv);
             }
@@ -252,6 +256,7 @@ public class SwipeDetection : MonoBehaviour
             {
                 float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
                 currentEnemy.TakeDamage(degats);
+                ShowFloatingDamage(degats, currentEnemy.transform.position + Vector3.up);
                 lastMoyenneTime = Time.time;
                 //Debug.Log("Attaque moyenne lancée. PV restants : " + pv);
             }
@@ -266,6 +271,19 @@ public class SwipeDetection : MonoBehaviour
         }
 
         Debug.Log("PV restants après attaque : " + currentEnemy.GetHealth());
+    }
+
+    private void ShowFloatingDamage(float amount, Vector3 position)
+    {
+        if (floatingDamagePrefab != null)
+        {
+            GameObject damageText = Instantiate(floatingDamagePrefab, position, Quaternion.identity);
+            FloatingDamageText floating = damageText.GetComponent<FloatingDamageText>();
+            if (floating != null)
+            {
+                floating.SetDamage(amount);
+            }
+        }
     }
 
 }
