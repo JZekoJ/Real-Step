@@ -40,5 +40,15 @@ namespace FightSysteme
                     return 1.0f;
             }
         }
+
+        public int GetDegatsInfliges(float attaque, float defense, TypeAttaque typeAttaque)
+        {
+            if (defense <= 0) defense = 1;
+
+            float multiplicateur = GetMultiplicateur(typeAttaque);
+            float degats = (attaque / (defense * 0.5f)) * multiplicateur;
+
+            return Mathf.RoundToInt(degats);
+        }
     }
 }

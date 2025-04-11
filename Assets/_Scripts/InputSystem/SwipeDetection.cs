@@ -222,10 +222,10 @@ public class SwipeDetection : MonoBehaviour
             if (Time.time - lastLegereTime >= cooldownLegere)
             {
 
-                float degats = combatSystem.CalculerDegats(0, attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
-                currentEnemy.TakeDamage((int)degats);
+                float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
+                currentEnemy.TakeDamage(degats);
                 lastLegereTime = Time.time;
-                Debug.Log("Attaque légère lancée. PV restants : " + pv);
+                //Debug.Log("Attaque légère lancée. PV restants : " + pv);
             }
             else
             {
@@ -236,10 +236,10 @@ public class SwipeDetection : MonoBehaviour
         {
             if (Time.time - lastLourdeTime >= cooldownLourde)
             {
-                float degats = combatSystem.CalculerDegats(0, attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
-                currentEnemy.TakeDamage((int)degats);
+                float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
+                currentEnemy.TakeDamage(degats);
                 lastLourdeTime = Time.time;
-                Debug.Log("Attaque lourde lancée. PV restants : " + pv);
+                //Debug.Log("Attaque lourde lancée. PV restants : " + pv);
             }
             else
             {
@@ -250,10 +250,10 @@ public class SwipeDetection : MonoBehaviour
         {
             if (Time.time - lastMoyenneTime >= cooldownMoyenne)
             {
-                float degats = combatSystem.CalculerDegats(0, attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
-                currentEnemy.TakeDamage((int)degats);
+                float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
+                currentEnemy.TakeDamage(degats);
                 lastMoyenneTime = Time.time;
-                Debug.Log("Attaque moyenne lancée. PV restants : " + pv);
+                //Debug.Log("Attaque moyenne lancée. PV restants : " + pv);
             }
             else
             {
@@ -265,7 +265,7 @@ public class SwipeDetection : MonoBehaviour
             Debug.Log("Swipe Left — aucune attaque ici");
         }
 
-        Debug.Log("PV restants après attaque : " + GetComponent<Enemy>().GetHealth());
+        Debug.Log("PV restants après attaque : " + currentEnemy.GetHealth());
     }
 
 }

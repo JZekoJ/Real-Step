@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2678778172040593310}
   - component: {fileID: 5901528884373003156}
   - component: {fileID: 8275447451227089430}
+  - component: {fileID: -3189030439740349860}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -107,3 +108,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3189030439740349860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4328053435137456229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f61fb7c6cc6882343bad217d27466b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  attackPower: 10
+  defense: 5
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
