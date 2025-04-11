@@ -3760,6 +3760,7 @@ MonoBehaviour:
   _PrefabUI: {fileID: 7439101323876934957, guid: d4593cd480259484a8300f96159bce42,
     type: 3}
   _InventoryContent: {fileID: 1180858968}
+  _SortedInventoryContent: {fileID: 0}
   _ItemInfo: {fileID: 0}
 --- !u!1 &783215845
 GameObject:
@@ -9072,6 +9073,7 @@ MonoBehaviour:
   _PrefabUI: {fileID: 7439101323876934957, guid: d4593cd480259484a8300f96159bce42,
     type: 3}
   _InventoryContent: {fileID: 1548300920}
+  _SortedInventoryContent: {fileID: 0}
   _ItemInfo: {fileID: 1007675345}
 --- !u!114 &2000497784
 MonoBehaviour:
