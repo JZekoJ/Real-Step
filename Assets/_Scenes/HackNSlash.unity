@@ -262,6 +262,7 @@ GameObject:
   - component: {fileID: 713021699}
   - component: {fileID: 713021700}
   - component: {fileID: 713021702}
+  - component: {fileID: 713021703}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -348,6 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeDetection: {fileID: 713021699}
+  tools: {fileID: 713021703}
   rooms:
   - roomName: Room1
     roomPrefab: {fileID: 7011396332953542708, guid: 38e88cdaa4c3688499a5591cac7c6e2a,
@@ -382,6 +384,18 @@ MonoBehaviour:
   onEnemyDefeated:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &713021703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713021696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9724ceda30322d641bb342c70aa1d2c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &935641961
 PrefabInstance:
   m_ObjectHideFlags: 0
