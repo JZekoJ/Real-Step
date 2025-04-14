@@ -205,6 +205,19 @@ public class SwipeDetection : MonoBehaviour
         ActivateShield();
     }
 
+    public void ReceiveDamage(float amount)
+    {
+        pv -= amount;
+        pv = Mathf.Max(0, pv);
+        Debug.Log($"🟥 Le joueur prend {amount} dégâts. PV restants : {pv}");
+
+        if (pv <= 0)
+        {
+            Debug.Log(" Le joueur est KO !");
+            // TODO: anim, UI, game over etc.
+        }
+    }
+
     private void SwipeDirection(Vector2 direction)
     {
         if (combatSystem == null)
