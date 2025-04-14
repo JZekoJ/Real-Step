@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ public class InventoryScript : MonoBehaviour
     public GameObject _SortedInventoryContent;
     public GameObject _ItemInfo;
 
-    public Dictionary<ItemType, GameObject> ItemSlotUI = new Dictionary<ItemType, GameObject>();
+    public List<GameObject> _Slots ;
 
     private ItemType _SeletedItemType;
 
@@ -30,14 +31,18 @@ public class InventoryScript : MonoBehaviour
             GameObject UIBtn = Instantiate(_PrefabUI, _InventoryContent.transform);
             UIBtn.GetComponent<ItemUIScript>()._EquipItem = obj;
             UIBtn.GetComponent<ItemUIScript>().Init();
-
+            if (obj._bIsEquiped)
+            {
+                _Slots[(int)obj._Type].GetComponent<ItemUIScript>()._EquipItem = obj;
+                _Slots[(int)obj._Type].GetComponent<ItemUIScript>().Init();
+            }
         }
     }
     #endregion
 
     private void LoadSortInventory()
     {
-        foreach (Transform child in _InventoryContent.transform)
+        foreach (Transform child in _SortedInventoryContent.transform)
         {
             Destroy(child.gameObject);
         }
@@ -45,7 +50,7 @@ public class InventoryScript : MonoBehaviour
         {
             if (obj._Type == _SeletedItemType)
             {
-                GameObject UIBtn = Instantiate(_PrefabUI, _InventoryContent.transform);
+                GameObject UIBtn = Instantiate(_PrefabUI, _SortedInventoryContent.transform);
                 UIBtn.GetComponent<ItemUIScript>()._EquipItem = obj;
                 UIBtn.GetComponent<ItemUIScript>().Init();
                 UIBtn.GetComponent<Button>().onClick.AddListener(() => OpenItemInfo(obj));
@@ -68,7 +73,19 @@ public class InventoryScript : MonoBehaviour
         {
             if (button.name == "Equip")
             {
-                button.onClick.AddListener(() => ReferenceManager.Player.EquipItem(item));
+                if (item._bIsEquiped)
+                {
+                    button.GetComponentInChildren<TextMeshPro>().text = "Unequip";
+                }
+                else
+                {
+                    button.GetComponentInChildren<TextMeshPro>().text = "Equip";
+                    button.onClick.AddListener(() => {
+                        ReferenceManager.Player.EquipItem(item);
+                        _Slots[(int)item._Type].GetComponent<ItemUIScript>()._EquipItem = item;
+                        _Slots[(int)item._Type].GetComponent<ItemUIScript>().Init();
+                    });
+                }
             }
         }
     }

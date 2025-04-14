@@ -18,25 +18,18 @@ public class PlayerScript : MonoBehaviour
     private void Awake()
     {
         ReferenceManager.Player = this;
-        PlayerData = new PlayerData();
-        PlayerData.ItemSlot = new Dictionary<ItemType, Item>();
-
-        foreach (ItemType type in Enum.GetValues(typeof(ItemType)))
-        {
-            PlayerData.ItemSlot.Add(type,default(Item));
-        }
-        Debug.Log(PlayerData.ItemSlot[ItemType.Head]);
     }
 
     public void EquipItem(Item item)
     {
-        if (PlayerData.ItemSlot[item._Type] != null)
+        if (PlayerData.ItemSlot[(int)item._Type] != null)
         {
-            PlayerData.ItemSlot[item._Type]._bIsEquiped = false;
+            PlayerData.ItemSlot[(int)item._Type]._bIsEquiped = false;
         }
-        PlayerData.ItemSlot[item._Type] = item;
+        PlayerData.ItemSlot[(int)item._Type] = item;
         item._bIsEquiped = true;
-        onEquip.Invoke(item);
+        SaveLoadSystem.Save(ReferenceManager.Player);
+        //onEquip.Invoke(item);
     }
 
     #region Inventory
@@ -58,23 +51,5 @@ public class PlayerScript : MonoBehaviour
     }
     #endregion
 
-    //#region Stats
-    //public void ChangeLevel(int amount)
-    //{
-    //    PlayerData._iLevel += amount;
-    //    UpdateUI();
-    //}
-    //public void ChangeHp(int amount)
-    //{
-    //    PlayerData._iHp += amount;
-    //    UpdateUI();
-    //}
-    //#endregion
-
-    //public void UpdateUI()
-    //{
-    //    lvlUI.text = "lvl : " + PlayerData._iLevel;
-    //    hpUI.text = "hp : " + PlayerData._iHp;
-    //}
 
 }

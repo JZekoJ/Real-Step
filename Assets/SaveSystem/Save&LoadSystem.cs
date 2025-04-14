@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
-using System;
+using Newtonsoft.Json;
+
 
 public class SaveLoadSystem
 {
@@ -10,7 +11,7 @@ public class SaveLoadSystem
         if (player != null)
         {
             string playerDataPath = Application.persistentDataPath + "/playerData.json";
-            string json = JsonUtility.ToJson(player.PlayerData);
+            string json = JsonConvert.SerializeObject(player.PlayerData, Formatting.Indented);
             File.WriteAllText(playerDataPath, json);
         }
     }
@@ -27,11 +28,16 @@ public class SaveLoadSystem
                 string json = File.ReadAllText(playerDataPath);
                 Debug.Log(playerDataPath);
                 Debug.Log(json);
-                player.PlayerData = JsonUtility.FromJson<PlayerData>(json);
+                player.PlayerData = JsonConvert.DeserializeObject<PlayerData>(json);
             }
             else
             {
                 Debug.Log("No save file detected, create new one");
+                PlayerData data = new PlayerData();
+                Debug.Log(data.ItemSlot[0]);
+                player.PlayerData = data;
+
+                player.AddItem(12, ItemRarity.Legendary, ItemType.Gauntlet);
                 Save(player);
             }
         }

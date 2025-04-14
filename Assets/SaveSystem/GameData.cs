@@ -7,9 +7,11 @@ public class PlayerData
 {
     public int _iLevel;
     public int _iHp;
+
     public List<Item> _itemList = new List<Item>();
 
-    public Dictionary<ItemType, Item> ItemSlot = new Dictionary<ItemType, Item>();
+    public List<Item> ItemSlot = new List<Item> { null, null, null, null, null, null };
+
 }
 
 #region ItemClass
