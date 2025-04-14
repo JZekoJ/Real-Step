@@ -199,16 +199,17 @@ public class DungeonManager : MonoBehaviour
 
         currentEnemy = Instantiate(currentRoomEnemies[index], enemySpawnPoint.position, enemySpawnPoint.rotation);
 
-        // ✅ S'abonner à la mort de l'ennemi
+        //  S'abonner à la mort de l'ennemi
         Enemy enemyComponent = currentEnemy.GetComponent<Enemy>();
         if (enemyComponent != null)
         {
             enemyComponent.onDeath.AddListener(() => OnEnemyDefeated(currentEnemy));
 
-            // ✅ Set dans SwipeDetection
+            //  Set dans SwipeDetection
             if (swipeDetection != null)
             {
                 swipeDetection.SetCurrentEnemy(enemyComponent);
+                enemyComponent.StartAttacking(swipeDetection);
             }
         }
         else
