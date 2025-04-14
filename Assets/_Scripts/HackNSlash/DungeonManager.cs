@@ -15,6 +15,8 @@ public class DungeonManager : MonoBehaviour
     }
 
     [SerializeField] private SwipeDetection swipeDetection;
+    [SerializeField] private Tools tools;
+
 
     [Header("Paramètres des Rooms")]
     [SerializeField] private List<Room> rooms = new List<Room>();
@@ -38,8 +40,9 @@ public class DungeonManager : MonoBehaviour
     
     private bool isDungeonCompleted = false;
     private GameObject currentRoomInstance;
-
     
+
+
 
     private List<GameObject> currentRoomEnemies = new List<GameObject>();
     private int currentEnemyIndex = 0;
@@ -134,8 +137,20 @@ public class DungeonManager : MonoBehaviour
         isDungeonCompleted = true;
         Debug.Log("Donjon terminé!");
 
-        // Informer les systèmes externes (UI de récompenses, sauvegarde, etc.)
         onDungeonCompleted?.Invoke();
+
+
+
+        //  Changer de scène
+
+        if (tools != null)
+        {
+            tools.ChangeScene("Map");
+        }
+        else
+        {
+            Debug.LogError(" Tools est null ! Tu l'as pas assigné dans l’inspecteur ?");
+        }
     }
 
     // Méthode pour obtenir la room actuelle
