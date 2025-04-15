@@ -16,6 +16,9 @@ public class DungeonManager : MonoBehaviour
 
     [SerializeField] private SwipeDetection swipeDetection;
     [SerializeField] private Tools tools;
+    [SerializeField] private PlayerScript playerScript;
+    [SerializeField] private Item item;
+    [SerializeField] private SaveLoadSystem saveLoadSystem;
 
 
     [Header("Paramètres des Rooms")]
@@ -134,6 +137,19 @@ public class DungeonManager : MonoBehaviour
         if (isDungeonCompleted)
             return;
 
+        Item i = new Item();
+        i._iLevel = 1;
+        i._Rarity = ItemRarity.Rare;
+        i._Type = ItemType.Weapon;
+        i._iStrength = 10;
+        i._iSpirit = 5;
+        i._iIntel = 0;
+        i._iVita = 0;
+        i._iChar = 0;
+        i._iDext = 0;
+        ReferenceManager.Player.AddItem(i);
+
+
         isDungeonCompleted = true;
         Debug.Log("Donjon terminé!");
 
@@ -151,6 +167,8 @@ public class DungeonManager : MonoBehaviour
         {
             Debug.LogError(" Tools est null ! Tu l'as pas assigné dans l’inspecteur ?");
         }
+
+        SaveLoadSystem.Save(playerScript);
     }
 
     // Méthode pour obtenir la room actuelle
@@ -214,7 +232,7 @@ public class DungeonManager : MonoBehaviour
 
         currentEnemy = Instantiate(currentRoomEnemies[index], enemySpawnPoint.position, enemySpawnPoint.rotation);
 
-        //  S'abonner à la mort de l'ennemi
+       
         Enemy enemyComponent = currentEnemy.GetComponent<Enemy>();
         if (enemyComponent != null)
         {
