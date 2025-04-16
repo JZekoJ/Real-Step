@@ -73,17 +73,25 @@ public class InventoryScript : MonoBehaviour
         {
             if (button.name == "Equip")
             {
+                button.onClick.RemoveAllListeners();
                 if (item._bIsEquiped)
                 {
-                    button.GetComponentInChildren<TextMeshPro>().text = "Unequip";
+                    button.GetComponentInChildren<TextMeshProUGUI>().text = "Unequip";
+                    button.onClick.AddListener(() => {
+                        ReferenceManager.Player.UnequipItem(item);
+                        _Slots[(int)item._Type].GetComponent<ItemUIScript>()._EquipItem = null;
+                        _Slots[(int)item._Type].GetComponent<ItemUIScript>().Init();
+                        OpenItemInfo(item);
+                    });
                 }
                 else
                 {
-                    button.GetComponentInChildren<TextMeshPro>().text = "Equip";
+                    button.GetComponentInChildren<TextMeshProUGUI>().text = "Equip";
                     button.onClick.AddListener(() => {
                         ReferenceManager.Player.EquipItem(item);
                         _Slots[(int)item._Type].GetComponent<ItemUIScript>()._EquipItem = item;
                         _Slots[(int)item._Type].GetComponent<ItemUIScript>().Init();
+                        OpenItemInfo(item);
                     });
                 }
             }

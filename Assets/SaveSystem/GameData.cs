@@ -26,10 +26,12 @@ public enum ItemType
 }
 public enum ItemRarity
 {
-    Commun,
-    Rare,
-    Epic,
-    Legendary
+    E,D,C,B,A,S
+}
+
+public enum ItemStats
+{
+    Strength, Spirit, Intel, Vita, Char, Dext
 }
 
 [System.Serializable]
@@ -40,11 +42,7 @@ public class Item
     public ItemType _Type;
     public bool _bIsEquiped;
 
-    public int _iStrength;
-    public int _iSpirit;
-    public int _iIntel;
-    public int _iVita;
-    public int _iChar;
-    public int _iDext;
+    public List<int> _Stats = new List<int> { 0, 0, 0, 0, 0, 0 };
+
 }
 #endregion
