@@ -148,7 +148,7 @@ public class DungeonManager : MonoBehaviour
         i._iChar = 0;
         i._iDext = 0;
         ReferenceManager.Player.AddItem(i);
-
+        SaveLoadSystem.Save(ReferenceManager.Player);
 
         isDungeonCompleted = true;
         Debug.Log("Donjon terminé!");
@@ -161,7 +161,7 @@ public class DungeonManager : MonoBehaviour
 
         if (tools != null)
         {
-            tools.ChangeScene("Map");
+            //tools.ChangeScene("Map");
         }
         else
         {
