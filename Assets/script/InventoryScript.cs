@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
+using Cinemachine;
 
 public class InventoryScript : MonoBehaviour
 {
@@ -14,7 +15,10 @@ public class InventoryScript : MonoBehaviour
     public GameObject _SortedInventoryContent;
     public GameObject _ItemInfo;
 
-    public List<GameObject> _Slots ;
+    public List<CinemachineVirtualCamera> _VirtualCams;
+    private CinemachineVirtualCamera _ActiveCam;
+
+    public List<GameObject> _Slots;
 
     private ItemType _SeletedItemType;
 
@@ -101,7 +105,17 @@ public class InventoryScript : MonoBehaviour
     public void SetSort(int i)
     {
         _SeletedItemType = (ItemType)i;
+        
         LoadSortInventory();
+
+        _VirtualCams[i].gameObject.SetActive(true);
+        if (_ActiveCam == null)
+        {
+            _ActiveCam = _VirtualCams[i];
+            return;
+        }
+        _ActiveCam.gameObject.SetActive(false);
+        _ActiveCam = _VirtualCams[i];
     }
 
 

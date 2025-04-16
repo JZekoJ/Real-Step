@@ -10,6 +10,8 @@ public class ItemUIScript : MonoBehaviour
     public Item _EquipItem;
 
 
+    [SerializeField] private Sprite Empty;
+
     [SerializeField] private Sprite Rarity0;
     [SerializeField] private Sprite Rarity1;
     [SerializeField] private Sprite Rarity2;
@@ -28,10 +30,12 @@ public class ItemUIScript : MonoBehaviour
     {
         if (_EquipItem == null)
         {
-            GetComponent<Outline>().effectColor = Color.black;
-            GetComponent<Image>().sprite = null;
+            GetComponent<Image>().sprite = Empty;
+            GetComponentsInChildren<Image>()[1].sprite = null;
+            GetComponentsInChildren<Image>()[1].color = Color.clear;
             return;
         }
+        GetComponentsInChildren<Image>()[1].color = Color.white;
         switch (_EquipItem._Rarity)
         {
             case ItemRarity.E:
