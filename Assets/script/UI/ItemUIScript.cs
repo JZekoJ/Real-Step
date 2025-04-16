@@ -9,6 +9,14 @@ public class ItemUIScript : MonoBehaviour
 {
     public Item _EquipItem;
 
+
+    [SerializeField] private Sprite Rarity0;
+    [SerializeField] private Sprite Rarity1;
+    [SerializeField] private Sprite Rarity2;
+    [SerializeField] private Sprite Rarity3;
+    [SerializeField] private Sprite Rarity4;
+    [SerializeField] private Sprite Rarity5;
+
     [SerializeField] private Sprite Weapon;
     [SerializeField] private Sprite Head;
     [SerializeField] private Sprite Chest;
@@ -18,19 +26,31 @@ public class ItemUIScript : MonoBehaviour
 
     public void Init()
     {
+        if (_EquipItem == null)
+        {
+            GetComponent<Outline>().effectColor = Color.black;
+            GetComponent<Image>().sprite = null;
+            return;
+        }
         switch (_EquipItem._Rarity)
         {
-            case ItemRarity.Commun:
-                GetComponent<Outline>().effectColor = Color.green;
+            case ItemRarity.E:
+                GetComponent<Image>().sprite = Rarity0;
                 break;
-            case ItemRarity.Rare:
-                GetComponent<Outline>().effectColor = Color.blue;
+            case ItemRarity.D:
+                GetComponent<Image>().sprite = Rarity1;
                 break;
-            case ItemRarity.Epic:
-                GetComponent<Outline>().effectColor = Color.magenta;
+            case ItemRarity.C:
+                GetComponent<Image>().sprite = Rarity2;
                 break;
-            case ItemRarity.Legendary:
-                GetComponent<Outline>().effectColor = Color.yellow;
+            case ItemRarity.B:
+                GetComponent<Image>().sprite = Rarity3;
+                break;
+            case ItemRarity.A:
+                GetComponent<Image>().sprite = Rarity4;
+                break;
+            case ItemRarity.S:
+                GetComponent<Image>().sprite = Rarity5;
                 break;
 
             default:
@@ -40,22 +60,22 @@ public class ItemUIScript : MonoBehaviour
         switch (_EquipItem._Type)
         {
             case ItemType.Weapon:
-                GetComponent<Image>().sprite = Weapon;
+                GetComponentsInChildren<Image>()[1].sprite = Weapon;
                 break;
             case ItemType.Head:
-                GetComponent<Image>().sprite = Head;
+                GetComponentsInChildren<Image>()[1].sprite = Head;
                 break;
             case ItemType.Chest:
-                GetComponent<Image>().sprite = Chest;
+                GetComponentsInChildren<Image>()[1].sprite = Chest;
                 break;
             case ItemType.Boot:
-                GetComponent<Image>().sprite = Boot;
+                GetComponentsInChildren<Image>()[1].sprite = Boot;
                 break;
             case ItemType.Legging:
-                GetComponent<Image>().sprite = Legging;
+                GetComponentsInChildren<Image>()[1].sprite = Legging;
                 break;
             case ItemType.Gauntlet:
-                GetComponent<Image>().sprite = Gauntlet;
+                GetComponentsInChildren<Image>()[1].sprite = Gauntlet;
                 break;
 
             default:

@@ -27,17 +27,15 @@ public class SaveLoadSystem
             {
                 string json = File.ReadAllText(playerDataPath);
                 Debug.Log(playerDataPath);
-                Debug.Log(json);
                 player.PlayerData = JsonConvert.DeserializeObject<PlayerData>(json);
             }
             else
             {
                 Debug.Log("No save file detected, create new one");
                 PlayerData data = new PlayerData();
-                Debug.Log(data.ItemSlot[0]);
                 player.PlayerData = data;
 
-                player.AddItem(12, ItemRarity.Legendary, ItemType.Gauntlet);
+                player.AddItem(12, ItemRarity.S, ItemType.Gauntlet);
                 Save(player);
             }
         }

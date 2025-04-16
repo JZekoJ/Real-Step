@@ -29,7 +29,13 @@ public class PlayerScript : MonoBehaviour
         PlayerData.ItemSlot[(int)item._Type] = item;
         item._bIsEquiped = true;
         SaveLoadSystem.Save(ReferenceManager.Player);
-        //onEquip.Invoke(item);
+    }
+
+    public void UnequipItem(Item item)
+    {
+        item._bIsEquiped = false;
+        PlayerData.ItemSlot[(int)item._Type] = null;
+        SaveLoadSystem.Save(ReferenceManager.Player);
     }
 
     #region Inventory
