@@ -139,14 +139,9 @@ public class DungeonManager : MonoBehaviour
 
         Item i = new Item();
         i._iLevel = 1;
-        i._Rarity = ItemRarity.Rare;
+        i._Rarity = ItemRarity.B;
         i._Type = ItemType.Weapon;
-        i._iStrength = 10;
-        i._iSpirit = 5;
-        i._iIntel = 0;
-        i._iVita = 0;
-        i._iChar = 0;
-        i._iDext = 0;
+        i._Stats[(int)ItemStats.Strength] = 10;
         ReferenceManager.Player.AddItem(i);
         SaveLoadSystem.Save(ReferenceManager.Player);
 
