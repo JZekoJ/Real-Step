@@ -205,9 +205,17 @@ public class SwipeDetection : MonoBehaviour
         ActivateShield();
     }
 
+    
+
     public void ReceiveDamage(float amount)
     {
-        pv -= amount;
+        if (isBlocking)
+        {
+            Debug.Log(" Le joueur bloque les dégâts !");
+            return;
+        }
+        else
+            pv -= amount;
         pv = Mathf.Max(0, pv);
         Debug.Log($"🟥 Le joueur prend {amount} dégâts. PV restants : {pv}");
 
