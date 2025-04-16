@@ -12,6 +12,26 @@ public class PlayerData
 
     public List<Item> ItemSlot = new List<Item> { null, null, null, null, null, null };
 
+    public int _iPlayerAttack(int strenght, int intel, int _char, int dext)
+    {
+        int iPlayerAttack = (strenght / 3) + (intel /2) + (_char / 3) + (dext / 2);
+        return iPlayerAttack;
+    }
+
+    public int _iPlayerDefense(int streght, int spirit, int intel, int _char)
+    {
+        int iPlayerDefense = (streght / 3) + (spirit / 2) + (intel / 2) + (_char / 3);
+        return iPlayerDefense;
+    }
+
+    public int _iPlayerHp(int strenght, int spirit, int vita, int _char)
+    {
+        int iPlayerHp = ((strenght/3) + (spirit/2) + vita + (_char /3))/10;
+        return iPlayerHp;
+    }
+
+    
+
 }
 
 #region ItemClass
@@ -45,4 +65,6 @@ public class Item
     public List<int> _Stats = new List<int> { 0, 0, 0, 0, 0, 0 };
 
 }
+
+
 #endregion
