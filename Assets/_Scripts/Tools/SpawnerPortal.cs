@@ -1,31 +1,38 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerPortal : MonoBehaviour
 {
-    public GameObject m_gPortal;
-    float time;
-    [SerializeField] float Range;
+    #region Public Variables
+    public GameObject m_goPortal;
+    #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    #region Serialized Fields
+    [Header("Paramètres de spawn")]
+    [SerializeField] private float m_fRange;
+    #endregion
+
+    #region Private Variables
+    private float m_fTime;
+    #endregion
+
+    //—------Unity Events—----
+    private void Start()
     {
-        
+        // Initialisation si nécessaire
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        time += Time.deltaTime;
-        if(time > 1)
+        m_fTime += Time.deltaTime;
+        if (m_fTime > 1f)
         {
-            
-            Vector3 loc = new Vector3(Random.Range(-Range, Range), 0.5f, Random.Range(-Range, Range));
-            Vector3 rot = new Vector3(m_gPortal.transform.rotation.x, m_gPortal.transform.rotation.y, Random.Range(0.0f, 360.0f));
-            m_gPortal.transform.Rotate(rot);
-            Instantiate(m_gPortal, loc, m_gPortal.transform.rotation);
-            time = 0;
+            Vector3 vLocation = new Vector3(Random.Range(-m_fRange, m_fRange), 0.5f, Random.Range(-m_fRange, m_fRange));
+            Vector3 vRotation = new Vector3(m_goPortal.transform.rotation.x, m_goPortal.transform.rotation.y, Random.Range(0f, 360f));
+            m_goPortal.transform.Rotate(vRotation);
+            Instantiate(m_goPortal, vLocation, m_goPortal.transform.rotation);
+            m_fTime = 0f;
         }
     }
+    //—------------------
 }

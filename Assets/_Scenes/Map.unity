@@ -3542,9 +3542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4e34724d13dbd41b3c07cd0cfcec67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gPortal: {fileID: 3783630885897577157, guid: 331cb7736291ea8418a9d9f8980dfa4b,
+  m_goPortal: {fileID: 3783630885897577157, guid: 331cb7736291ea8418a9d9f8980dfa4b,
     type: 3}
-  Range: 100
+  m_fRange: 0
 --- !u!4 &1862594641
 Transform:
   m_ObjectHideFlags: 0

@@ -2,39 +2,35 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
-    private static T _instance;
+    #region Private Static
+    private static T m_tInstance;
+    #endregion
+
+    #region Public Static
     public static T Instance
     {
         get
         {
-            if (_instance == null)
+            if (m_tInstance == null)
             {
- 
-                GameObject obj = new GameObject();
-                obj.name = typeof(T).Name;
-                obj.hideFlags = HideFlags.HideAndDontSave;
-                _instance = obj.AddComponent<T>();
-                
+                GameObject goObj = new GameObject
+                {
+                    name = typeof(T).Name,
+                    hideFlags = HideFlags.HideAndDontSave
+                };
+                m_tInstance = goObj.AddComponent<T>();
             }
-            return _instance;
+            return m_tInstance;
         }
     }
+    #endregion
 
-    private void OnDestroy()
+    //—------Unity Events—----
+    protected virtual void Awake()
     {
-        if (_instance == this)
+        if (m_tInstance == null)
         {
-            _instance = null;
-        }
-    }
-    
-
-
-    public virtual void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this as T;
+            m_tInstance = this as T;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -42,5 +38,13 @@ public class Singleton<T> : MonoBehaviour where T : Component
             Destroy(this);
         }
     }
-}
 
+    private void OnDestroy()
+    {
+        if (m_tInstance == this)
+        {
+            m_tInstance = null;
+        }
+    }
+    //—------------------
+}
