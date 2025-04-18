@@ -319,7 +319,8 @@ MonoBehaviour:
   m_fLongPressMaxDuration: 2
   m_goTrail: {fileID: 1656941393}
   m_csCombatSystem: {fileID: 713021700}
-  m_goFloatingDamagePrefab: {fileID: 988901092}
+  m_goFloatingDamagePrefab: {fileID: 2830899533340866779, guid: 2307166a15965854d8a37867dc3e775f,
+    type: 3}
   m_fPv: 100
   m_fAttaque: 20
   m_fDefense: 10
@@ -561,12 +562,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2307166a15965854d8a37867dc3e775f, type: 3}
---- !u!1 &988901092 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2830899533340866779, guid: 2307166a15965854d8a37867dc3e775f,
-    type: 3}
-  m_PrefabInstance: {fileID: 935641961}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1100279526
 GameObject:
   m_ObjectHideFlags: 0

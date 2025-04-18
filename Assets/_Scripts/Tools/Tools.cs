@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,59 +5,61 @@ using UnityEngine.SceneManagement;
 
 public class Tools : MonoBehaviour
 {
-    int UILayer;
+    #region Private Variables
+    private int m_iUILayer;
+    #endregion
 
+    //—------Unity Events—----
     private void Start()
     {
-        UILayer = LayerMask.NameToLayer("UI");
+        m_iUILayer = LayerMask.NameToLayer("UI");
     }
 
     private void Update()
     {
-        //print(IsPointerOverUIElement() ? "Over UI" : "Not over UI");
+        // Debug.Log(IsPointerOverUIElement() ? "Over UI" : "Not over UI");
     }
+    //—------------------
 
-
-    //Returns 'true' if we touched or hovering on Unity UI element.
+    #region Public Functions
     public bool IsPointerOverUIElement()
     {
         return IsPointerOverUIElement(GetEventSystemRaycastResults());
     }
 
-
-    //Returns 'true' if we touched or hovering on Unity UI element.
-    private bool IsPointerOverUIElement(List<RaycastResult> eventSystemRaysastResults)
+    public static Vector3 ScreenToWorld(Camera camCamera, Vector3 vPosition)
     {
-        for (int index = 0; index < eventSystemRaysastResults.Count; index++)
+        vPosition.z = 10f;
+        return camCamera.ScreenToWorldPoint(vPosition);
+    }
+
+    public void ChangeScene(string sSceneName)
+    {
+        SceneManager.LoadScene(sSceneName);
+    }
+    #endregion
+
+    #region Private Functions
+    private bool IsPointerOverUIElement(List<RaycastResult> lRaycastResults)
+    {
+        foreach (RaycastResult rsResult in lRaycastResults)
         {
-            RaycastResult curRaysastResult = eventSystemRaysastResults[index];
-            if (curRaysastResult.gameObject.layer == UILayer)
+            if (rsResult.gameObject.layer == m_iUILayer)
                 return true;
         }
         return false;
     }
 
-
-    //Gets all event system raycast results of current mouse or touch position.
-    static List<RaycastResult> GetEventSystemRaycastResults()
+    private static List<RaycastResult> GetEventSystemRaycastResults()
     {
-        PointerEventData eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Input.mousePosition;
-        List<RaycastResult> raysastResults = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, raysastResults);
-        return raysastResults;
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> lRaycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, lRaycastResults);
+        return lRaycastResults;
     }
-
-    public static Vector3 ScreenToWorld(Camera camera, Vector3 position)
-    {
-        position.z = 10f;
-        return camera.ScreenToWorldPoint(position);
-    }
-
-    public void ChangeScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-
-    }
-
+    #endregion
 }
