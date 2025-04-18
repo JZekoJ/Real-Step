@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3235706132127940818}
   - component: {fileID: 6310494720644623040}
   m_Layer: 0
-  m_Name: FloatingDamage
+  m_Name: m_goFloatingDamagePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

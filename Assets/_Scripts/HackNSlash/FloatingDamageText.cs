@@ -3,31 +3,39 @@ using UnityEngine;
 
 public class FloatingDamageText : MonoBehaviour
 {
-    [SerializeField] private float floatSpeed = 1f;
-    [SerializeField] private float duration = 1f;
+    #region Unity Parameters
+    [Header("Paramètres de l'animation de dégâts")]
+    [SerializeField] private float m_fFloatSpeed = 1f;
+    [SerializeField] private float m_fDuration = 1f;
+    #endregion
 
-    private TextMeshPro textMesh;
+    #region Private Variables
+    private TextMeshPro m_tmTextMesh;
+    #endregion
 
+    //—------Unity Events—----
     private void Awake()
     {
-        textMesh = GetComponent<TextMeshPro>();
-        Destroy(gameObject, duration);
-    }
-
-    public void SetDamage(float amount)
-    {
-        if (textMesh != null)
-            textMesh.text = "-" + amount.ToString();
+        m_tmTextMesh = GetComponent<TextMeshPro>();
+        Destroy(gameObject, m_fDuration);
     }
 
     private void Update()
     {
-        transform.position += Vector3.up * floatSpeed * Time.deltaTime;
+        transform.position += Vector3.up * m_fFloatSpeed * Time.deltaTime;
 
         if (Camera.main != null)
         {
-           
             transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
         }
     }
+    //—------------------
+
+    //—------public—----
+    public void SetDamage(float fAmount)
+    {
+        if (m_tmTextMesh != null)
+            m_tmTextMesh.text = "-" + fAmount.ToString();
+    }
+    //—------------------
 }
