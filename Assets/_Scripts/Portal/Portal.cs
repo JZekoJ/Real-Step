@@ -45,6 +45,7 @@ public class Portal : MonoBehaviour
 
     private void OnMouseOver()
     {
+        
         if (!utils.IsPointerOverUIElement())//m_bCanEnter
         {
             if (Input.GetMouseButtonDown(0))
@@ -60,7 +61,6 @@ public class Portal : MonoBehaviour
 
             }
         }
-        
     }
 
     public void CloseWindow()
