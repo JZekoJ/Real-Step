@@ -14,7 +14,6 @@ public class ShopSystem : MonoBehaviour
     public MoneySystem moneySystem; // Référence au MoneySystem
     public ShopItem[] itemsForSale; // Liste des objets à vendre
 
-    // Fonction pour acheter un objet par son index dans la liste
     public void BuyItem(int index)
     {
         if (index < 0 || index >= itemsForSale.Length)
@@ -29,7 +28,6 @@ public class ShopSystem : MonoBehaviour
         {
             moneySystem.RemoveMoney(item.price);
             Debug.Log("Acheté : " + item.itemName + " pour " + item.price + " pièces.");
-            // Ici tu peux ajouter l'objet à l'inventaire ou déclencher un effet
         }
         else
         {

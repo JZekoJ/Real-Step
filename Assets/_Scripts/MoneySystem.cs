@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class MoneySystem : MonoBehaviour
 {
-    // Variable publique pour voir l'argent dans l'Inspector (modifiable seulement dans le code)
     [SerializeField] private int money = 0;
 
-    // Propriété en lecture seule pour accéder à l'argent
     public int CurrentMoney => money;
 
-    // Ajoute de l'argent
     public void AddMoney(int amount)
     {
         if (amount < 0)
@@ -23,7 +20,6 @@ public class MoneySystem : MonoBehaviour
         Debug.Log("Argent ajouté : " + amount + " | Total : " + money);
     }
 
-    // Retire de l'argent
     public void RemoveMoney(int amount)
     {
         if (amount < 0)
@@ -42,7 +38,6 @@ public class MoneySystem : MonoBehaviour
         Debug.Log("Argent retiré : " + amount + " | Total : " + money);
     }
 
-    // Définit directement l'argent (attention aux valeurs négatives)
     public void SetMoney(int amount)
     {
         if (amount < 0)
