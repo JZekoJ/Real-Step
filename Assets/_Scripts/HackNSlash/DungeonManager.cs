@@ -5,214 +5,182 @@ using UnityEngine.Events;
 
 public class DungeonManager : MonoBehaviour
 {
+    #region Structs
     [System.Serializable]
     public class Room
     {
-        public string roomName;
-        public GameObject roomPrefab;
-        public List<GameObject> enemyPrefabs = new List<GameObject>();
-        
+        public string m_sRoomName;
+        public GameObject m_goRoomPrefab;
+        public List<GameObject> m_lEnemyPrefabs = new List<GameObject>();
     }
+    #endregion
 
-    [SerializeField] private SwipeDetection swipeDetection;
-    [SerializeField] private Tools tools;
-    [SerializeField] private PlayerScript playerScript;
-    [SerializeField] private Item item;
-    [SerializeField] private SaveLoadSystem saveLoadSystem;
+    #region Références
+    [SerializeField] private SwipeDetection m_csSwipeDetection;
+    [SerializeField] private Tools m_csTools;
+    [SerializeField] private PlayerScript m_csPlayerScript;
+    [SerializeField] private Item m_csItem;
+    [SerializeField] private SaveLoadSystem m_csSaveLoadSystem;
+    #endregion
 
-
+    #region Room Settings
     [Header("Paramètres des Rooms")]
-    [SerializeField] private List<Room> rooms = new List<Room>();
-    [SerializeField] private int currentRoomIndex = 0;
-    [SerializeField] private float roomTransitionDelay = 2f;
-    [SerializeField] private Transform roomSpawnPoint;
+    [SerializeField] private List<Room> m_lRooms = new List<Room>();
+    [SerializeField] private int m_iCurrentRoomIndex = 0;
+    [SerializeField] private float m_fRoomTransitionDelay = 2f;
+    [SerializeField] private Transform m_tRoomSpawnPoint;
+    #endregion
 
+    #region Spawn Settings
     [Header("Paramètres de Spawn")]
-    [SerializeField] private Transform enemySpawnPoint;
-    [SerializeField] private float enemySpawnDelay = 1f;
+    [SerializeField] private Transform m_tEnemySpawnPoint;
+    [SerializeField] private float m_fEnemySpawnDelay = 1f;
+    #endregion
 
+    #region Events
     [Header("Événements")]
-    public UnityEvent onDungeonCompleted;
-    public UnityEvent<Room> onRoomChanged;
-    public UnityEvent<GameObject> onEnemySpawned;
-    public UnityEvent<GameObject> onEnemyDefeated;
+    public UnityEvent m_eOnDungeonCompleted;
+    public UnityEvent<Room> m_eOnRoomChanged;
+    public UnityEvent<GameObject> m_eOnEnemySpawned;
+    public UnityEvent<GameObject> m_eOnEnemyDefeated;
+    #endregion
 
-    // Note: Ces événements sont destinés aux systèmes externes (UI, effets, etc.)
-    // et ne sont plus nécessaires pour la communication interne
-    
-    
-    private bool isDungeonCompleted = false;
-    private GameObject currentRoomInstance;
-    
-
-
-
-    private List<GameObject> currentRoomEnemies = new List<GameObject>();
-    private int currentEnemyIndex = 0;
-    private GameObject currentEnemy;
-    private bool isWaveActive = false;
+    #region Private Variables
+    private bool m_bIsDungeonCompleted = false;
+    private GameObject m_goCurrentRoomInstance;
+    private List<GameObject> m_lCurrentRoomEnemies = new List<GameObject>();
+    private int m_iCurrentEnemyIndex = 0;
+    private GameObject m_goCurrentEnemy;
+    private bool m_bIsWaveActive = false;
+    #endregion
 
     private void Awake()
     {
-        if (roomSpawnPoint == null)
+        if (m_tRoomSpawnPoint == null)
         {
-            roomSpawnPoint = transform;
+            m_tRoomSpawnPoint = transform;
             Debug.LogWarning("Point de spawn des rooms non assigné, utilisation de la transform du DungeonManager.");
         }
 
-        if (enemySpawnPoint == null)
+        if (m_tEnemySpawnPoint == null)
         {
-            enemySpawnPoint = transform;
+            m_tEnemySpawnPoint = transform;
             Debug.LogWarning("Point de spawn des ennemis non assigné, utilisation de la transform du DungeonManager.");
         }
     }
 
     private void Start()
     {
-        
         StartDungeon();
     }
 
-    #region Gestion du Donjon et des Rooms
-
+    #region Gestion du Donjon
     public void StartDungeon()
     {
-        isDungeonCompleted = false;
-        currentRoomIndex = 0;
-        
-        SpawnRoom(currentRoomIndex);
+        m_bIsDungeonCompleted = false;
+        m_iCurrentRoomIndex = 0;
+        SpawnRoom(m_iCurrentRoomIndex);
     }
 
-    private void SpawnRoom(int roomIndex)
+    private void SpawnRoom(int iRoomIndex)
     {
-        if (roomIndex >= rooms.Count)
+        if (iRoomIndex >= m_lRooms.Count)
         {
             CompleteDungeon();
             return;
         }
 
-        Room currentRoom = rooms[roomIndex];
-        
-        if (currentRoomInstance != null)
+        Room currentRoom = m_lRooms[iRoomIndex];
+
+        if (m_goCurrentRoomInstance != null)
         {
-            Destroy(currentRoomInstance);
+            Destroy(m_goCurrentRoomInstance);
         }
-        
-        if (currentRoom.roomPrefab != null)
+
+        if (currentRoom.m_goRoomPrefab != null)
         {
-            currentRoomInstance = Instantiate(currentRoom.roomPrefab, roomSpawnPoint.position, roomSpawnPoint.rotation);
-            currentRoomInstance.name = "Room_" + currentRoom.roomName;
+            m_goCurrentRoomInstance = Instantiate(currentRoom.m_goRoomPrefab, m_tRoomSpawnPoint.position, m_tRoomSpawnPoint.rotation);
+            m_goCurrentRoomInstance.name = "Room_" + currentRoom.m_sRoomName;
         }
         else
         {
-            Debug.LogWarning($"Préfab de room manquant pour {currentRoom.roomName}");
+            Debug.LogWarning($"Préfab de room manquant pour {currentRoom.m_sRoomName}");
         }
 
-        // Notifier les systèmes externes du changement de room (UI, etc.)
-        onRoomChanged?.Invoke(currentRoom);
-
-        // Démarrer la vague avec les ennemis de la room actuelle
-        StartWave(currentRoom.enemyPrefabs);
-
-        Debug.Log($"Démarrage de la room {currentRoom.roomName} avec {currentRoom.enemyPrefabs.Count} ennemis");
+        m_eOnRoomChanged?.Invoke(currentRoom);
+        StartWave(currentRoom.m_lEnemyPrefabs);
+        Debug.Log($"Démarrage de la room {currentRoom.m_sRoomName} avec {currentRoom.m_lEnemyPrefabs.Count} ennemis");
     }
 
     private void MoveToNextRoom()
     {
-        // Passer à la room suivante après un délai
         StartCoroutine(MoveToNextRoomAfterDelay());
     }
 
     private IEnumerator MoveToNextRoomAfterDelay()
     {
-        yield return new WaitForSeconds(roomTransitionDelay);
-
-        // Passer à la room suivante
-        currentRoomIndex++;
-        SpawnRoom(currentRoomIndex);
+        yield return new WaitForSeconds(m_fRoomTransitionDelay);
+        m_iCurrentRoomIndex++;
+        SpawnRoom(m_iCurrentRoomIndex);
     }
 
     private void CompleteDungeon()
     {
-        if (isDungeonCompleted)
+        if (m_bIsDungeonCompleted)
             return;
 
-        Item i = new Item();
-        i._iLevel = 1;
-        i._Rarity = ItemRarity.B;
-        i._Type = ItemType.Weapon;
-        i._Stats[(int)ItemStats.Strength] = 10;
-        ReferenceManager.Player.AddItem(i);
+        Item csItem = new Item();
+        csItem._iLevel = 1;
+        csItem._Rarity = ItemRarity.B;
+        csItem._Type = ItemType.Weapon;
+        csItem._Stats[(int)ItemStats.Strength] = 10;
+        ReferenceManager.Player.AddItem(csItem);
         SaveLoadSystem.Save(ReferenceManager.Player);
 
-        isDungeonCompleted = true;
+        m_bIsDungeonCompleted = true;
         Debug.Log("Donjon terminé!");
 
-        onDungeonCompleted?.Invoke();
+        m_eOnDungeonCompleted?.Invoke();
 
-
-
-        //  Changer de scène
-
-        if (tools != null)
+        if (m_csTools != null)
         {
-            tools.ChangeScene("Map");
+            // m_csTools.ChangeScene("Map");
         }
         else
         {
             Debug.LogError(" Tools est null ! Tu l'as pas assigné dans l’inspecteur ?");
         }
 
-        SaveLoadSystem.Save(playerScript);
+        SaveLoadSystem.Save(m_csPlayerScript);
     }
 
-    // Méthode pour obtenir la room actuelle
-    public Room GetCurrentRoom()
-    {
-        if (currentRoomIndex < rooms.Count)
-            return rooms[currentRoomIndex];
-
-        return null;
-    }
-
-    // Méthode pour obtenir l'index de la room actuelle
-    public int GetCurrentRoomIndex()
-    {
-        return currentRoomIndex;
-    }
-
-    // Méthode pour obtenir le nombre total de rooms
-    public int GetTotalRoomCount()
-    {
-        return rooms.Count;
-    }
-
+    public Room GetCurrentRoom() => (m_iCurrentRoomIndex < m_lRooms.Count) ? m_lRooms[m_iCurrentRoomIndex] : null;
+    public int GetCurrentRoomIndex() => m_iCurrentRoomIndex;
+    public int GetTotalRoomCount() => m_lRooms.Count;
     #endregion
 
     #region Gestion des Ennemis
-    
-    private void StartWave(List<GameObject> enemyPrefabs)
+    private void StartWave(List<GameObject> lEnemyPrefabs)
     {
-        if (isWaveActive)
+        if (m_bIsWaveActive)
         {
             ClearCurrentWave();
         }
 
-        isWaveActive = true;
-        currentRoomEnemies = new List<GameObject>(enemyPrefabs);
-        currentEnemyIndex = 0;
+        m_bIsWaveActive = true;
+        m_lCurrentRoomEnemies = new List<GameObject>(lEnemyPrefabs);
+        m_iCurrentEnemyIndex = 0;
 
-        // Commencer à faire apparaître les ennemis
         StartCoroutine(SpawnNextEnemyAfterDelay());
     }
-    
+
     private IEnumerator SpawnNextEnemyAfterDelay()
     {
-        yield return new WaitForSeconds(enemySpawnDelay);
+        yield return new WaitForSeconds(m_fEnemySpawnDelay);
 
-        if (currentEnemyIndex < currentRoomEnemies.Count)
+        if (m_iCurrentEnemyIndex < m_lCurrentRoomEnemies.Count)
         {
-            SpawnEnemy(currentEnemyIndex);
+            SpawnEnemy(m_iCurrentEnemyIndex);
         }
         else
         {
@@ -220,24 +188,23 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    private void SpawnEnemy(int index)
+    private void SpawnEnemy(int iIndex)
     {
-        if (index < 0 || index >= currentRoomEnemies.Count)
+        if (iIndex < 0 || iIndex >= m_lCurrentRoomEnemies.Count)
             return;
 
-        currentEnemy = Instantiate(currentRoomEnemies[index], enemySpawnPoint.position, enemySpawnPoint.rotation);
+        GameObject goEnemyInstance = Instantiate(m_lCurrentRoomEnemies[iIndex], m_tEnemySpawnPoint.position, m_tEnemySpawnPoint.rotation);
+        m_goCurrentEnemy = goEnemyInstance;
 
-       
-        Enemy enemyComponent = currentEnemy.GetComponent<Enemy>();
-        if (enemyComponent != null)
+        Enemy csEnemy = goEnemyInstance.GetComponent<Enemy>();
+        if (csEnemy != null)
         {
-            enemyComponent.onDeath.AddListener(() => OnEnemyDefeated(currentEnemy));
+            csEnemy.m_eOnDeath.AddListener(() => OnEnemyDefeated(goEnemyInstance));
 
-            //  Set dans SwipeDetection
-            if (swipeDetection != null)
+            if (m_csSwipeDetection != null)
             {
-                swipeDetection.SetCurrentEnemy(enemyComponent);
-                enemyComponent.StartAttacking(swipeDetection);
+                m_csSwipeDetection.SetCurrentEnemy(csEnemy);
+                csEnemy.StartAttacking(m_csSwipeDetection);
             }
         }
         else
@@ -245,63 +212,39 @@ public class DungeonManager : MonoBehaviour
             Debug.LogWarning("Le préfab d'ennemi n'a pas de composant Enemy!");
         }
 
-        onEnemySpawned?.Invoke(currentEnemy);
-
-        Debug.Log($"Ennemi {index + 1} sur {currentRoomEnemies.Count} apparu");
+        m_eOnEnemySpawned?.Invoke(goEnemyInstance);
+        Debug.Log($"Ennemi {iIndex + 1} sur {m_lCurrentRoomEnemies.Count} apparu");
     }
 
-    private void OnEnemyDefeated(GameObject enemy)
+    private void OnEnemyDefeated(GameObject goEnemy)
     {
-        onEnemyDefeated?.Invoke(enemy);
-
-        // Passer à l'ennemi suivant
-        currentEnemyIndex++;
+        m_eOnEnemyDefeated?.Invoke(goEnemy);
+        m_iCurrentEnemyIndex++;
         StartCoroutine(SpawnNextEnemyAfterDelay());
     }
-    
+
     private void CompleteWave()
     {
-        isWaveActive = false;
+        m_bIsWaveActive = false;
         Debug.Log("Vague terminée!");
-
-        // Passer à la room suivante
         MoveToNextRoom();
     }
-    
+
     private void ClearCurrentWave()
     {
-        if (currentEnemy != null)
+        if (m_goCurrentEnemy != null)
         {
-            Destroy(currentEnemy);
+            Destroy(m_goCurrentEnemy);
         }
-        
-        currentRoomEnemies.Clear();
-        currentEnemyIndex = 0;
-        isWaveActive = false;
-    }
-    
-    public bool IsWaveActive()
-    {
-        return isWaveActive;
-    }
-    
-    public GameObject GetCurrentEnemy()
-    {
-        return currentEnemy;
-    }
-    
-    public float GetWaveProgress()
-    {
-        if (currentRoomEnemies.Count == 0)
-            return 0f;
 
-        return (float)currentEnemyIndex / currentRoomEnemies.Count;
-    }
-    
-    public int GetRemainingEnemyCount()
-    {
-        return currentRoomEnemies.Count - currentEnemyIndex;
+        m_lCurrentRoomEnemies.Clear();
+        m_iCurrentEnemyIndex = 0;
+        m_bIsWaveActive = false;
     }
 
+    public bool IsWaveActive() => m_bIsWaveActive;
+    public GameObject GetCurrentEnemy() => m_goCurrentEnemy;
+    public float GetWaveProgress() => m_lCurrentRoomEnemies.Count == 0 ? 0f : (float)m_iCurrentEnemyIndex / m_lCurrentRoomEnemies.Count;
+    public int GetRemainingEnemyCount() => m_lCurrentRoomEnemies.Count - m_iCurrentEnemyIndex;
     #endregion
 }
