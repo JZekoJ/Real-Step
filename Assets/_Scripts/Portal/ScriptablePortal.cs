@@ -5,14 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptable Objects/Portals")]
 public class ScriptablePortal : ScriptableObject
 {
-    [Header("Data")]
-
+    #region Données du Portail
+    [Header("Données")]
     [SerializeField] public int m_iIndex;
-
-    [SerializeField] public int m_iDificulty;//peut être fait en enum ?
-
+    [SerializeField] public int m_iDifficulty; // TODO: Peut être transformé en enum
     [SerializeField] public Material m_mMaterial;
+    #endregion
 
-    //type d'ennemie possible
-    //récompense possible ?
+    // TODO: Ajouter type d'ennemis possibles ?
+    // TODO: Ajouter récompense possible ?
 }
