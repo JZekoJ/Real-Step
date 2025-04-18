@@ -312,21 +312,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3d9f1e95b835b4abf9789fc5989672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumDistance: 0.02
-  maximumTime: 1
-  directionTreshold: 0.9
-  trail: {fileID: 1656941393}
-  combatSystem: {fileID: 713021700}
-  floatingDamagePrefab: {fileID: 2830899533340866779, guid: 2307166a15965854d8a37867dc3e775f,
-    type: 3}
-  pv: 100
-  attaque: 20
-  defense: 10
-  cooldownLegere: 0.2
-  cooldownMoyenne: 0.2
-  cooldownLourde: 0.2
-  longPressDuration: 0.2
-  longPressMaxDuration: 2
+  m_fMinimumDistance: 0.2
+  m_fMaximumTime: 1
+  m_fDirectionTreshold: 0.9
+  m_fLongPressDuration: 0.5
+  m_fLongPressMaxDuration: 2
+  m_goTrail: {fileID: 1656941393}
+  m_csCombatSystem: {fileID: 713021700}
+  m_goFloatingDamagePrefab: {fileID: 988901092}
+  m_fPv: 100
+  m_fAttaque: 20
+  m_fDefense: 10
+  m_fCooldownLegere: 1
+  m_fCooldownMoyenne: 2
+  m_fCooldownLourde: 3
 --- !u!114 &713021700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,12 +358,7 @@ MonoBehaviour:
     _Rarity: 0
     _Type: 0
     _bIsEquiped: 0
-    _iStrength: 0
-    _iSpirit: 0
-    _iIntel: 0
-    _iVita: 0
-    _iChar: 0
-    _iDext: 0
+    _Stats: 000000000000000000000000000000000000000000000000
   rooms:
   - roomName: Room1
     roomPrefab: {fileID: 7011396332953542708, guid: 38e88cdaa4c3688499a5591cac7c6e2a,
@@ -456,7 +450,7 @@ PrefabInstance:
     - target: {fileID: 2830899533340866779, guid: 2307166a15965854d8a37867dc3e775f,
         type: 3}
       propertyPath: m_Name
-      value: FloatingDamage
+      value: m_goFloatingDamagePrefab
       objectReference: {fileID: 0}
     - target: {fileID: 3060801893292159221, guid: 2307166a15965854d8a37867dc3e775f,
         type: 3}
@@ -567,6 +561,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2307166a15965854d8a37867dc3e775f, type: 3}
+--- !u!1 &988901092 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2830899533340866779, guid: 2307166a15965854d8a37867dc3e775f,
+    type: 3}
+  m_PrefabInstance: {fileID: 935641961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1100279526
 GameObject:
   m_ObjectHideFlags: 0

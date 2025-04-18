@@ -4,60 +4,66 @@ using UnityEngine.InputSystem;
 [DefaultExecutionOrder(-1)]
 public class InputManager : Singleton<InputManager>
 {
-   
-    public delegate void StartTouchEvent(Vector2 position, float time);
+    #region Events
+    public delegate void StartTouchEvent(Vector2 vPosition, float fTime);
     public event StartTouchEvent OnStartTouch;
-    public delegate void EndTouchEvent(Vector2 position, float time);
+    public delegate void EndTouchEvent(Vector2 vPosition, float fTime);
     public event StartTouchEvent OnEndTouch;
+    #endregion
 
-    private InputSystem inputSystem;
-    private Camera mainCamera;
+    #region Private Variables
+    private InputSystem m_csInputSystem;
+    private Camera m_camMainCamera;
+    #endregion
 
+    //—------Unity Events—----
     private void Awake()
     {
-        inputSystem = new InputSystem();
-        mainCamera = Camera.main;
-        
+        m_csInputSystem = new InputSystem();
+        m_camMainCamera = Camera.main;
     }
 
     private void OnEnable()
     {
-        inputSystem.Enable();
+        m_csInputSystem.Enable();
     }
 
     private void OnDisable()
     {
-        inputSystem.Disable();
+        m_csInputSystem.Disable();
     }
 
     private void Start()
     {
-        inputSystem.Touch.PrimaryContact.started += ctx => StartTouch(ctx);
-        inputSystem.Touch.PrimaryContact.canceled += ctx => EndTouch(ctx);
+        m_csInputSystem.Touch.PrimaryContact.started += ctx => StartTouch(ctx);
+        m_csInputSystem.Touch.PrimaryContact.canceled += ctx => EndTouch(ctx);
     }
+    //—------------------
 
+    //—------Private Functions—----
     private void StartTouch(InputAction.CallbackContext context)
     {
-       
         if (OnStartTouch != null)
         {
-            OnStartTouch(Tools.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>()),(float)context.startTime);
+            Vector2 vPosition = Tools.ScreenToWorld(m_camMainCamera, m_csInputSystem.Touch.PrimaryPosition.ReadValue<Vector2>());
+            OnStartTouch(vPosition, (float)context.startTime);
         }
     }
 
     private void EndTouch(InputAction.CallbackContext context)
     {
-
         if (OnEndTouch != null)
         {
-            OnEndTouch(Tools.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)context.startTime);
+            Vector2 vPosition = Tools.ScreenToWorld(m_camMainCamera, m_csInputSystem.Touch.PrimaryPosition.ReadValue<Vector2>());
+            OnEndTouch(vPosition, (float)context.startTime);
         }
     }
+    //—------------------
 
+    //—------public—----
     public Vector2 PrimaryPosition()
     {
-        return Tools.ScreenToWorld(mainCamera, inputSystem.Touch.PrimaryPosition.ReadValue<Vector2>());
+        return Tools.ScreenToWorld(m_camMainCamera, m_csInputSystem.Touch.PrimaryPosition.ReadValue<Vector2>());
     }
-
-
+    //—------------------
 }

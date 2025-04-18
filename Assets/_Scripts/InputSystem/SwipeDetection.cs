@@ -1,310 +1,281 @@
+// Adapté à la nomenclature demandée
 using System.Collections;
 using UnityEngine;
 using FightSysteme;
 
 public class SwipeDetection : MonoBehaviour
 {
-
+    #region Paramètres Swipe
     [Header("Paramètres de Swipe")]
-    [SerializeField] 
-    private float minimumDistance = .2f;
-    [SerializeField]
-    private float maximumTime = 1f;
-    [SerializeField, Range(0f,1f)]
-    private float directionTreshold = 0.9f;
-    
-    
+    [SerializeField] private float m_fMinimumDistance = 0.2f;
+    [SerializeField] private float m_fMaximumTime = 1f;
+    [SerializeField, Range(0f, 1f)] private float m_fDirectionTreshold = 0.9f;
+    [SerializeField] private float m_fLongPressDuration = 0.5f;
+    [SerializeField] private float m_fLongPressMaxDuration = 2f;
+    #endregion
 
+    #region Références Externes
     [Header("Références Externes")]
-    [SerializeField]
-    private GameObject trail;
-    [SerializeField] 
-    private FightSystem combatSystem;
-    [SerializeField] 
-    private GameObject floatingDamagePrefab;
+    [SerializeField] private GameObject m_goTrail;
+    [SerializeField] private FightSystem m_csCombatSystem;
+    [SerializeField] private GameObject m_goFloatingDamagePrefab;
+    #endregion
 
+    #region Stats Joueur
     [Header("Stats Joueur")]
-    [SerializeField]
-    float pv = 100f;
-    [SerializeField]
-    float attaque = 20f;
-    [SerializeField]
-    float defense = 10f;
+    [SerializeField] private float m_fPv = 100f;
+    [SerializeField] private float m_fAttaque = 20f;
+    [SerializeField] private float m_fDefense = 10f;
+    #endregion
 
+    #region Cooldowns
     [Header("Cooldowns des Attaques")]
-    [SerializeField] 
-    private float cooldownLegere = 1f;
-    [SerializeField] 
-    private float cooldownMoyenne = 2f;
-    [SerializeField] 
-    private float cooldownLourde = 3f;
-    [SerializeField]
-    private float longPressDuration = 0.5f;
-    [SerializeField]
-    private float longPressMaxDuration = 2f;
+    [SerializeField] private float m_fCooldownLegere = 1f;
+    [SerializeField] private float m_fCooldownMoyenne = 2f;
+    [SerializeField] private float m_fCooldownLourde = 3f;
+    #endregion
 
+    #region Private Variables
+    //—------private—----
+    private InputManager m_csInputManager;
+    private Enemy m_csCurrentEnemy;
 
+    private Vector2 m_vStartPosition;
+    private float m_fStartTime;
+    private Vector2 m_vEndPosition;
+    private float m_fEndTime;
+    private bool m_bIsBlocking = false;
+    private bool m_bIsDelay = false;
 
+    private float m_fLastLegereTime = -999f;
+    private float m_fLastMoyenneTime = -999f;
+    private float m_fLastLourdeTime = -999f;
 
+    private Coroutine m_cTrailCoroutine;
+    private Coroutine m_cShieldCoroutine;
+    private Coroutine m_cLightAttackCoroutine;
+    //—------------------
+    #endregion
 
-
-    private InputManager inputManager;
-    private Enemy enemy;
-
-
-    private Vector2 startPosition;
-    private float startTime;
-    private Vector2 endPosition;
-    private float endTime;
-    private bool isBlocking = false;
-    private bool isDelay = false;
-    private Enemy currentEnemy;
-
-    private float lastLegereTime = -999f;
-    private float lastMoyenneTime = -999f;
-    private float lastLourdeTime = -999f;
-
-    private Coroutine coroutine;
-    private Coroutine shieldCoroutine;
-    private Coroutine lightAttackCoroutine;
+    //—-------public—----
+    public void SetCurrentEnemy(Enemy csEnemy)
+    {
+        m_csCurrentEnemy = csEnemy;
+    }
+    //—------------------
 
     private void Awake()
     {
-        inputManager = InputManager.Instance;
-        combatSystem = GetComponent<FightSystem>();
+        m_csInputManager = InputManager.Instance;
+        m_csCombatSystem = GetComponent<FightSystem>();
     }
-    
+
     private void OnEnable()
     {
-        inputManager.OnStartTouch += SwipeStart;
-        inputManager.OnEndTouch += SwipeEnd;
-    }
-    public void SetCurrentEnemy(Enemy enemy)
-    {
-        currentEnemy = enemy;
+        m_csInputManager.OnStartTouch += SwipeStart;
+        m_csInputManager.OnEndTouch += SwipeEnd;
     }
 
     private void OnDisable()
     {
-        inputManager.OnStartTouch -= SwipeStart;
-        inputManager.OnEndTouch -= SwipeEnd;
+        m_csInputManager.OnStartTouch -= SwipeStart;
+        m_csInputManager.OnEndTouch -= SwipeEnd;
     }
 
-    private void SwipeStart(Vector2 position, float time)
+    private void SwipeStart(Vector2 vPosition, float fTime)
     {
-        startPosition = position;
-        startTime = time;
-        trail.GetComponent<TrailRenderer>().Clear();
-        trail.transform.position = position;
-        trail.SetActive(true);
-        coroutine = StartCoroutine(Trail());
+        m_vStartPosition = vPosition;
+        m_fStartTime = fTime;
+        m_goTrail.GetComponent<TrailRenderer>().Clear();
+        m_goTrail.transform.position = vPosition;
+        m_goTrail.SetActive(true);
+        m_cTrailCoroutine = StartCoroutine(Trail());
         StartCoroutine(LongPressDetection());
     }
 
     private IEnumerator Trail()
     {
-        while (true) 
-        { 
-            trail.transform.position = inputManager.PrimaryPosition();
+        while (true)
+        {
+            m_goTrail.transform.position = m_csInputManager.PrimaryPosition();
             yield return null;
         }
     }
 
-    private void SwipeEnd(Vector2 position, float time)
+    private void SwipeEnd(Vector2 vPosition, float fTime)
     {
-        StopCoroutine(coroutine);
-        trail.SetActive(false);
-        trail.GetComponent<TrailRenderer>().Clear();
+        StopCoroutine(m_cTrailCoroutine);
+        m_goTrail.SetActive(false);
+        m_goTrail.GetComponent<TrailRenderer>().Clear();
 
-        if (isBlocking)
+        if (m_bIsBlocking)
         {
-            isBlocking = false;
-            if (shieldCoroutine != null) StopCoroutine(shieldCoroutine);
+            m_bIsBlocking = false;
+            if (m_cShieldCoroutine != null) StopCoroutine(m_cShieldCoroutine);
             Debug.Log(" Bouclier désactivé (fin de touch) !");
-            return; // pas de swipe
+            return;
         }
 
-        endPosition = position;
-        endTime = time;
+        m_vEndPosition = vPosition;
+        m_fEndTime = fTime;
         DetectSwipe();
     }
 
     private void DetectSwipe()
     {
-       if(Vector3.Distance(startPosition, endPosition) >= minimumDistance && (endTime - startTime) <= maximumTime)
+        if (Vector3.Distance(m_vStartPosition, m_vEndPosition) >= m_fMinimumDistance && (m_fEndTime - m_fStartTime) <= m_fMaximumTime)
         {
-           Debug.DrawLine(startPosition, endPosition, Color.red, 5f);
-            Vector3 direction = endPosition - startPosition;
-            Vector2 direction2D = new Vector2(direction.x, direction.y).normalized;
-            SwipeDirection(direction2D);
+            Debug.DrawLine(m_vStartPosition, m_vEndPosition, Color.red, 5f);
+            Vector3 vDirection = m_vEndPosition - m_vStartPosition;
+            Vector2 vDirection2D = new Vector2(vDirection.x, vDirection.y).normalized;
+            SwipeDirection(vDirection2D);
         }
         else
         {
-            Debug.Log("Swipe too short or too slow");
+            Debug.Log("Swipe trop court ou trop lent");
         }
 
         ResetSwipe();
     }
+
     private void ResetSwipe()
     {
-        startPosition = Vector2.zero;
-        endPosition = Vector2.zero;
-        startTime = 0f;
-        endTime = 0f;
+        m_vStartPosition = Vector2.zero;
+        m_vEndPosition = Vector2.zero;
+        m_fStartTime = 0f;
+        m_fEndTime = 0f;
     }
 
     private void ActivateShield()
     {
-        isBlocking = true;
+        m_bIsBlocking = true;
         Debug.Log(" Bouclier activé !");
 
-        if (shieldCoroutine != null)
-            StopCoroutine(shieldCoroutine);
-        shieldCoroutine = StartCoroutine(ShieldDuration());
+        if (m_cShieldCoroutine != null)
+            StopCoroutine(m_cShieldCoroutine);
+        m_cShieldCoroutine = StartCoroutine(ShieldDuration());
     }
 
     private IEnumerator ShieldDuration()
     {
         yield return new WaitForSeconds(2f);
-        if (isBlocking)
+        if (m_bIsBlocking)
         {
-            isBlocking = false;
+            m_bIsBlocking = false;
             Debug.Log("Bouclier désactivé automatiquement après 2s !");
-            // start anim here
         }
     }
 
     private IEnumerator LightAttack()
     {
         yield return new WaitForSeconds(0.25f);
-        if (isDelay)
+        if (m_bIsDelay)
         {
-            isDelay = false;
+            m_bIsDelay = false;
             Debug.Log("Delay light attack");
-           
         }
     }
-
 
     private IEnumerator LongPressDetection()
     {
-        float timer = 0f;
+        float fTimer = 0f;
 
-        while (timer < longPressDuration)
+        while (fTimer < m_fLongPressDuration)
         {
-            if (Vector2.Distance(inputManager.PrimaryPosition(), startPosition) > 0.1f)
+            if (Vector2.Distance(m_csInputManager.PrimaryPosition(), m_vStartPosition) > 0.1f)
             {
-                // Le doigt a bougé, ce n’est pas un long press
                 yield break;
             }
-            timer += Time.deltaTime;
+            fTimer += Time.deltaTime;
             yield return null;
         }
 
-        // Long press détecté
         ActivateShield();
     }
 
-    
-
-    public void ReceiveDamage(float amount)
+    public void ReceiveDamage(float fAmount)
     {
-        if (isBlocking)
+        if (m_bIsBlocking)
         {
             Debug.Log(" Le joueur bloque les dégâts !");
             return;
         }
-        else
-            pv -= amount;
-        pv = Mathf.Max(0, pv);
-        Debug.Log($"🟥 Le joueur prend {amount} dégâts. PV restants : {pv}");
 
-        if (pv <= 0)
+        m_fPv -= fAmount;
+        m_fPv = Mathf.Max(0, m_fPv);
+        Debug.Log($"🟥 Le joueur prend {fAmount} dégâts. PV restants : {m_fPv}");
+
+        if (m_fPv <= 0)
         {
             Debug.Log(" Le joueur est KO !");
-            // TODO: anim, UI, game over etc.
         }
     }
 
-    private void SwipeDirection(Vector2 direction)
+    private void SwipeDirection(Vector2 vDirection)
     {
-        if (combatSystem == null)
+        if (m_csCombatSystem == null)
         {
             Debug.LogError("CombatSystem n’est pas assigné ! Ajoute-le dans l’inspecteur !");
             return;
         }
 
-        if (currentEnemy == null)
+        if (m_csCurrentEnemy == null)
         {
             Debug.Log("Aucun ennemi actif !");
             return;
         }
 
-        if (Vector2.Dot(Vector2.up, direction) > directionTreshold)
+        if (Vector2.Dot(Vector2.up, vDirection) > m_fDirectionTreshold)
         {
-            if (Time.time - lastLegereTime >= cooldownLegere)
+            if (Time.time - m_fLastLegereTime >= m_fCooldownLegere)
             {
-
-                float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
-                currentEnemy.TakeDamage(degats);
-                ShowFloatingDamage(degats, currentEnemy.transform.position + Vector3.up);
-                lastLegereTime = Time.time;
-                //Debug.Log("Attaque légère lancée. PV restants : " + pv);
+                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
+                m_csCurrentEnemy.TakeDamage(fDegats);
+                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+                m_fLastLegereTime = Time.time;
             }
-            else
-            {
-                Debug.Log("Attaque légère en cooldown !");
-            }
+            else Debug.Log("Attaque légère en cooldown !");
         }
-        else if (Vector2.Dot(Vector2.down, direction) > directionTreshold)
+        else if (Vector2.Dot(Vector2.down, vDirection) > m_fDirectionTreshold)
         {
-            if (Time.time - lastLourdeTime >= cooldownLourde)
+            if (Time.time - m_fLastLourdeTime >= m_fCooldownLourde)
             {
-                float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
-                currentEnemy.TakeDamage(degats);
-                ShowFloatingDamage(degats, currentEnemy.transform.position + Vector3.up);
-                lastLourdeTime = Time.time;
-                //Debug.Log("Attaque lourde lancée. PV restants : " + pv);
+                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
+                m_csCurrentEnemy.TakeDamage(fDegats);
+                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+                m_fLastLourdeTime = Time.time;
             }
-            else
-            {
-                Debug.Log("Attaque lourde en cooldown !");
-            }
+            else Debug.Log("Attaque lourde en cooldown !");
         }
-        else if (Vector2.Dot(Vector2.right, direction) > directionTreshold)
+        else if (Vector2.Dot(Vector2.right, vDirection) > m_fDirectionTreshold)
         {
-            if (Time.time - lastMoyenneTime >= cooldownMoyenne)
+            if (Time.time - m_fLastMoyenneTime >= m_fCooldownMoyenne)
             {
-                float degats = combatSystem.GetDegatsInfliges(attaque, currentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
-                currentEnemy.TakeDamage(degats);
-                ShowFloatingDamage(degats, currentEnemy.transform.position + Vector3.up);
-                lastMoyenneTime = Time.time;
-                //Debug.Log("Attaque moyenne lancée. PV restants : " + pv);
+                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
+                m_csCurrentEnemy.TakeDamage(fDegats);
+                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+                m_fLastMoyenneTime = Time.time;
             }
-            else
-            {
-                Debug.Log("Attaque moyenne en cooldown !");
-            }
+            else Debug.Log("Attaque moyenne en cooldown !");
         }
-        else if (Vector2.Dot(Vector2.left, direction) > directionTreshold)
+        else if (Vector2.Dot(Vector2.left, vDirection) > m_fDirectionTreshold)
         {
-            Debug.Log("Swipe Left — aucune attaque ici");
+            Debug.Log("Swipe gauche — aucune attaque");
         }
 
-        Debug.Log("PV restants après attaque : " + currentEnemy.GetHealth());
+        Debug.Log("PV restants après attaque : " + m_csCurrentEnemy.GetHealth());
     }
 
-    private void ShowFloatingDamage(float amount, Vector3 position)
+    private void ShowFloatingDamage(float fAmount, Vector3 vPosition)
     {
-        if (floatingDamagePrefab != null)
+        if (m_goFloatingDamagePrefab != null)
         {
-            GameObject damageText = Instantiate(floatingDamagePrefab, position, Quaternion.identity);
-            FloatingDamageText floating = damageText.GetComponent<FloatingDamageText>();
-            if (floating != null)
+            GameObject goDamageText = Instantiate(m_goFloatingDamagePrefab, vPosition, Quaternion.identity);
+            FloatingDamageText csFloating = goDamageText.GetComponent<FloatingDamageText>();
+            if (csFloating != null)
             {
-                floating.SetDamage(amount);
+                csFloating.SetDamage(fAmount);
             }
         }
     }
-
 }
