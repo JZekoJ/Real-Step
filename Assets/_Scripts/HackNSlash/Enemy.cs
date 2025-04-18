@@ -4,76 +4,86 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
+    #region Statistiques
     [Header("Statistiques")]
-    [SerializeField] private float maxHealth = 100;
-    [SerializeField] private float currentHealth;
-    [SerializeField] private float attackPower = 10;
-    [SerializeField] private float defense = 5;
+    [SerializeField] private float m_fMaxHealth = 100f;
+    [SerializeField] private float m_fCurrentHealth;
+    [SerializeField] private float m_fAttackPower = 10f;
+    [SerializeField] private float m_fDefense = 5f;
+    #endregion
 
+    #region Attaque Auto
     [Header("Attaque automatique")]
-    [SerializeField] private float attackInterval = 2f;
+    [SerializeField] private float m_fAttackInterval = 2f;
+    #endregion
 
-    public UnityEvent onDeath;
+    #region Événements & Références
+    public UnityEvent m_eOnDeath;
+    private Coroutine m_cAttackRoutine;
+    private SwipeDetection m_csPlayer;
+    #endregion
 
-    private Coroutine attackRoutine;
-    private SwipeDetection player;
-
+    //—------Unity Events—----
     private void Awake()
     {
-        currentHealth = maxHealth;
+        m_fCurrentHealth = m_fMaxHealth;
 
-        if (onDeath == null)
-            onDeath = new UnityEvent();
+        if (m_eOnDeath == null)
+            m_eOnDeath = new UnityEvent();
+    }
+    //—------------------
+
+    #region Public Functions
+    public void StartAttacking(SwipeDetection csPlayerTarget)
+    {
+        m_csPlayer = csPlayerTarget;
+
+        if (m_cAttackRoutine != null)
+            StopCoroutine(m_cAttackRoutine);
+
+        m_cAttackRoutine = StartCoroutine(AttackLoop());
     }
 
-    public void StartAttacking(SwipeDetection playerTarget)
+    public void TakeDamage(float fDamage)
     {
-        player = playerTarget;
+        m_fCurrentHealth -= fDamage;
 
-        if (attackRoutine != null)
-            StopCoroutine(attackRoutine);
+        Debug.Log(name + " a pris " + fDamage + " dégâts. HP restants: " + m_fCurrentHealth + "/" + m_fMaxHealth);
 
-        attackRoutine = StartCoroutine(AttackLoop());
-    }
-
-    private IEnumerator AttackLoop()
-    {
-        yield return new WaitForSeconds(attackInterval); // délai initial facultatif
-
-        while (player != null)
-        {
-            player.ReceiveDamage(attackPower);
-            Debug.Log($"{gameObject.name} attaque le joueur pour {attackPower} dégâts !");
-            yield return new WaitForSeconds(attackInterval);
-        }
-    }
-
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-
-        Debug.Log(gameObject.name + " a pris " + damage + " dégâts. HP restants: " + currentHealth + "/" + maxHealth);
-
-        if (currentHealth <= 0)
+        if (m_fCurrentHealth <= 0)
         {
             Die();
         }
     }
 
+    public float GetHealth() { return m_fCurrentHealth; }
+    public float GetMaxHealth() { return m_fMaxHealth; }
+    public float GetAttackPower() { return m_fAttackPower; }
+    public float GetDefense() { return m_fDefense; }
+    #endregion
+
+    #region Private Functions
+    private IEnumerator AttackLoop()
+    {
+        yield return new WaitForSeconds(m_fAttackInterval);
+
+        while (m_csPlayer != null)
+        {
+            m_csPlayer.ReceiveDamage(m_fAttackPower);
+            Debug.Log($"{name} attaque le joueur pour {m_fAttackPower} dégâts !");
+            yield return new WaitForSeconds(m_fAttackInterval);
+        }
+    }
+
     private void Die()
     {
-        Debug.Log(gameObject.name + " est mort !");
-        onDeath.Invoke();
+        Debug.Log(name + " est mort !");
+        m_eOnDeath.Invoke();
 
-        if (attackRoutine != null)
-            StopCoroutine(attackRoutine);
+        if (m_cAttackRoutine != null)
+            StopCoroutine(m_cAttackRoutine);
 
         Destroy(gameObject);
     }
-
-    // Accesseurs
-    public float GetHealth() { return currentHealth; }
-    public float GetMaxHealth() { return maxHealth; }
-    public float GetAttackPower() { return attackPower; }
-    public float GetDefense() { return defense; }
+    #endregion
 }

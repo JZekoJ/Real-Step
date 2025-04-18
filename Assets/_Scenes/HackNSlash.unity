@@ -351,39 +351,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850e04283557a974f90abce1d4b294e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swipeDetection: {fileID: 713021699}
-  tools: {fileID: 713021703}
-  playerScript: {fileID: 713021704}
-  item:
+  m_csSwipeDetection: {fileID: 713021699}
+  m_csTools: {fileID: 713021703}
+  m_csPlayerScript: {fileID: 713021704}
+  m_csItem:
     _iLevel: 0
     _Rarity: 0
     _Type: 0
     _bIsEquiped: 0
     _Stats: 000000000000000000000000000000000000000000000000
-  rooms:
-  - roomName: Room1
-    roomPrefab: {fileID: 7011396332953542708, guid: 38e88cdaa4c3688499a5591cac7c6e2a,
+  m_lRooms:
+  - m_sRoomName: Room 1
+    m_goRoomPrefab: {fileID: 7011396332953542708, guid: 38e88cdaa4c3688499a5591cac7c6e2a,
       type: 3}
-    enemyPrefabs:
+    m_lEnemyPrefabs:
     - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
     - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
     - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
     - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
-  currentRoomIndex: 0
-  roomTransitionDelay: 2
-  roomSpawnPoint: {fileID: 132849136}
-  enemySpawnPoint: {fileID: 322306153}
-  enemySpawnDelay: 1
-  onDungeonCompleted:
+  m_iCurrentRoomIndex: 0
+  m_fRoomTransitionDelay: 2
+  m_tRoomSpawnPoint: {fileID: 0}
+  m_tEnemySpawnPoint: {fileID: 0}
+  m_fEnemySpawnDelay: 1
+  m_eOnDungeonCompleted:
     m_PersistentCalls:
       m_Calls: []
-  onRoomChanged:
+  m_eOnRoomChanged:
     m_PersistentCalls:
       m_Calls: []
-  onEnemySpawned:
+  m_eOnEnemySpawned:
     m_PersistentCalls:
       m_Calls: []
-  onEnemyDefeated:
+  m_eOnEnemyDefeated:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &713021703
