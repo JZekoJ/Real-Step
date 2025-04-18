@@ -144,7 +144,7 @@ public class DungeonManager : MonoBehaviour
 
         if (m_csTools != null)
         {
-            // m_csTools.ChangeScene("Map");
+            m_csTools.ChangeScene("Main");
         }
         else
         {

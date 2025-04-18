@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 using Cinemachine;
 
 public class InventoryScript : MonoBehaviour
@@ -117,28 +113,5 @@ public class InventoryScript : MonoBehaviour
         _ActiveCam.gameObject.SetActive(false);
         _ActiveCam = _VirtualCams[i];
     }
-
-
-    //public void OpenInventory(int type)//pas récupérable sur un bouton
-    //{
-    //    for (int i = 0; i < listSelected.Count; i++)
-    //    {
-    //        Destroy(listSelected[i]);
-    //    }
-    //    listSelected.Clear();
-
-    //    foreach (ScriptableWeapon obj in list)
-    //    {
-    //        if (obj.type == (Weapon_Type)type)
-    //        {
-    //            GameObject go = Instantiate(prefabUI, content.transform);
-    //            go.GetComponent<Weapon>().m_weapon = obj;
-    //            go.GetComponent<Weapon>().Init();
-    //            go.GetComponent<Button>().onClick.AddListener(() => Player.Equip(go.GetComponent<Weapon>().m_weapon));
-    //            listSelected.Add(go);
-    //        }
-    //    }
-    //}
-
 
 }
