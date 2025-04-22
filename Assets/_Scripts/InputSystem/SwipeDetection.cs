@@ -1,4 +1,3 @@
-// Adapté à la nomenclature demandée
 using System.Collections;
 using UnityEngine;
 using FightSysteme;
@@ -36,7 +35,6 @@ public class SwipeDetection : MonoBehaviour
     #endregion
 
     #region Private Variables
-    //—------private—----
     private InputManager m_csInputManager;
     private Enemy m_csCurrentEnemy;
 
@@ -45,25 +43,21 @@ public class SwipeDetection : MonoBehaviour
     private Vector2 m_vEndPosition;
     private float m_fEndTime;
     private bool m_bIsBlocking = false;
-    private bool m_bIsDelay = false;
 
-    private float m_fLastLegereTime = -999f;
-    private float m_fLastMoyenneTime = -999f;
-    private float m_fLastLourdeTime = -999f;
+    private float m_fGlobalDelayUntil = 0f;
 
     private Coroutine m_cTrailCoroutine;
     private Coroutine m_cShieldCoroutine;
-    private Coroutine m_cLightAttackCoroutine;
-    //—------------------
     #endregion
 
-    //—-------public—----
+    #region Public
     public void SetCurrentEnemy(Enemy csEnemy)
     {
         m_csCurrentEnemy = csEnemy;
     }
-    //—------------------
+    #endregion
 
+    #region Unity Events
     private void Awake()
     {
         m_csInputManager = InputManager.Instance;
@@ -81,14 +75,15 @@ public class SwipeDetection : MonoBehaviour
         m_csInputManager.OnStartTouch -= SwipeStart;
         m_csInputManager.OnEndTouch -= SwipeEnd;
     }
+    #endregion
 
+    #region Swipe Logic
     private void SwipeStart(Vector2 vPosition, float fTime)
     {
         m_vStartPosition = vPosition;
         m_fStartTime = fTime;
-        m_goTrail.GetComponent<TrailRenderer>().Clear();
-        m_goTrail.transform.position = vPosition;
-        m_goTrail.SetActive(true);
+
+        m_goTrail.GetComponent<TrailParticleController>()?.PlayTrailAndParticles();
         m_cTrailCoroutine = StartCoroutine(Trail());
         StartCoroutine(LongPressDetection());
     }
@@ -105,14 +100,13 @@ public class SwipeDetection : MonoBehaviour
     private void SwipeEnd(Vector2 vPosition, float fTime)
     {
         StopCoroutine(m_cTrailCoroutine);
-        m_goTrail.SetActive(false);
-        m_goTrail.GetComponent<TrailRenderer>().Clear();
+        m_goTrail.GetComponent<TrailParticleController>()?.StopTrailAndParticles();
 
         if (m_bIsBlocking)
         {
             m_bIsBlocking = false;
             if (m_cShieldCoroutine != null) StopCoroutine(m_cShieldCoroutine);
-            Debug.Log(" Bouclier désactivé (fin de touch) !");
+            Debug.Log("🛡️ Bouclier désactivé (fin de touch) !");
             return;
         }
 
@@ -132,7 +126,7 @@ public class SwipeDetection : MonoBehaviour
         }
         else
         {
-            Debug.Log("Swipe trop court ou trop lent");
+            Debug.Log("❌ Swipe trop court ou trop lent");
         }
 
         ResetSwipe();
@@ -145,11 +139,32 @@ public class SwipeDetection : MonoBehaviour
         m_fStartTime = 0f;
         m_fEndTime = 0f;
     }
+    #endregion
 
+    #region Cooldown Logic
+    private bool IsInGlobalDelay()
+    {
+        return Time.time < m_fGlobalDelayUntil;
+    }
+
+    private void SetGlobalDelay(float delay)
+    {
+        m_fGlobalDelayUntil = Time.time + delay;
+    }
+    #endregion
+
+    #region Défense
     private void ActivateShield()
     {
+        if (IsInGlobalDelay())
+        {
+            Debug.Log("⛔ Bouclier en cooldown !");
+            return;
+        }
+
         m_bIsBlocking = true;
-        Debug.Log(" Bouclier activé !");
+        Debug.Log("🛡️ Bouclier activé !");
+        SetGlobalDelay(1f);
 
         if (m_cShieldCoroutine != null)
             StopCoroutine(m_cShieldCoroutine);
@@ -162,17 +177,7 @@ public class SwipeDetection : MonoBehaviour
         if (m_bIsBlocking)
         {
             m_bIsBlocking = false;
-            Debug.Log("Bouclier désactivé automatiquement après 2s !");
-        }
-    }
-
-    private IEnumerator LightAttack()
-    {
-        yield return new WaitForSeconds(0.25f);
-        if (m_bIsDelay)
-        {
-            m_bIsDelay = false;
-            Debug.Log("Delay light attack");
+            Debug.Log("🛡️ Bouclier désactivé automatiquement après 2s !");
         }
     }
 
@@ -192,12 +197,14 @@ public class SwipeDetection : MonoBehaviour
 
         ActivateShield();
     }
+    #endregion
 
+    #region Dégâts
     public void ReceiveDamage(float fAmount)
     {
         if (m_bIsBlocking)
         {
-            Debug.Log(" Le joueur bloque les dégâts !");
+            Debug.Log("🛡️ Le joueur bloque les dégâts !");
             return;
         }
 
@@ -207,63 +214,62 @@ public class SwipeDetection : MonoBehaviour
 
         if (m_fPv <= 0)
         {
-            Debug.Log(" Le joueur est KO !");
+            Debug.Log("☠️ Le joueur est KO !");
         }
     }
+    #endregion
 
+    #region Attaque
     private void SwipeDirection(Vector2 vDirection)
     {
         if (m_csCombatSystem == null)
         {
-            Debug.LogError("CombatSystem n’est pas assigné ! Ajoute-le dans l’inspecteur !");
+            Debug.LogError("CombatSystem non assigné !");
             return;
         }
 
         if (m_csCurrentEnemy == null)
         {
-            Debug.Log("Aucun ennemi actif !");
+            Debug.Log("❌ Aucun ennemi actif !");
+            return;
+        }
+
+        if (IsInGlobalDelay())
+        {
+            Debug.Log("⏳ Cooldown en cours !");
             return;
         }
 
         if (Vector2.Dot(Vector2.up, vDirection) > m_fDirectionTreshold)
         {
-            if (Time.time - m_fLastLegereTime >= m_fCooldownLegere)
-            {
-                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
-                m_csCurrentEnemy.TakeDamage(fDegats);
-                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-                m_fLastLegereTime = Time.time;
-            }
-            else Debug.Log("Attaque légère en cooldown !");
+            float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
+            m_csCurrentEnemy.TakeDamage(fDegats);
+            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+            SetGlobalDelay(m_fCooldownLegere);
+            Debug.Log("⚔️ Attaque légère !");
         }
         else if (Vector2.Dot(Vector2.down, vDirection) > m_fDirectionTreshold)
         {
-            if (Time.time - m_fLastLourdeTime >= m_fCooldownLourde)
-            {
-                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
-                m_csCurrentEnemy.TakeDamage(fDegats);
-                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-                m_fLastLourdeTime = Time.time;
-            }
-            else Debug.Log("Attaque lourde en cooldown !");
+            float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
+            m_csCurrentEnemy.TakeDamage(fDegats);
+            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+            SetGlobalDelay(m_fCooldownLourde);
+            Debug.Log("💥 Attaque lourde !");
         }
         else if (Vector2.Dot(Vector2.right, vDirection) > m_fDirectionTreshold)
         {
-            if (Time.time - m_fLastMoyenneTime >= m_fCooldownMoyenne)
-            {
-                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
-                m_csCurrentEnemy.TakeDamage(fDegats);
-                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-                m_fLastMoyenneTime = Time.time;
-            }
-            else Debug.Log("Attaque moyenne en cooldown !");
+            float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
+            m_csCurrentEnemy.TakeDamage(fDegats);
+            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+            SetGlobalDelay(m_fCooldownMoyenne);
+            Debug.Log("🥊 Attaque moyenne !");
         }
         else if (Vector2.Dot(Vector2.left, vDirection) > m_fDirectionTreshold)
         {
-            Debug.Log("Swipe gauche — aucune attaque");
+            Debug.Log("⬅️ Swipe gauche — aucune attaque");
         }
 
-        Debug.Log("PV restants après attaque : " + m_csCurrentEnemy.GetHealth());
+        Debug.Log("❤️ PV de l'ennemi : " + m_csCurrentEnemy.GetHealth());
     }
 
     private void ShowFloatingDamage(float fAmount, Vector3 vPosition)
@@ -278,4 +284,5 @@ public class SwipeDetection : MonoBehaviour
             }
         }
     }
+    #endregion
 }
