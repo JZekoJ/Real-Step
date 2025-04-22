@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class Portal : MonoBehaviour
 {
@@ -29,7 +30,9 @@ public class Portal : MonoBehaviour
     {
         m_csSelectedPortal = m_lScriptablePortals[Random.Range(0, 1)];
         m_csTools = FindAnyObjectByType<Tools>();
-        GetComponent<MeshRenderer>().material = m_csSelectedPortal.m_mMaterial;
+        //GetComponent<VisualEffect>().visualEffectAsset.
+        //GetComponent<MeshRenderer>().material = m_csSelectedPortal.m_mMaterial;
+
     }
 
     private void Update()

@@ -9,7 +9,8 @@ public class ScriptablePortal : ScriptableObject
     [Header("Données")]
     [SerializeField] public int m_iIndex;
     [SerializeField] public int m_iDifficulty; // TODO: Peut être transformé en enum
-    [SerializeField] public Material m_mMaterial;
+    //[SerializeField] public Material m_mMaterial;
+    [SerializeField] private Color m_cColor;
     #endregion
 
     // TODO: Ajouter type d'ennemis possibles ?
