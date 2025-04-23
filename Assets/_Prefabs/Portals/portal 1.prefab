@@ -58,7 +58,10 @@ VisualEffect:
     m_Vector3f:
       m_Array: []
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 1024, y: 0, z: 669.59326, w: 0}
+        m_Name: Color
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -151,8 +154,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_lScriptablePortals:
-  - {fileID: 11400000, guid: 4c4426f4859e36c48ab073786595a183, type: 2}
   - {fileID: 11400000, guid: c5589ba89db34754eb6a0259cd754d85, type: 2}
   - {fileID: 11400000, guid: f5d98e2b2b3d7dd469a5f2be33011ec1, type: 2}
+  - {fileID: 11400000, guid: 4c4426f4859e36c48ab073786595a183, type: 2}
+  - {fileID: 11400000, guid: b8c0fb7f53f05ff45a26e4e778c730de, type: 2}
+  - {fileID: 11400000, guid: 16083f8ebc4fec74492df94c054a4047, type: 2}
+  - {fileID: 11400000, guid: a1e095efb904b5e4d863d7adc0ddc4d9, type: 2}
   m_goPortalUIPrefab: {fileID: 1749478230240778643, guid: 917099ea2cbd9d9439710824ba69c549,
     type: 3}

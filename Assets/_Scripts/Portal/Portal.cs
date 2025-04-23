@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
+using UnityEngine.VFX.Utility;
 
 public class Portal : MonoBehaviour
 {
@@ -28,9 +29,11 @@ public class Portal : MonoBehaviour
     //—------Unity Events—----
     private void Start()
     {
-        m_csSelectedPortal = m_lScriptablePortals[Random.Range(0, 1)];
+        m_csSelectedPortal = m_lScriptablePortals[Random.Range(0, m_lScriptablePortals.Count)];
         m_csTools = FindAnyObjectByType<Tools>();
-        //GetComponent<VisualEffect>().visualEffectAsset.
+        ExposedProperty m_MyProperty = "Color";
+
+        GetComponent<VisualEffect>().SetVector4(m_MyProperty, m_csSelectedPortal.m_cColor);
         //GetComponent<MeshRenderer>().material = m_csSelectedPortal.m_mMaterial;
 
     }
