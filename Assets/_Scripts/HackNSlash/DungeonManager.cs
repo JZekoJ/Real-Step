@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class DungeonManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private PlayerScript m_csPlayerScript;
     [SerializeField] private Item m_csItem;
     [SerializeField] private SaveLoadSystem m_csSaveLoadSystem;
+    [SerializeField] private Slider m_sSlider;
     #endregion
 
     #region Room Settings
@@ -199,7 +201,7 @@ public class DungeonManager : MonoBehaviour
         if (iIndex < 0 || iIndex >= m_lCurrentRoomEnemies.Count)
             return;
 
-        GameObject goEnemyInstance = Instantiate(m_lCurrentRoomEnemies[iIndex], m_tEnemySpawnPoint.position, m_tEnemySpawnPoint.rotation);
+        GameObject goEnemyInstance = Instantiate(m_lCurrentRoomEnemies[iIndex], m_tEnemySpawnPoint.transform);
         m_goCurrentEnemy = goEnemyInstance;
 
         Enemy csEnemy = goEnemyInstance.GetComponent<Enemy>();
@@ -233,6 +235,7 @@ public class DungeonManager : MonoBehaviour
     {
         m_bIsWaveActive = false;
         Debug.Log("Vague terminée!");
+        m_sSlider.value++;
         MoveToNextRoom();
     }
 
