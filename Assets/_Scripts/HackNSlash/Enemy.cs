@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float m_fCurrentHealth;
     [SerializeField] private float m_fAttackPower = 10f;
     [SerializeField] private float m_fDefense = 5f;
+    #endregion
+
+    #region UI
+    private Slider m_sSlider;
     #endregion
 
     #region Attaque Auto
@@ -30,6 +35,15 @@ public class Enemy : MonoBehaviour
 
         if (m_eOnDeath == null)
             m_eOnDeath = new UnityEvent();
+
+        m_sSlider = GetComponentInChildren<Slider>();
+        m_sSlider.maxValue = m_fMaxHealth;
+    }
+
+    private void Update()
+    {
+
+        m_sSlider.value = m_fCurrentHealth;
     }
     //—------------------
 
