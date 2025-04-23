@@ -69,4 +69,9 @@ public class InputManager : Singleton<InputManager>
         return Tools.ScreenToWorld(m_camMainCamera, m_csInputSystem.Touch.PrimaryPosition.ReadValue<Vector2>());
     }
     //—------------------
+
+    public Vector2 RawTouchPosition()
+    {
+        return m_csInputSystem.Touch.PrimaryPosition.ReadValue<Vector2>();
+    }
 }
