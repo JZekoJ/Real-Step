@@ -2,60 +2,46 @@ using UnityEngine;
 
 public class CameraSwipeRotation : MonoBehaviour
 {
-    [Header("Swipe Settings")]
-    [SerializeField] private float degreesPerPixel = 0.1f;
+    [SerializeField] private float rotationSpeed = 0.2f;
 
-    private bool isTouching = false;
-    private Vector2 startScreenPos;
-    private float startAngle;
-
-    private float currentAngle;
-
-    private InputManager inputManager;
-    private Camera mainCamera;
-
-    private void Awake()
-    {
-        inputManager = InputManager.Instance;
-        mainCamera = Camera.main;
-        currentAngle = transform.rotation.eulerAngles.y; // Angle de base au départ
-    }
+    private bool isSwiping = false;
+    private Vector2 previousTouchPosition;
 
     private void OnEnable()
     {
-        inputManager.OnStartTouch += OnStartTouch;
-        inputManager.OnEndTouch += OnEndTouch;
+        InputManager.Instance.OnStartTouch += HandleStartTouch;
+        InputManager.Instance.OnEndTouch += HandleEndTouch;
     }
 
     private void OnDisable()
     {
-        inputManager.OnStartTouch -= OnStartTouch;
-        inputManager.OnEndTouch -= OnEndTouch;
-    }
-
-    private void OnStartTouch(Vector2 worldPos, float time)
-    {
-        startScreenPos = mainCamera.WorldToScreenPoint(worldPos);
-        startAngle = currentAngle;
-        isTouching = true;
-    }
-
-    private void OnEndTouch(Vector2 worldPos, float time)
-    {
-        isTouching = false;
+        InputManager.Instance.OnStartTouch -= HandleStartTouch;
+        InputManager.Instance.OnEndTouch -= HandleEndTouch;
     }
 
     private void Update()
     {
-        if (isTouching)
+        if (isSwiping)
         {
-            Vector2 currentScreenPos = mainCamera.WorldToScreenPoint(inputManager.PrimaryPosition());
-            float deltaX = currentScreenPos.x - startScreenPos.x;
+            // ! On récupère la position RAW de l'écran (pas convertie en World)
+            Vector2 currentPosition = InputManager.Instance.RawTouchPosition();
+            float deltaX = currentPosition.x - previousTouchPosition.x;
 
-            // Pas de calcul avec eulerAngles, on reste en float brut
-            currentAngle = startAngle + deltaX * degreesPerPixel;
+            float horizontalRotation = deltaX * rotationSpeed;
+            transform.Rotate(0f, horizontalRotation, 0f);
 
-            transform.rotation = Quaternion.Euler(0f, currentAngle, 0f);
+            previousTouchPosition = currentPosition;
         }
+    }
+
+    private void HandleStartTouch(Vector2 position, float time)
+    {
+        previousTouchPosition = InputManager.Instance.RawTouchPosition();
+        isSwiping = true;
+    }
+
+    private void HandleEndTouch(Vector2 position, float time)
+    {
+        isSwiping = false;
     }
 }
