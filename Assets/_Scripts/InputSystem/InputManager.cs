@@ -19,8 +19,11 @@ public class InputManager : Singleton<InputManager>
     //—------Unity Events—----
     private void Awake()
     {
+        Debug.Log("InputManager Awake");
         m_csInputSystem = new InputSystem();
         m_camMainCamera = Camera.main;
+
+        Start();
     }
 
     private void OnEnable()
