@@ -22,7 +22,11 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private PlayerScript m_csPlayerScript;
     [SerializeField] private Item m_csItem;
     [SerializeField] private SaveLoadSystem m_csSaveLoadSystem;
+    #endregion
+
+    #region UI
     [SerializeField] private Slider m_sSlider;
+    [SerializeField] private Slider m_sBossSlider;
     #endregion
 
     #region Room Settings
@@ -45,6 +49,7 @@ public class DungeonManager : MonoBehaviour
     public UnityEvent<Room> m_eOnRoomChanged;
     public UnityEvent<GameObject> m_eOnEnemySpawned;
     public UnityEvent<GameObject> m_eOnEnemyDefeated;
+    public UnityEvent m_eEndDungeon;
     #endregion
 
     #region Private Variables
@@ -55,6 +60,8 @@ public class DungeonManager : MonoBehaviour
     private GameObject m_goCurrentEnemy;
     private bool m_bIsWaveActive = false;
     #endregion
+
+
 
     private void Awake()
     {
@@ -203,8 +210,15 @@ public class DungeonManager : MonoBehaviour
 
         GameObject goEnemyInstance = Instantiate(m_lCurrentRoomEnemies[iIndex], m_tEnemySpawnPoint.transform);
         m_goCurrentEnemy = goEnemyInstance;
-
+        //goEnemyInstance.GetComponent<Enemy>().m_sBossSlider = m_sBossSlider;
         Enemy csEnemy = goEnemyInstance.GetComponent<Enemy>();
+        
+        if (csEnemy.m_bIsBoss)
+        {
+            csEnemy.m_sSlider = m_sBossSlider;
+            csEnemy.m_sSlider.maxValue = csEnemy.GetMaxHealth();
+            m_eEndDungeon.Invoke();
+        }
         if (csEnemy != null)
         {
             csEnemy.m_eOnDeath.AddListener(() => OnEnemyDefeated(goEnemyInstance));
