@@ -991,10 +991,9 @@ GameObject:
   - component: {fileID: 1301967023}
   - component: {fileID: 1301967022}
   - component: {fileID: 1301967021}
-  - component: {fileID: 1301967020}
   - component: {fileID: 1301967019}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ScriptManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1012,27 +1011,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f43148f451d6d24eb26b0fb6642ef1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopSystem: {fileID: 1301967020}
+  shopSystem: {fileID: 1469571971}
   moneySystem: {fileID: 1301967021}
-  inventory: {fileID: 1301967022}
---- !u!114 &1301967020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301967018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe9d9907fa7c2c4ea263b029a8c0a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneySystem: {fileID: 1301967021}
-  itemsForSale: []
-  shopContainer: {fileID: 1469571970}
-  itemUIPrefab: {fileID: 7439101323876934957, guid: d4593cd480259484a8300f96159bce42,
-    type: 3}
-  generatedItems: []
   inventory: {fileID: 1301967022}
 --- !u!114 &1301967021
 MonoBehaviour:
@@ -1165,6 +1145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1469571970}
+  - component: {fileID: 1469571971}
   m_Layer: 5
   m_Name: Shop
   m_TagString: Untagged
@@ -1200,6 +1181,25 @@ RectTransform:
   m_AnchoredPosition: {x: 23, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1469571971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469571969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe9d9907fa7c2c4ea263b029a8c0a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneySystem: {fileID: 1301967021}
+  itemsForSale: []
+  shopContainer: {fileID: 1469571970}
+  itemUIPrefab: {fileID: 7439101323876934957, guid: d4593cd480259484a8300f96159bce42,
+    type: 3}
+  generatedItems: []
+  inventory: {fileID: 1301967022}
 --- !u!1 &1645508470
 GameObject:
   m_ObjectHideFlags: 0
