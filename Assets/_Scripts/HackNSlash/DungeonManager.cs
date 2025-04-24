@@ -77,6 +77,12 @@ public class DungeonManager : MonoBehaviour
     #region Gestion du Donjon
     public void StartDungeon()
     {
+        if (DungeonTransfer.EnemiesToSpawn != null && DungeonTransfer.EnemiesToSpawn.Count > 0 && m_lRooms.Count > 0)
+        {
+            m_lRooms[0].m_lEnemyPrefabs = new List<GameObject>(DungeonTransfer.EnemiesToSpawn);
+            DungeonTransfer.EnemiesToSpawn.Clear(); 
+        }
+
         m_bIsDungeonCompleted = false;
         m_iCurrentRoomIndex = 0;
         SpawnRoom(m_iCurrentRoomIndex);
