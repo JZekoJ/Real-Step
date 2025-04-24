@@ -20,7 +20,7 @@ public class InventoryScript : MonoBehaviour
 
     private void Awake()
     {
-        ReferenceManager.SaveLoader.OnLoadSave.AddListener(InitInventory);
+        //ReferenceManager.SaveLoader.OnLoadSave.AddListener(InitInventory);
     }
 
     #region PlayerInventory
