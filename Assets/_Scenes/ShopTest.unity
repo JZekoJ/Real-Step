@@ -1179,7 +1179,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 23, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1469571971
 MonoBehaviour:
@@ -1196,7 +1196,7 @@ MonoBehaviour:
   moneySystem: {fileID: 1301967021}
   itemsForSale: []
   shopContainer: {fileID: 1469571970}
-  itemUIPrefab: {fileID: 7439101323876934957, guid: d4593cd480259484a8300f96159bce42,
+  itemUIPrefab: {fileID: 7439101323876934957, guid: 473248c08497aea4e9ae1b70fabe7768,
     type: 3}
   generatedItems: []
   inventory: {fileID: 1301967022}
