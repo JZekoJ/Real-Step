@@ -49,8 +49,7 @@ public class ShopSystem : MonoBehaviour
         if (moneySystem.CurrentMoney >= price)
         {
             moneySystem.RemoveMoney(price);
-            ReferenceManager.Player.PlayerData._itemList.Add(item);
-            inventory.InitInventory();
+            //inventory.InitInventory();
             Debug.Log("Acheté : " + item._Type + " niveau " + item._iLevel + " pour " + price + " pièces.");
         }
         else
@@ -86,7 +85,6 @@ public class ShopSystem : MonoBehaviour
 
     public int CalculatePrice(Item item)
     {
-        // 1. Valeur de base par rareté
         int rarityMultiplier = item._Rarity switch
         {
             ItemRarity.E => 1,
@@ -98,10 +96,8 @@ public class ShopSystem : MonoBehaviour
             _ => 1
         };
 
-        // 2. Valeur de base selon niveau
         int levelValue = item._iLevel * 5;
 
-        // 3. Bonus selon somme des stats
         int statBonus = 0;
         foreach (int stat in item._Stats)
         {
