@@ -364,11 +364,7 @@ MonoBehaviour:
   - m_sRoomName: Room 1
     m_goRoomPrefab: {fileID: 7011396332953542708, guid: 38e88cdaa4c3688499a5591cac7c6e2a,
       type: 3}
-    m_lEnemyPrefabs:
-    - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
-    - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
-    - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
-    - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
+    m_lEnemyPrefabs: []
   m_iCurrentRoomIndex: 0
   m_fRoomTransitionDelay: 2
   m_tRoomSpawnPoint: {fileID: 0}
@@ -674,6 +670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1368913847}
   - component: {fileID: 1368913846}
+  - component: {fileID: 1368913848}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -757,6 +754,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1368913848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368913845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!224 &1421850553 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3060801893292159221, guid: 2307166a15965854d8a37867dc3e775f,

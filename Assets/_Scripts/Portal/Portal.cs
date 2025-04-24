@@ -56,7 +56,17 @@ public class Portal : MonoBehaviour
                 m_btCloseWindow = m_goPortalUIInstance.GetComponentsInChildren<Button>()[1];
                 m_tmpDifficulty = m_goPortalUIInstance.GetComponentInChildren<TextMeshProUGUI>();
 
-                m_btEnterDungeon.onClick.AddListener(() => m_csTools.ChangeScene("HackNSlash"));
+                m_btEnterDungeon.onClick.AddListener(() =>
+                {
+                    PortalEnemies portalEnemies = GetComponent<PortalEnemies>();
+                    if (portalEnemies != null)
+                    {
+                        DungeonTransfer.EnemiesToSpawn = portalEnemies.GetGeneratedEnemies();
+                    }
+
+                    m_csTools.ChangeScene("HackNSlash");
+                });
+
                 m_btCloseWindow.onClick.AddListener(CloseWindow);
                 m_tmpDifficulty.text = "Difficulty : " + m_csSelectedPortal.m_iDifficulty.ToString();
             }
