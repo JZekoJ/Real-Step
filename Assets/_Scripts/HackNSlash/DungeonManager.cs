@@ -22,7 +22,11 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private PlayerScript m_csPlayerScript;
     [SerializeField] private Item m_csItem;
     [SerializeField] private SaveLoadSystem m_csSaveLoadSystem;
+    #endregion
+
+    #region UI
     [SerializeField] private Slider m_sSlider;
+    [SerializeField] private Slider m_sBossSlider;
     #endregion
 
     #region UI
