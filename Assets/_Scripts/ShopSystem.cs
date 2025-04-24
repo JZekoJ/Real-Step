@@ -21,6 +21,10 @@ public class ShopSystem : MonoBehaviour
 
     public InventoryScript inventory;
 
+    private void Start()
+    {
+        GenerateRandomItems();
+    }
     private List<int> GenerateStats()
     {
         List<int> stats = new List<int>();
