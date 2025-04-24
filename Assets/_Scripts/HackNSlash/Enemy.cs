@@ -11,10 +11,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float m_fCurrentHealth;
     [SerializeField] private float m_fAttackPower = 10f;
     [SerializeField] private float m_fDefense = 5f;
+    [SerializeField] public bool m_bIsBoss;
     #endregion
 
     #region UI
-    private Slider m_sSlider;
+    public Slider m_sSlider;
+    //public Slider m_sBossSlider;
     #endregion
 
     #region Attaque Auto
@@ -36,15 +38,19 @@ public class Enemy : MonoBehaviour
         if (m_eOnDeath == null)
             m_eOnDeath = new UnityEvent();
 
-        m_sSlider = GetComponentInChildren<Slider>();
-        m_sSlider.maxValue = m_fMaxHealth;
+        if (!m_bIsBoss)
+        {
+            m_sSlider = GetComponentInChildren<Slider>();
+            m_sSlider.maxValue = m_fMaxHealth;
+        }
+        
     }
 
     private void Update()
     {
-
         m_sSlider.value = m_fCurrentHealth;
     }
+
     //—------------------
 
     #region Public Functions

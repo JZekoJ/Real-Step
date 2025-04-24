@@ -215,16 +215,16 @@ MonoBehaviour:
     _Type: 0
     _bIsEquiped: 0
     _Stats: 000000000000000000000000000000000000000000000000
-  Empty: {fileID: 21300000, guid: edd7a5cca4f32e14b821168fb7e23f73, type: 3}
-  Rarity0: {fileID: 21300000, guid: 0801bfe14e8c3e64e8eb902a9680f2cc, type: 3}
-  Rarity1: {fileID: 21300000, guid: a97f12dd1d2b1fe4983ca18aab54518c, type: 3}
-  Rarity2: {fileID: 21300000, guid: 597e3129982d6b04b9e9e0db13cb44df, type: 3}
-  Rarity3: {fileID: 21300000, guid: c852a9782cf4cae429e44c6e93547c1d, type: 3}
-  Rarity4: {fileID: 21300000, guid: 56c22b2eea4b3ce469f145687f7ba4c5, type: 3}
-  Rarity5: {fileID: 21300000, guid: 80ce14b81cebea44c8ffe5e4b910fc08, type: 3}
-  Weapon: {fileID: 21300000, guid: f0d3afe421c80054bb3d6f49479282c0, type: 3}
-  Head: {fileID: 21300000, guid: 512b819cc59b08a439c89bd16df732ef, type: 3}
-  Chest: {fileID: 21300000, guid: 10a60baa604d4014c9041fec4b5b011b, type: 3}
-  Boot: {fileID: 21300000, guid: e64f1f91c12dc024298babf11302a081, type: 3}
-  Legging: {fileID: 21300000, guid: 02b7c03dc908e924cb10e8d156cd7114, type: 3}
-  Gauntlet: {fileID: 21300000, guid: d9d1af6145d998a44b471aabcb610b52, type: 3}
+  Empty: {fileID: 21300000, guid: d482d88b52faec146821a86953bf78e0, type: 3}
+  Rarity0: {fileID: 21300000, guid: d0e847de53d765b4983e1a3e97244c76, type: 3}
+  Rarity1: {fileID: 21300000, guid: dd4bb38305b29f34293166529e4a40dc, type: 3}
+  Rarity2: {fileID: 21300000, guid: 50327a252a0f99d4a99376c9d732c83b, type: 3}
+  Rarity3: {fileID: 21300000, guid: eac99216dca096b47b44ab61873acc66, type: 3}
+  Rarity4: {fileID: 21300000, guid: f4065b478978b1b48bdce6969da85904, type: 3}
+  Rarity5: {fileID: 21300000, guid: d47ccfc7165b75e4887d29478bf62062, type: 3}
+  Weapon: {fileID: 21300000, guid: 4c2e653dd47db4647b825f16ea9b2240, type: 3}
+  Head: {fileID: 21300000, guid: da36dba9c46306945be10dee8e5bf14a, type: 3}
+  Chest: {fileID: 21300000, guid: 67d8ddb3329b97048a8bcd3eb2883f84, type: 3}
+  Boot: {fileID: 21300000, guid: 6c093d5ba1b2da64683329bc3a195a16, type: 3}
+  Legging: {fileID: 21300000, guid: b6e66d8dd6e766a4d8c334bb296240df, type: 3}
+  Gauntlet: {fileID: 21300000, guid: b74bfb524a6742f4da46c296d6697489, type: 3}
