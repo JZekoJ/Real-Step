@@ -7,6 +7,9 @@ public class Tools : MonoBehaviour
 {
     #region Private Variables
     private int m_iUILayer;
+
+    public static bool m_bOpenInv;
+    public static bool m_bOpenShop;
     #endregion
 
     //—------Unity Events—----
@@ -35,7 +38,19 @@ public class Tools : MonoBehaviour
 
     public void ChangeScene(string sSceneName)
     {
+        Tools.m_bOpenInv = false;
+        Tools.m_bOpenShop = false;
         SceneManager.LoadScene(sSceneName);
+    }
+
+    public void GoInventory()
+    {
+        Tools.m_bOpenInv = true;
+    }
+
+    public void GoShop()
+    {
+        Tools.m_bOpenShop = true;
     }
     #endregion
 
