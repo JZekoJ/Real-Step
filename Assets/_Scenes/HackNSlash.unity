@@ -7310,7 +7310,7 @@ MonoBehaviour:
   - m_sRoomName: Room1
     m_goRoomPrefab: {fileID: 132849135}
     m_lEnemyPrefabs: []
-  - m_sRoomName: Room2
+  - m_sRoomName: Room1
     m_goRoomPrefab: {fileID: 132849135}
     m_lEnemyPrefabs: []
   m_iCurrentRoomIndex: 0
