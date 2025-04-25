@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1718831587385511711}
   - component: {fileID: -7987345349398981605}
   - component: {fileID: 4332809420732439841}
+  - component: {fileID: 6208904772550806227}
   m_Layer: 0
   m_Name: portal 1
   m_TagString: Untagged
@@ -175,8 +176,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0507a6756ad453e498b0da19d66a3959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lAvailableEnemyPrefabs:
+  m_csEnemyGenerator: {fileID: 6208904772550806227}
+  m_iEnemyCount: 6
+--- !u!114 &6208904772550806227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7633414054090096623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2177f22b7d0d7f43b3616c7a2f141bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_lEnemyPool:
   - {fileID: 9214851089653045696, guid: 5f6dcd72bce16cd4eb612b227b99842f, type: 3}
   - {fileID: 9214851089653045696, guid: 5f6dcd72bce16cd4eb612b227b99842f, type: 3}
-  - {fileID: 9214851089653045696, guid: 5f6dcd72bce16cd4eb612b227b99842f, type: 3}
-  m_iEnemyCount: 4
+  m_goBossPrefab: {fileID: 1429088715251187627, guid: b9a2f9e47afb9964ca2e4ce463fbc2b7,
+    type: 3}
+  m_iRoomCount: 2
+  m_iEnemiesPerRoom: 3

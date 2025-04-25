@@ -7154,6 +7154,7 @@ GameObject:
   - component: {fileID: 713021705}
   - component: {fileID: 713021706}
   - component: {fileID: 713021707}
+  - component: {fileID: 713021708}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -7302,6 +7303,7 @@ MonoBehaviour:
     _Type: 0
     _bIsEquiped: 0
     _Stats: 000000000000000000000000000000000000000000000000
+  m_csEnemyGenerator: {fileID: 713021708}
   m_sSlider: {fileID: 467924840}
   m_sBossSlider: {fileID: 371924118}
   m_lRooms:
@@ -7316,6 +7318,8 @@ MonoBehaviour:
   m_tRoomSpawnPoint: {fileID: 132849136}
   m_tEnemySpawnPoint: {fileID: 322306153}
   m_fEnemySpawnDelay: 1
+  m_goBossPrefab: {fileID: 1429088715251187627, guid: b9a2f9e47afb9964ca2e4ce463fbc2b7,
+    type: 3}
   m_eOnDungeonCompleted:
     m_PersistentCalls:
       m_Calls: []
@@ -7331,6 +7335,25 @@ MonoBehaviour:
   m_eEndDungeon:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &713021708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713021696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2177f22b7d0d7f43b3616c7a2f141bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_lEnemyPool:
+  - {fileID: 9214851089653045696, guid: 5f6dcd72bce16cd4eb612b227b99842f, type: 3}
+  - {fileID: 9214851089653045696, guid: 5f6dcd72bce16cd4eb612b227b99842f, type: 3}
+  m_goBossPrefab: {fileID: 3986801321601181482}
+  m_iRoomCount: 2
+  m_iMinEnemiesPerRoom: 2
+  m_iMaxEnemiesPerRoom: 4
 --- !u!1 &720908096
 GameObject:
   m_ObjectHideFlags: 0
@@ -11532,6 +11555,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9a2f9e47afb9964ca2e4ce463fbc2b7, type: 3}
+--- !u!1 &3986801321601181482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1429088715251187627, guid: b9a2f9e47afb9964ca2e4ce463fbc2b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 3986801321601181481}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

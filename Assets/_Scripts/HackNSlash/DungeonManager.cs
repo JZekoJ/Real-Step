@@ -22,6 +22,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private PlayerScript m_csPlayerScript;
     [SerializeField] private Item m_csItem;
     [SerializeField] private SaveLoadSystem m_csSaveLoadSystem;
+    [SerializeField] private EnemyGenerator m_csEnemyGenerator;
     #endregion
 
     #region UI
@@ -41,6 +42,8 @@ public class DungeonManager : MonoBehaviour
     [Header("Paramètres de Spawn")]
     [SerializeField] private Transform m_tEnemySpawnPoint;
     [SerializeField] private float m_fEnemySpawnDelay = 1f;
+    [Header("Boss Settings")]
+    [SerializeField] private GameObject m_goBossPrefab;
     #endregion
 
     #region Events
@@ -86,15 +89,12 @@ public class DungeonManager : MonoBehaviour
     #region Gestion du Donjon
     public void StartDungeon()
     {
-        if (DungeonTransfer.EnemiesToSpawn != null && DungeonTransfer.EnemiesToSpawn.Count > 0 && m_lRooms.Count > 0)
-        {
-            m_lRooms[0].m_lEnemyPrefabs = new List<GameObject>(DungeonTransfer.EnemiesToSpawn);
-            DungeonTransfer.EnemiesToSpawn.Clear(); 
-        }
-
         m_bIsDungeonCompleted = false;
         m_iCurrentRoomIndex = 0;
-        SpawnRoom(m_iCurrentRoomIndex);
+        m_lRooms.Clear();
+
+        CreateGeneratedRooms(); // ← auto-génération ici
+        SpawnRoom(m_iCurrentRoomIndex); // et on lance la première
     }
 
     private void SpawnRoom(int iRoomIndex)
@@ -122,10 +122,18 @@ public class DungeonManager : MonoBehaviour
             Debug.LogWarning($"Préfab de room manquant pour {currentRoom.m_sRoomName}");
         }
 
+        //  Si c'est la dernière room et qu'il y a au moins un ennemi, on remplace le dernier par le boss
+        if (iRoomIndex == m_lRooms.Count - 1 && m_goBossPrefab != null && currentRoom.m_lEnemyPrefabs.Count > 0)
+        {
+            currentRoom.m_lEnemyPrefabs[currentRoom.m_lEnemyPrefabs.Count - 1] = m_goBossPrefab;
+            Debug.Log(" Boss assigné comme dernier ennemi de la dernière room");
+        }
+
         m_eOnRoomChanged?.Invoke(currentRoom);
         StartWave(currentRoom.m_lEnemyPrefabs);
         Debug.Log($"Démarrage de la room {currentRoom.m_sRoomName} avec {currentRoom.m_lEnemyPrefabs.Count} ennemis");
     }
+
 
     private void MoveToNextRoom()
     {
@@ -250,8 +258,9 @@ public class DungeonManager : MonoBehaviour
         m_bIsWaveActive = false;
         Debug.Log("Vague terminée!");
         m_sSlider.value++;
-        MoveToNextRoom();
+        MoveToNextRoom(); 
     }
+
 
     private void ClearCurrentWave()
     {
@@ -264,6 +273,19 @@ public class DungeonManager : MonoBehaviour
         m_iCurrentEnemyIndex = 0;
         m_bIsWaveActive = false;
     }
+
+    private void CreateGeneratedRooms()
+    {
+        List<List<GameObject>> generated = m_csEnemyGenerator.GenerateAllRooms();
+        for (int i = 0; i < generated.Count; i++)
+        {
+            Room r = new Room();
+            r.m_sRoomName = $"Room_{i + 1}";
+            r.m_lEnemyPrefabs = generated[i];
+            m_lRooms.Add(r);
+        }
+    }
+
 
     public bool IsWaveActive() => m_bIsWaveActive;
     public GameObject GetCurrentEnemy() => m_goCurrentEnemy;
