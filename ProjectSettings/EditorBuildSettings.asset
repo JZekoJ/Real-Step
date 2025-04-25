@@ -17,6 +17,8 @@ EditorBuildSettings:
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
       guid: a0938050518641d42a4f59776123f089, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 82c07ae862dc442429ccbd188d3c997d,
+      type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: b84e097bb606c3447b6646cbc44d87ae, type: 2}
   m_UseUCBPForAssetBundles: 0
