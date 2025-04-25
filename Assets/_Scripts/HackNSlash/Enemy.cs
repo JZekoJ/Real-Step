@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
         if (m_cAttackRoutine != null)
             StopCoroutine(m_cAttackRoutine);
 
-        m_animator.SetTrigger("TriggerMove"); // Lancement de l'anim Move quand il commence à combattre
+        m_animator.SetTrigger("TriggerMove"); 
 
         m_cAttackRoutine = StartCoroutine(AttackLoop());
     }
@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float fDamage)
     {
         m_fCurrentHealth -= fDamage;
-        m_animator.SetTrigger("TriggerTakeDar"); // Animation de dégâts
+        m_animator.SetTrigger("TriggerTakeDamage"); 
 
         Debug.Log(name + " a pris " + fDamage + " dégâts. HP restants: " + m_fCurrentHealth + "/" + m_fMaxHealth);
 
