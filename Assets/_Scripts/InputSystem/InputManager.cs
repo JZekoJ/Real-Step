@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [DefaultExecutionOrder(-1)]
 public class InputManager : Singleton<InputManager>
@@ -29,11 +30,18 @@ public class InputManager : Singleton<InputManager>
     private void OnEnable()
     {
         m_csInputSystem.Enable();
+        SceneManager.activeSceneChanged += OnSceneChanged;
     }
 
     private void OnDisable()
     {
         m_csInputSystem.Disable();
+        SceneManager.activeSceneChanged -= OnSceneChanged;
+    }
+
+    private void OnSceneChanged(Scene oldScene, Scene newScene)
+    {
+        m_camMainCamera = Camera.main;
     }
 
     private void Start()
