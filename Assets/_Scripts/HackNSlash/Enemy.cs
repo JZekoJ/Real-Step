@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     public UnityEvent m_eOnDeath;
     private Coroutine m_cAttackRoutine;
     private SwipeDetection m_csPlayer;
+    private Animator m_animator;
+
     #endregion
 
     //—------Unity Events—----
@@ -38,17 +40,18 @@ public class Enemy : MonoBehaviour
         if (m_eOnDeath == null)
             m_eOnDeath = new UnityEvent();
 
-        if (!m_bIsBoss)
-        {
-            m_sSlider = GetComponentInChildren<Slider>();
-            m_sSlider.maxValue = m_fMaxHealth;
-        }
-        
+        /*m_sSlider = GetComponentInChildren<Slider>();
+        m_sSlider.maxValue = m_fMaxHealth;*/
+
+        m_animator = GetComponent<Animator>();
+
+        // On commence en Idl
+        m_animator.SetTrigger("TriggerIdle");
     }
 
     private void Update()
     {
-        m_sSlider.value = m_fCurrentHealth;
+        //m_sSlider.value = m_fCurrentHealth;
     }
 
     //—------------------
@@ -61,18 +64,25 @@ public class Enemy : MonoBehaviour
         if (m_cAttackRoutine != null)
             StopCoroutine(m_cAttackRoutine);
 
+        m_animator.SetTrigger("TriggerMove"); // Lancement de l'anim Move quand il commence à combattre
+
         m_cAttackRoutine = StartCoroutine(AttackLoop());
     }
 
     public void TakeDamage(float fDamage)
     {
         m_fCurrentHealth -= fDamage;
+        m_animator.SetTrigger("TriggerTakeDar"); // Animation de dégâts
 
         Debug.Log(name + " a pris " + fDamage + " dégâts. HP restants: " + m_fCurrentHealth + "/" + m_fMaxHealth);
 
         if (m_fCurrentHealth <= 0)
         {
             Die();
+        }
+        else
+        {
+            StartCoroutine(ReturnToIdleAfterDelay(0.5f));
         }
     }
 
@@ -89,21 +99,31 @@ public class Enemy : MonoBehaviour
 
         while (m_csPlayer != null)
         {
+            m_animator.SetTrigger("TriggerAttack"); // Animation d’attaque
             m_csPlayer.ReceiveDamage(m_fAttackPower);
-            Debug.Log($"{name} attaque le joueur pour {m_fAttackPower} dégâts !");
+
             yield return new WaitForSeconds(m_fAttackInterval);
+
+            m_animator.SetTrigger("TriggerIdle"); // Retour à Idle après attaque
         }
     }
 
     private void Die()
     {
-        Debug.Log(name + " est mort !");
+        m_animator.SetTrigger("TriggerDeath");
+
         m_eOnDeath.Invoke();
 
         if (m_cAttackRoutine != null)
             StopCoroutine(m_cAttackRoutine);
 
-        Destroy(gameObject);
+        Destroy(gameObject, 1.5f); // attend la fin de l'anim Death
+    }
+
+    private IEnumerator ReturnToIdleAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        m_animator.SetTrigger("TriggerIdle");
     }
     #endregion
 }
