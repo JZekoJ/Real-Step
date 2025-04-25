@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe9d9907fa7c2c4ea263b029a8c0a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMeshPro: {fileID: 658998415539819721}
   moneySystem: {fileID: 0}
   itemsForSale: []
   itemUIPrefab: {fileID: 7439101323876934957, guid: 473248c08497aea4e9ae1b70fabe7768,

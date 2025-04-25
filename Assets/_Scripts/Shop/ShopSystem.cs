@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ShopSystem : MonoBehaviour
 {
@@ -12,11 +13,17 @@ public class ShopSystem : MonoBehaviour
         public int price;
     }
 
+    public TextMeshProUGUI textMeshPro;
+
     public MoneySystem moneySystem;
     public ShopItem[] itemsForSale;
 
     public GameObject itemUIPrefab;
     public List<Item> generatedItems = new List<Item>();
+
+
+
+    private int price;
 
     public InventoryScript inventory;
 
@@ -43,7 +50,6 @@ public class ShopSystem : MonoBehaviour
         }
 
         Item item = generatedItems[index];
-        int price = CalculatePrice(item);
 
         if (moneySystem.CurrentMoney >= price)
         {
@@ -63,20 +69,24 @@ public class ShopSystem : MonoBehaviour
         generatedItems.Clear();
 
         Item newItem = new Item
-            {
-                _iLevel = UnityEngine.Random.Range(1, 20),
-                _Rarity = (ItemRarity)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(ItemRarity)).Length),
-                _Type = (ItemType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(ItemType)).Length),
-                _bIsEquiped = false,
-                _Stats = GenerateStats()
-            };
+        {
+            _iLevel = UnityEngine.Random.Range(1, 20),
+            _Rarity = (ItemRarity)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(ItemRarity)).Length),
+            _Type = (ItemType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(ItemType)).Length),
+            _bIsEquiped = false,
+            _Stats = GenerateStats()
+        };
 
-            GameObject uiObj = Instantiate(itemUIPrefab, this.transform);
-            ItemUIScript itemUI = uiObj.GetComponent<ItemUIScript>();
-            itemUI._EquipItem = newItem;
-            itemUI.Init();
+        GameObject uiObj = Instantiate(itemUIPrefab, this.transform);
+        ItemUIScript itemUI = uiObj.GetComponent<ItemUIScript>();
+        itemUI._EquipItem = newItem;
+        itemUI.Init();
 
-            generatedItems.Add(newItem);
+        price = CalculatePrice(newItem);
+
+        textMeshPro.text = price.ToString();
+
+        generatedItems.Add(newItem);
     }
 
     public int CalculatePrice(Item item)
