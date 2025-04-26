@@ -71,7 +71,7 @@ public class Item
     public ItemType _Type;
     public bool _bIsEquiped;
 
-    public List<int> _Stats = new List<int> { 0, 0, 0, 0, 0, 0 };
+    public List<int> _Stats = new List<int> { 10, 0, 0, 0, 0, 0 };
 
 }
 
