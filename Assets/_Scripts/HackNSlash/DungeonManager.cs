@@ -25,6 +25,9 @@ public class DungeonManager : MonoBehaviour
     #endregion
 
     #region UI
+    [SerializeField] private GameObject m_gPrefabItem;
+    [SerializeField] private GameObject m_gContentItemObtain;
+
     [SerializeField] private Slider m_sSlider;
     [SerializeField] private Slider m_sBossSlider;
     #endregion
@@ -151,10 +154,29 @@ public class DungeonManager : MonoBehaviour
 
         Item csItem = new Item();
         csItem._iLevel = 1;
-        csItem._Rarity = ItemRarity.B;
+        csItem._Rarity = ItemRarity.A;
         csItem._Type = ItemType.Weapon;
-        csItem._Stats[(int)ItemStats.Strength] = 10;
+        csItem._Stats[(int)ItemStats.Strength] = 20;
+
+        Item csItem1 = new Item();
+        csItem1._iLevel = 1;
+        csItem1._Rarity = ItemRarity.C;
+        csItem1._Type = ItemType.Weapon;
+        csItem1._Stats[(int)ItemStats.Strength] = 5;
+        csItem1._Stats[(int)ItemStats.Vita] = 50;
+
+        //
+        GameObject UIBtn = Instantiate(m_gPrefabItem, m_gContentItemObtain.transform);
+        UIBtn.GetComponent<ItemUIScript>()._EquipItem = csItem;
+        UIBtn.GetComponent<ItemUIScript>().Init();
+
         ReferenceManager.Player.AddItem(csItem);
+
+        GameObject UIBtn1 = Instantiate(m_gPrefabItem, m_gContentItemObtain.transform);
+        UIBtn1.GetComponent<ItemUIScript>()._EquipItem = csItem1;
+        UIBtn1.GetComponent<ItemUIScript>().Init();
+
+        ReferenceManager.Player.AddItem(csItem1);
         SaveLoadSystem.Save(ReferenceManager.Player);
 
         m_bIsDungeonCompleted = true;
