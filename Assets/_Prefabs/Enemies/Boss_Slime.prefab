@@ -26,37 +26,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.3
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
+        type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.020286052
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99979424
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}
@@ -66,7 +66,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 177.675
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc57166a88efb5a47a9bb190d4d50de6,
         type: 3}

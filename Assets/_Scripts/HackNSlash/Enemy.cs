@@ -99,12 +99,12 @@ public class Enemy : MonoBehaviour
 
         while (m_csPlayer != null)
         {
-            m_animator.SetTrigger("TriggerAttack"); // Animation d’attaque
+            m_animator.SetTrigger("TriggerAttack"); 
             m_csPlayer.ReceiveDamage(m_fAttackPower);
 
             yield return new WaitForSeconds(m_fAttackInterval);
 
-            m_animator.SetTrigger("TriggerIdle"); // Retour à Idle après attaque
+            m_animator.SetTrigger("TriggerIdle"); 
         }
     }
 
@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour
         if (m_cAttackRoutine != null)
             StopCoroutine(m_cAttackRoutine);
 
-        Destroy(gameObject, 1.5f); // attend la fin de l'anim Death
+        Destroy(gameObject, 1.5f); 
     }
 
     private IEnumerator ReturnToIdleAfterDelay(float delay)
@@ -125,5 +125,15 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(delay);
         m_animator.SetTrigger("TriggerIdle");
     }
+    
+    /*private void PlayAnimation(string triggerName)
+    {
+        if (CompareTag("Boss"))
+        {
+            triggerName = "Boss" + triggerName;
+        }
+
+        m_animator.SetTrigger(triggerName);
+    }*/
     #endregion
 }
