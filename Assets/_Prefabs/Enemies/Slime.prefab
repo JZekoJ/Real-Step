@@ -81,13 +81,13 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d4f54efb0c6bf824d92fa078fb248b26,
         type: 3}
       propertyPath: m_Name
-      value: Slime 1
+      value: Slime
       objectReference: {fileID: 0}
     - target: {fileID: 3803877538607790504, guid: d4f54efb0c6bf824d92fa078fb248b26,
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: ba7af30d626194447941e79958c4291f, type: 2}
+      objectReference: {fileID: 2100000, guid: c754fc949b41c22428f07c4c58f0a2c9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
