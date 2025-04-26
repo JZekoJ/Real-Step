@@ -247,6 +247,7 @@ public class SwipeDetection : MonoBehaviour
             ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
             SetGlobalDelay(m_fCooldownLegere);
             Debug.Log("⚔️ Attaque légère !");
+            Vibrator.Vibrate(100); 
         }
         else if (Vector2.Dot(Vector2.down, vDirection) > m_fDirectionTreshold)
         {
@@ -255,6 +256,7 @@ public class SwipeDetection : MonoBehaviour
             ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
             SetGlobalDelay(m_fCooldownLourde);
             Debug.Log("💥 Attaque lourde !");
+            Vibrator.Vibrate(300);
         }
         else if (Vector2.Dot(Vector2.right, vDirection) > m_fDirectionTreshold)
         {
@@ -263,6 +265,7 @@ public class SwipeDetection : MonoBehaviour
             ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
             SetGlobalDelay(m_fCooldownMoyenne);
             Debug.Log("🥊 Attaque moyenne !");
+            Vibrator.Vibrate(200);
         }
         else if (Vector2.Dot(Vector2.left, vDirection) > m_fDirectionTreshold)
         {
