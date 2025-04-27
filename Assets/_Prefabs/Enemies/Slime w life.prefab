@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 4490188546902651722}
   - component: {fileID: 7574049653079120718}
   - component: {fileID: 8523859935484664403}
+  - component: {fileID: -7004374526691660284}
   m_Layer: 0
   m_Name: Slime w life
   m_TagString: Untagged
@@ -200,10 +201,34 @@ MonoBehaviour:
   m_fCurrentHealth: 0
   m_fAttackPower: 10
   m_fDefense: 5
+  m_bIsBoss: 0
+  m_sSlider: {fileID: 0}
   m_fAttackInterval: 2
   m_eOnDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &-7004374526691660284
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2371088086044862426}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 54bed88eb8b20ff458c5d160eaa6115e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4312590497842897899
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +444,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 5150215138148513685}
   m_HandleRect: {fileID: 0}

@@ -12,7 +12,7 @@ public class SaveLoadSystem
         {
             string playerDataPath = Application.persistentDataPath + "/playerData.json";
             string json = JsonConvert.SerializeObject(player.PlayerData, Formatting.Indented);
-            Debug.Log(json);
+            Debug.Log(playerDataPath);
             File.WriteAllText(playerDataPath, json);
         }
     }
@@ -27,7 +27,7 @@ public class SaveLoadSystem
             if (File.Exists(playerDataPath))
             {
                 string json = File.ReadAllText(playerDataPath);
-                //Debug.Log(json);
+                Debug.Log(json);
                 player.PlayerData = JsonConvert.DeserializeObject<PlayerData>(json, new JsonSerializerSettings() { ObjectCreationHandling = ObjectCreationHandling.Replace });
             }
             else
