@@ -22,7 +22,7 @@ public class SwipeDetection : MonoBehaviour
 
     #region Stats Joueur
     [Header("Stats Joueur")]
-    [SerializeField] private float m_fPv = 100f;
+    [SerializeField] public float m_fPv = 100f;
     [SerializeField] private float m_fAttaque = 20f;
     [SerializeField] private float m_fDefense = 10f;
     #endregion

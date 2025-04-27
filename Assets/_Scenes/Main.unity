@@ -310,6 +310,36 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Boot
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a88210c705fb6040a4176380193f19f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 21300000, guid: 38123f0a1e913b94da0fd09adb4e6a08,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 21300000, guid: feff2d2eb1af72b43a0193b197ffa46f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Legging
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b12a98323173ad4aaf19c86a7e82182,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Gauntlet
+      value: 
+      objectReference: {fileID: 21300000, guid: 7afb327d95660fe4cbcf9878b6ef821e,
+        type: 3}
     - target: {fileID: 5875809184645913140, guid: d4593cd480259484a8300f96159bce42,
         type: 3}
       propertyPath: m_Sprite
@@ -3676,6 +3706,36 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Boot
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a88210c705fb6040a4176380193f19f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 21300000, guid: 38123f0a1e913b94da0fd09adb4e6a08,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 21300000, guid: feff2d2eb1af72b43a0193b197ffa46f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Legging
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b12a98323173ad4aaf19c86a7e82182,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Gauntlet
+      value: 
+      objectReference: {fileID: 21300000, guid: 7afb327d95660fe4cbcf9878b6ef821e,
+        type: 3}
     - target: {fileID: 5875809184645913140, guid: d4593cd480259484a8300f96159bce42,
         type: 3}
       propertyPath: m_Sprite
@@ -7092,6 +7152,36 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Boot
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a88210c705fb6040a4176380193f19f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 21300000, guid: 38123f0a1e913b94da0fd09adb4e6a08,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 21300000, guid: feff2d2eb1af72b43a0193b197ffa46f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Legging
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b12a98323173ad4aaf19c86a7e82182,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Gauntlet
+      value: 
+      objectReference: {fileID: 21300000, guid: 7afb327d95660fe4cbcf9878b6ef821e,
+        type: 3}
     - target: {fileID: 5875809184645913140, guid: d4593cd480259484a8300f96159bce42,
         type: 3}
       propertyPath: m_Sprite
@@ -8484,6 +8574,36 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Boot
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a88210c705fb6040a4176380193f19f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 21300000, guid: 38123f0a1e913b94da0fd09adb4e6a08,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 21300000, guid: feff2d2eb1af72b43a0193b197ffa46f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Legging
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b12a98323173ad4aaf19c86a7e82182,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Gauntlet
+      value: 
+      objectReference: {fileID: 21300000, guid: 7afb327d95660fe4cbcf9878b6ef821e,
+        type: 3}
     - target: {fileID: 5875809184645913140, guid: d4593cd480259484a8300f96159bce42,
         type: 3}
       propertyPath: m_Sprite
@@ -8891,6 +9011,36 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Boot
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a88210c705fb6040a4176380193f19f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 21300000, guid: 38123f0a1e913b94da0fd09adb4e6a08,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 21300000, guid: feff2d2eb1af72b43a0193b197ffa46f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Legging
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b12a98323173ad4aaf19c86a7e82182,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Gauntlet
+      value: 
+      objectReference: {fileID: 21300000, guid: 7afb327d95660fe4cbcf9878b6ef821e,
+        type: 3}
     - target: {fileID: 5875809184645913140, guid: d4593cd480259484a8300f96159bce42,
         type: 3}
       propertyPath: m_Sprite
@@ -11595,6 +11745,36 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Boot
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a88210c705fb6040a4176380193f19f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 21300000, guid: 38123f0a1e913b94da0fd09adb4e6a08,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 21300000, guid: feff2d2eb1af72b43a0193b197ffa46f,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Legging
+      value: 
+      objectReference: {fileID: 21300000, guid: 2b12a98323173ad4aaf19c86a7e82182,
+        type: 3}
+    - target: {fileID: 5703299114464157817, guid: d4593cd480259484a8300f96159bce42,
+        type: 3}
+      propertyPath: Gauntlet
+      value: 
+      objectReference: {fileID: 21300000, guid: 7afb327d95660fe4cbcf9878b6ef821e,
+        type: 3}
     - target: {fileID: 5875809184645913140, guid: d4593cd480259484a8300f96159bce42,
         type: 3}
       propertyPath: m_Sprite
