@@ -13,14 +13,18 @@ public class UIManager : MonoBehaviour
         if (Tools.m_bOpenInv)
         {
             m_goUIInventory.SetActive(true);
+            m_goUIInventory.GetComponent<RectTransform>().localScale = Vector3.one;
             m_goUIMenu.SetActive(false);
         }
-        
+
         if (Tools.m_bOpenShop)
         {
             m_goUIShop.SetActive(true);
+            m_goUIShop.GetComponent<RectTransform>().localScale = Vector3.one;
             m_goUIMenu.SetActive(false);
         }
+        Debug.Log(Tools.m_bOpenInv);
+        
     }
 
     // Update is called once per frame

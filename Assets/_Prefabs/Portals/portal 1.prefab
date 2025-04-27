@@ -176,7 +176,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_lAvailableEnemyPrefabs:
-  - {fileID: 9214851089653045696, guid: 5f6dcd72bce16cd4eb612b227b99842f, type: 3}
-  - {fileID: 9214851089653045696, guid: 5f6dcd72bce16cd4eb612b227b99842f, type: 3}
-  - {fileID: 9214851089653045696, guid: 5f6dcd72bce16cd4eb612b227b99842f, type: 3}
+  - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
   m_iEnemyCount: 4

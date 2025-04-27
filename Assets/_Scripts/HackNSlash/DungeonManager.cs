@@ -156,16 +156,16 @@ public class DungeonManager : MonoBehaviour
         if (m_bIsDungeonCompleted)
             return;
 
-        /*Item csItem = new Item();
+        Item csItem = new Item();
         csItem._iLevel = 1;
         csItem._Rarity = ItemRarity.A;
-        csItem._Type = ItemType.Boot;
+        csItem._Type = ItemType.Weapon;
         csItem._Stats[(int)ItemStats.Strength] = 20;
 
         Item csItem2 = new Item();
         csItem2._iLevel = 1;
         csItem2._Rarity = ItemRarity.A;
-        csItem2._Type = ItemType.Chest;
+        csItem2._Type = ItemType.Weapon;
         csItem2._Stats[(int)ItemStats.Dext] = 20;
 
         Item csItem1 = new Item();
@@ -192,7 +192,7 @@ public class DungeonManager : MonoBehaviour
         UIBtn2.GetComponent<ItemUIScript>()._EquipItem = csItem2;
         UIBtn2.GetComponent<ItemUIScript>().Init();
 
-        ReferenceManager.Player.AddItem(csItem2);*/
+        ReferenceManager.Player.AddItem(csItem2);
         SaveLoadSystem.Save(ReferenceManager.Player);
 
         m_bIsDungeonCompleted = true;
