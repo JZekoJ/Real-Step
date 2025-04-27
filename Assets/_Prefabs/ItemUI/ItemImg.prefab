@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -40, y: -40}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2613276705830983396
 CanvasRenderer:
@@ -222,9 +222,9 @@ MonoBehaviour:
   Rarity3: {fileID: 21300000, guid: eac99216dca096b47b44ab61873acc66, type: 3}
   Rarity4: {fileID: 21300000, guid: f4065b478978b1b48bdce6969da85904, type: 3}
   Rarity5: {fileID: 21300000, guid: d47ccfc7165b75e4887d29478bf62062, type: 3}
-  Weapon: {fileID: 21300000, guid: 4c2e653dd47db4647b825f16ea9b2240, type: 3}
+  Weapon: {fileID: 21300000, guid: feff2d2eb1af72b43a0193b197ffa46f, type: 3}
   Head: {fileID: 21300000, guid: da36dba9c46306945be10dee8e5bf14a, type: 3}
-  Chest: {fileID: 21300000, guid: 67d8ddb3329b97048a8bcd3eb2883f84, type: 3}
-  Boot: {fileID: 21300000, guid: 6c093d5ba1b2da64683329bc3a195a16, type: 3}
-  Legging: {fileID: 21300000, guid: b6e66d8dd6e766a4d8c334bb296240df, type: 3}
-  Gauntlet: {fileID: 21300000, guid: b74bfb524a6742f4da46c296d6697489, type: 3}
+  Chest: {fileID: 21300000, guid: 38123f0a1e913b94da0fd09adb4e6a08, type: 3}
+  Boot: {fileID: 21300000, guid: 1a88210c705fb6040a4176380193f19f, type: 3}
+  Legging: {fileID: 21300000, guid: 2b12a98323173ad4aaf19c86a7e82182, type: 3}
+  Gauntlet: {fileID: 21300000, guid: 7afb327d95660fe4cbcf9878b6ef821e, type: 3}
