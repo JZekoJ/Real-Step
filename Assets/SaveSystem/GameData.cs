@@ -8,9 +8,18 @@ public class PlayerData
     public int _iLevel;
     public int _iHp;
 
-    public List<Item> _itemList = new List<Item>();
+    public int _iMoney;
 
-    public List<Item> ItemSlot = new List<Item> { null, null, null, null, null, null };
+    public List<Item> _itemList;
+
+    public List<Item> ItemSlot;
+
+    public PlayerData()
+    {
+        _itemList = new List<Item>();
+        ItemSlot = new List<Item> { null, null, null, null, null, null };
+    }
+
 
     public int _iPlayerAttack(int strenght, int intel, int _char, int dext)
     {

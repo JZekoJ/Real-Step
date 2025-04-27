@@ -42,6 +42,7 @@ public class PlayerScript : MonoBehaviour
     public void AddItem(Item item)
     {
         PlayerData._itemList.Add(item);
+        SaveLoadSystem.Save(ReferenceManager.Player);
     }
     public void AddItem(int iLevel, ItemRarity Rarity, ItemType Type)
     {
