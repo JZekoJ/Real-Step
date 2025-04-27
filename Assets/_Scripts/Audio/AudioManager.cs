@@ -46,6 +46,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicVolume(float value)
     {
+        Debug.Log("la musique dans la peau");
         if (value == 0)
         {
             audioMixer.SetFloat("MusicVolume", -80f);
