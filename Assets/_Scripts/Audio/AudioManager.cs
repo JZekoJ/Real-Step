@@ -32,20 +32,44 @@ public class AudioManager : MonoBehaviour
 
     public void SetMasterVolume(float value)
     {
-        audioMixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
-        PlayerPrefs.SetFloat(MASTER_KEY, value);
+        if (value == 0)
+        {
+            audioMixer.SetFloat("MasterVolume", -80f);
+            PlayerPrefs.SetFloat(MASTER_KEY, value);
+        }
+        else
+        {
+            audioMixer.SetFloat("MasterVolume", Mathf.Log10(value) * 20);
+            PlayerPrefs.SetFloat(MASTER_KEY, value);
+        }
     }
 
     public void SetMusicVolume(float value)
     {
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20);
-        PlayerPrefs.SetFloat(MUSIC_KEY, value);
+        if (value == 0)
+        {
+            audioMixer.SetFloat("MusicVolume", -80f);
+            PlayerPrefs.SetFloat(MASTER_KEY, value);
+        }
+        else
+        {
+            audioMixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20);
+            PlayerPrefs.SetFloat(MASTER_KEY, value);
+        }
     }
 
     public void SetSFXVolume(float value)
     {
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(value) * 20);
-        PlayerPrefs.SetFloat(SFX_KEY, value);
+        if (value == 0)
+        {
+            audioMixer.SetFloat("SFXVolume", -80f);
+            PlayerPrefs.SetFloat(MASTER_KEY, value);
+        }
+        else
+        {
+            audioMixer.SetFloat("SFXVolume", Mathf.Log10(value) * 20);
+            PlayerPrefs.SetFloat(MASTER_KEY, value);
+        }
     }
 
     public void LoadVolumes()
