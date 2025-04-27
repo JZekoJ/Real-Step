@@ -32,11 +32,6 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private Slider m_sBossSlider;
     #endregion
 
-    #region UI
-    [SerializeField] private Slider m_sSlider;
-    [SerializeField] private Slider m_sBossSlider;
-    #endregion
-
     #region Room Settings
     [Header("Paramètres des Rooms")]
     [SerializeField] private List<Room> m_lRooms = new List<Room>();
