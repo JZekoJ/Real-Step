@@ -8,6 +8,9 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
+    public static float SlideMusicValue;
+    public static float SlideVFXValue;
+
     [Header("Mixer Audio")]
     public AudioMixer audioMixer;
 
@@ -18,12 +21,13 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        //SlideMusicValue = PlayerPrefs.GetFloat("Music");
+        //SlideVFXValue = PlayerPrefs.GetFloat("SFXVolume");
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
@@ -36,6 +40,7 @@ public class AudioManager : MonoBehaviour
         {
             audioMixer.SetFloat("MasterVolume", -80f);
             PlayerPrefs.SetFloat(MASTER_KEY, value);
+            
         }
         else
         {
@@ -46,30 +51,32 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicVolume(float value)
     {
+        SlideMusicValue = value;
         Debug.Log("la musique dans la peau");
-        if (value == 0)
+        if (SlideMusicValue == 0)
         {
             audioMixer.SetFloat("MusicVolume", -80f);
-            PlayerPrefs.SetFloat(MASTER_KEY, value);
+            PlayerPrefs.SetFloat(MASTER_KEY, SlideMusicValue);
         }
         else
         {
-            audioMixer.SetFloat("MusicVolume", Mathf.Log10(value) * 20);
-            PlayerPrefs.SetFloat(MASTER_KEY, value);
+            audioMixer.SetFloat("MusicVolume", Mathf.Log10(SlideMusicValue) * 20);
+            PlayerPrefs.SetFloat(MASTER_KEY, SlideMusicValue);
         }
     }
 
     public void SetSFXVolume(float value)
     {
-        if (value == 0)
+        SlideVFXValue = value;
+        if (SlideVFXValue == 0)
         {
             audioMixer.SetFloat("SFXVolume", -80f);
-            PlayerPrefs.SetFloat(MASTER_KEY, value);
+            PlayerPrefs.SetFloat(MASTER_KEY, SlideVFXValue);
         }
         else
         {
-            audioMixer.SetFloat("SFXVolume", Mathf.Log10(value) * 20);
-            PlayerPrefs.SetFloat(MASTER_KEY, value);
+            audioMixer.SetFloat("SFXVolume", Mathf.Log10(SlideVFXValue) * 20);
+            PlayerPrefs.SetFloat(MASTER_KEY, SlideVFXValue);
         }
     }
 

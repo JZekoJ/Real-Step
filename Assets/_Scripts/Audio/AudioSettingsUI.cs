@@ -32,16 +32,18 @@ public class AudioSettingsUI : MonoBehaviour
             }
         }
         float master = PlayerPrefs.GetFloat("MasterVolume",1f);
-        float music = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        float sfx = PlayerPrefs.GetFloat("SFXVolume", 1f);
-
+        float music = PlayerPrefs.GetFloat("Music");
+        float sfx = PlayerPrefs.GetFloat("SFXVolume");
+        Debug.Log(music);
         //masterSlider.value = master;
-        musicSlider.value = music;
-        sfxSlider.value = sfx;
+        musicSlider.value = AudioManager.SlideMusicValue;
+        sfxSlider.value = AudioManager.SlideVFXValue;
 
+        
         //masterSlider.onValueChanged.AddListener(AudioManager.Instance.SetMasterVolume);
         musicSlider.onValueChanged.AddListener(AudioManager.Instance.SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
+        musicSlider.onValueChanged.GetPersistentListenerState(0);//si je rajoute pas cela ça ne fonctionne pas au changement de scène 
     }
 
     private void Start()
