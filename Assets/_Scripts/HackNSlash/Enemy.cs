@@ -112,12 +112,10 @@ public class Enemy : MonoBehaviour
     {
         m_animator.SetTrigger("TriggerDeath");
 
-        m_eOnDeath.Invoke();
-
         if (m_cAttackRoutine != null)
             StopCoroutine(m_cAttackRoutine);
 
-        Destroy(gameObject, 1.5f); 
+        StartCoroutine(DelayedDeath());
     }
 
     private IEnumerator ReturnToIdleAfterDelay(float delay)
@@ -125,7 +123,7 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(delay);
         m_animator.SetTrigger("TriggerIdle");
     }
-    
+
     /*private void PlayAnimation(string triggerName)
     {
         if (CompareTag("Boss"))
@@ -135,5 +133,33 @@ public class Enemy : MonoBehaviour
 
         m_animator.SetTrigger(triggerName);
     }*/
+
+
+    private IEnumerator DelayedDeath()
+    {
+        float deathAnimDuration = GetClipLength("Death"); // le nom de ton clip d'anim
+
+        if (deathAnimDuration <= 0f)
+            deathAnimDuration = 2.5f; // fallback si le clip n’est pas trouvé
+
+        yield return new WaitForSeconds(deathAnimDuration);
+
+        m_eOnDeath.Invoke();
+        Destroy(gameObject);
+    }
+
+    private float GetClipLength(string clipName)
+    {
+        foreach (AnimationClip clip in m_animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name.ToLower().Contains(clipName.ToLower()))
+            {
+                return clip.length;
+            }
+        }
+
+        Debug.LogWarning("Animation 'Death' non trouvée !");
+        return 0f;
+    }
     #endregion
 }
