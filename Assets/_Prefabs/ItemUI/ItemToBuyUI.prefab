@@ -110,6 +110,9 @@ MonoBehaviour:
     _Type: 0
     _bIsEquiped: 0
     _Stats: 000000000000000000000000000000000000000000000000
+  m_gStatUIParent: {fileID: 0}
+  m_gStatUIPrefab: {fileID: 4137693998318661914, guid: 1fe846cc3af1ab34b89ea9932da79bb8,
+    type: 3}
 --- !u!1 &4350465911322490631
 GameObject:
   m_ObjectHideFlags: 0
