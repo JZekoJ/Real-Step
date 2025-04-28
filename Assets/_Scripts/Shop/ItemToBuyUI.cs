@@ -14,6 +14,7 @@ public class ItemToBuyUI : MonoBehaviour
     public GameObject m_gStatUIParent;
     public GameObject m_gStatUIPrefab;
     public GameObject m_gImageItem;
+    public GameObject m_gItemInfo;
     #endregion
     public void Init()
     {
@@ -24,7 +25,7 @@ public class ItemToBuyUI : MonoBehaviour
         GetComponentInChildren<ItemUIScript>()._EquipItem = _item;
         GetComponentInChildren<ItemUIScript>().Init();
 
-        GetComponentInChildren<TextMeshProUGUI>().text = "" + _price;
+        GetComponentsInChildren<TextMeshProUGUI>()[1].text = "" + _price;
 
         Debug.Log(GetComponentsInChildren<Button>()[0].name);
 
@@ -49,6 +50,7 @@ public class ItemToBuyUI : MonoBehaviour
 
         m_gImageItem.GetComponentInChildren<ItemUIScript>()._EquipItem = _item;
         m_gImageItem.GetComponentInChildren<ItemUIScript>().Init();
+        m_gItemInfo.SetActive(true);
         foreach (RectTransform rtStat in m_gStatUIParent.GetComponentsInChildren<RectTransform>())
         {
             if (rtStat != m_gStatUIParent.GetComponentsInChildren<RectTransform>()[0])

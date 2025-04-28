@@ -113,6 +113,8 @@ MonoBehaviour:
   m_gStatUIParent: {fileID: 0}
   m_gStatUIPrefab: {fileID: 4137693998318661914, guid: 1fe846cc3af1ab34b89ea9932da79bb8,
     type: 3}
+  m_gImageItem: {fileID: 0}
+  m_gItemInfo: {fileID: 0}
 --- !u!1 &4350465911322490631
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,8 +182,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f84062d6228d9de42aaef7d4818d9ca9, type: 2}
+  m_sharedMaterial: {fileID: 5224806361823604371, guid: f84062d6228d9de42aaef7d4818d9ca9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -205,8 +208,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.7
-  m_fontSizeBase: 46.7
+  m_fontSize: 50.85
+  m_fontSizeBase: 50.85
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

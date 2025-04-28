@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,7 @@ public class ItemUIScript : MonoBehaviour
             GetComponentsInChildren<Image>()[1].color = Color.clear;
             return;
         }
+        GetComponentInChildren<TextMeshProUGUI>().text = "" + _EquipItem._iLevel;
         GetComponentsInChildren<Image>()[1].color = Color.white;
         switch (_EquipItem._Rarity)
         {

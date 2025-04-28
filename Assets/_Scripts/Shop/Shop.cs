@@ -7,6 +7,7 @@ public class Shop : MonoBehaviour
     public GameObject ItemPrefab;
     public GameObject StatParent;
     public GameObject ImageItem;
+    public GameObject ItemUI;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class Shop : MonoBehaviour
             GameObject itemToBuy = Instantiate(ItemPrefab, this.transform);
             itemToBuy.GetComponent<ItemToBuyUI>().m_gStatUIParent = StatParent;
             itemToBuy.GetComponent<ItemToBuyUI>().m_gImageItem = ImageItem;
+            itemToBuy.GetComponent<ItemToBuyUI>().m_gItemInfo = ItemUI;
             itemToBuy.GetComponent<ItemToBuyUI>().Init();
 
         }
