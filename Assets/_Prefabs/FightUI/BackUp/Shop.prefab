@@ -1071,6 +1071,7 @@ MonoBehaviour:
     type: 3}
   StatParent: {fileID: 4315004861963177146}
   ImageItem: {fileID: 8102871637839572825}
+  ItemUI: {fileID: 0}
 --- !u!114 &4368999366047902455
 MonoBehaviour:
   m_ObjectHideFlags: 0
