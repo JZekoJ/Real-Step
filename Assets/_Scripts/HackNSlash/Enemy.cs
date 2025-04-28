@@ -40,8 +40,11 @@ public class Enemy : MonoBehaviour
         if (m_eOnDeath == null)
             m_eOnDeath = new UnityEvent();
 
-        /*m_sSlider = GetComponentInChildren<Slider>();
-        m_sSlider.maxValue = m_fMaxHealth;*/
+        if(!m_bIsBoss)
+        {
+            m_sSlider = GetComponentInChildren<Slider>();
+            m_sSlider.maxValue = m_fMaxHealth;
+        }
 
         m_animator = GetComponent<Animator>();
 
@@ -51,7 +54,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        //m_sSlider.value = m_fCurrentHealth;
+        m_sSlider.value = m_fCurrentHealth;
     }
 
     //—------------------

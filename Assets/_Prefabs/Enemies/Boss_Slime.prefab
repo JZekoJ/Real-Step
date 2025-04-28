@@ -163,7 +163,7 @@ MonoBehaviour:
   m_fCurrentHealth: 0
   m_fAttackPower: 10
   m_fDefense: 5
-  m_bIsBoss: 0
+  m_bIsBoss: 1
   m_sSlider: {fileID: 0}
   m_fAttackInterval: 2
   m_eOnDeath:
