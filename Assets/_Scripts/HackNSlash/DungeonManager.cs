@@ -31,6 +31,8 @@ public class DungeonManager : MonoBehaviour
 
     [SerializeField] private Slider m_sSlider;
     [SerializeField] private Slider m_sBossSlider;
+
+    [SerializeField]private GameObject m_gBossUI;
     #endregion
 
     #region Room Settings
@@ -266,6 +268,7 @@ public class DungeonManager : MonoBehaviour
         
         if (csEnemy.m_bIsBoss)
         {
+            m_gBossUI.SetActive(true);
             csEnemy.m_sSlider = m_sBossSlider;
             csEnemy.m_sSlider.maxValue = csEnemy.GetMaxHealth();
             m_eEndDungeon.Invoke();
