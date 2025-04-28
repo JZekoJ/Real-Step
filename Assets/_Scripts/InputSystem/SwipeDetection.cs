@@ -18,6 +18,7 @@ public class SwipeDetection : MonoBehaviour
     [SerializeField] private GameObject m_goTrail;
     [SerializeField] private FightSystem m_csCombatSystem;
     [SerializeField] private GameObject m_goFloatingDamagePrefab;
+    [SerializeField] private PlayerAnimation m_playerAnim;
     #endregion
 
     #region Stats Joueur
@@ -62,6 +63,10 @@ public class SwipeDetection : MonoBehaviour
     {
         m_csInputManager = InputManager.Instance;
         m_csCombatSystem = GetComponent<FightSystem>();
+        if (m_playerAnim == null)
+            m_playerAnim = GetComponentInChildren<PlayerAnimation>();
+
+        m_playerAnim?.PlayIdle();
     }
 
     private void OnEnable()
@@ -166,6 +171,8 @@ public class SwipeDetection : MonoBehaviour
         Debug.Log("🛡️ Bouclier activé !");
         SetGlobalDelay(1f);
 
+        m_playerAnim?.PlayBlock();
+
         if (m_cShieldCoroutine != null)
             StopCoroutine(m_cShieldCoroutine);
         m_cShieldCoroutine = StartCoroutine(ShieldDuration());
@@ -179,6 +186,8 @@ public class SwipeDetection : MonoBehaviour
             m_bIsBlocking = false;
             Debug.Log("🛡️ Bouclier désactivé automatiquement après 2s !");
         }
+
+        m_playerAnim?.PlayIdle();
     }
 
     private IEnumerator LongPressDetection()
@@ -207,7 +216,7 @@ public class SwipeDetection : MonoBehaviour
             Debug.Log("🛡️ Le joueur bloque les dégâts !");
             return;
         }
-
+        //m_playerAnim?.PlayTakeDamage();
         m_fPv -= fAmount;
         m_fPv = Mathf.Max(0, m_fPv);
         Debug.Log($"🟥 Le joueur prend {fAmount} dégâts. PV restants : {m_fPv}");
@@ -215,6 +224,7 @@ public class SwipeDetection : MonoBehaviour
         if (m_fPv <= 0)
         {
             Debug.Log("☠️ Le joueur est KO !");
+            m_playerAnim?.PlayDeath();
         }
     }
     #endregion
@@ -246,6 +256,7 @@ public class SwipeDetection : MonoBehaviour
             m_csCurrentEnemy.TakeDamage(fDegats);
             ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
             SetGlobalDelay(m_fCooldownLegere);
+            m_playerAnim.PlayLightAttack(m_fCooldownLegere);
             Debug.Log("⚔️ Attaque légère !");
         }
         else if (Vector2.Dot(Vector2.down, vDirection) > m_fDirectionTreshold)
@@ -254,6 +265,7 @@ public class SwipeDetection : MonoBehaviour
             m_csCurrentEnemy.TakeDamage(fDegats);
             ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
             SetGlobalDelay(m_fCooldownLourde);
+            m_playerAnim.PlayHeavyAttack(m_fCooldownLourde);
             Debug.Log("💥 Attaque lourde !");
         }
         else if (Vector2.Dot(Vector2.right, vDirection) > m_fDirectionTreshold)
@@ -262,6 +274,7 @@ public class SwipeDetection : MonoBehaviour
             m_csCurrentEnemy.TakeDamage(fDegats);
             ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
             SetGlobalDelay(m_fCooldownMoyenne);
+            m_playerAnim.PlayMediumAttack(m_fCooldownMoyenne);
             Debug.Log("🥊 Attaque moyenne !");
         }
         else if (Vector2.Dot(Vector2.left, vDirection) > m_fDirectionTreshold)
