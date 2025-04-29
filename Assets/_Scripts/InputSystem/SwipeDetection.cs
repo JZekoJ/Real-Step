@@ -49,6 +49,8 @@ public class SwipeDetection : MonoBehaviour
 
     private Coroutine m_cTrailCoroutine;
     private Coroutine m_cShieldCoroutine;
+
+    private bool isAlive = true;
     #endregion
 
     #region Public
@@ -221,9 +223,10 @@ public class SwipeDetection : MonoBehaviour
         m_fPv = Mathf.Max(0, m_fPv);
         Debug.Log($"🟥 Le joueur prend {fAmount} dégâts. PV restants : {m_fPv}");
 
-        if (m_fPv <= 0)
+        if (m_fPv <= 0 && isAlive)
         {
             Debug.Log("☠️ Le joueur est KO !");
+            isAlive = false;
             m_playerAnim?.PlayDeath();
         }
     }
