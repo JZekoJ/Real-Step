@@ -13,9 +13,9 @@ public class PortalEnemies : MonoBehaviour
 
     private void Awake()
     {
-        if (m_csEnemyGenerator == null)
+       if (m_csEnemyGenerator == null)
         {
-            Debug.LogError("EnemyGenerator non assignéPortalEnemies ");
+            //Debug.LogError("EnemyGenerator non assignéPortalEnemies ");
             return;
         }
 

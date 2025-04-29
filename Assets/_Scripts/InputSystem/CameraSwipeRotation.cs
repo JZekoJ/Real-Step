@@ -7,10 +7,13 @@ public class CameraSwipeRotation : MonoBehaviour
     private bool isSwiping = false;
     private Vector2 previousTouchPosition;
 
+    private Tools m_csTools;
+
     private void OnEnable()
     {
         InputManager.Instance.OnStartTouch += HandleStartTouch;
         InputManager.Instance.OnEndTouch += HandleEndTouch;
+        m_csTools = FindAnyObjectByType<Tools>();
     }
 
     private void OnDisable()
@@ -21,7 +24,7 @@ public class CameraSwipeRotation : MonoBehaviour
 
     private void Update()
     {
-        if (isSwiping)
+        if (isSwiping && !m_csTools.IsPointerOverUIElement())
         {
             // ! On récupère la position RAW de l'écran (pas convertie en World)
             Vector2 currentPosition = InputManager.Instance.RawTouchPosition();
