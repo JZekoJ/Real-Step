@@ -30,7 +30,7 @@ public class SpawnerPortal : MonoBehaviour
         {
             if (m_fTime > 1f)
             {
-                Vector3 vLocation = new Vector3(Random.Range(-290, 400), 0.5f, Random.Range(-250, 450));
+                Vector3 vLocation = new Vector3(Random.Range(-300, 300), 0.5f, Random.Range(0, 600));
                 //Vector3 vRotation = new Vector3(m_goPortal.transform.rotation.x, m_goPortal.transform.rotation.y, Random.Range(0f, 360f));
                 //m_goPortal.transform.Rotate(vRotation);
                 Instantiate(m_goPortal, vLocation, m_goPortal.transform.rotation, transform);

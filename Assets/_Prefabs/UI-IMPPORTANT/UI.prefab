@@ -1944,10 +1944,10 @@ RectTransform:
   m_Children:
   - {fileID: 3443114996741053031}
   - {fileID: 7854803436137706096}
-  - {fileID: 5260777517923943374}
   - {fileID: 4863532530546368262}
   - {fileID: 982564454063679163}
   - {fileID: 705581543280431000}
+  - {fileID: 5260777517923943374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5098,6 +5098,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8032583599844089613}
     m_Modifications:
+    - target: {fileID: 1477251645421965853, guid: 2307166a15965854d8a37867dc3e775f,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2830899533340866779, guid: 2307166a15965854d8a37867dc3e775f,
         type: 3}
       propertyPath: m_Name
