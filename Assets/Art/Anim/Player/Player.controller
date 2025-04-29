@@ -504,9 +504,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: PlayerTriggerDeath
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: alive
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8314247452962799183}
   m_Solo: 0
