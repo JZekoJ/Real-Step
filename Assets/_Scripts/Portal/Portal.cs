@@ -12,6 +12,7 @@ public class Portal : MonoBehaviour
     private float mouseDownTime;
 
 
+
     #region Scriptable Settings
     [SerializeField] private List<ScriptablePortal> m_lScriptablePortals;
     private ScriptablePortal m_csSelectedPortal;

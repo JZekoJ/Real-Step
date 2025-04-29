@@ -14,6 +14,7 @@ public class SpawnerPortal : MonoBehaviour
 
     #region Private Variables
     private float m_fTime;
+    private int m_iAmount = 0;
     #endregion
 
     //—------Unity Events—----
@@ -25,14 +26,20 @@ public class SpawnerPortal : MonoBehaviour
     private void Update()
     {
         m_fTime += Time.deltaTime;
-        if (m_fTime > 1f)
+        if (m_iAmount < 5)
         {
-            Vector3 vLocation = new Vector3(Random.Range(-m_fRange, m_fRange), 0.5f, Random.Range(-m_fRange, m_fRange));
-            //Vector3 vRotation = new Vector3(m_goPortal.transform.rotation.x, m_goPortal.transform.rotation.y, Random.Range(0f, 360f));
-            //m_goPortal.transform.Rotate(vRotation);
-            Instantiate(m_goPortal, vLocation, m_goPortal.transform.rotation, this.transform);
-            m_fTime = 0f;
+            if (m_fTime > 1f)
+            {
+                Vector3 vLocation = new Vector3(Random.Range(-290, 400), 0.5f, Random.Range(-250, 450));
+                //Vector3 vRotation = new Vector3(m_goPortal.transform.rotation.x, m_goPortal.transform.rotation.y, Random.Range(0f, 360f));
+                //m_goPortal.transform.Rotate(vRotation);
+                Instantiate(m_goPortal, vLocation, m_goPortal.transform.rotation, transform);
+                m_fTime = 0f;
+                m_iAmount++;
+            }
+            
         }
+        
     }
     //—------------------
 }
