@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using FightSysteme;
+using UnityEngine.UI;
 
 public class SwipeDetection : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class SwipeDetection : MonoBehaviour
     [SerializeField] public float m_fPv = 100f;
     [SerializeField] private float m_fAttaque = 20f;
     [SerializeField] private float m_fDefense = 10f;
+
+    public Slider m_sSlider;
     #endregion
 
     #region Cooldowns
@@ -64,12 +67,18 @@ public class SwipeDetection : MonoBehaviour
     #region Unity Events
     private void Awake()
     {
+        m_sSlider.maxValue = m_fPv;
         m_csInputManager = InputManager.Instance;
         m_csCombatSystem = GetComponent<FightSystem>();
         if (m_playerAnim == null)
             m_playerAnim = GetComponentInChildren<PlayerAnimation>();
         m_csTools = FindAnyObjectByType<Tools>();
         m_playerAnim?.PlayIdle();
+    }
+
+    private void Update()
+    {
+        m_sSlider.value = m_fPv;
     }
 
     private void OnEnable()
