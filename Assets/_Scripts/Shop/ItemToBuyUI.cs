@@ -17,7 +17,6 @@ public class ItemToBuyUI : MonoBehaviour
     #endregion
     public void Init()
     {
-        ReferenceManager.Player.PlayerData._iMoney += 10000;
         _item = ItemUtils.GenerateRandomItem();
         _price = ItemUtils.CalculateBuyPrice(_item);
 

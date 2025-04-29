@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using FightSysteme;
+using UnityEngine.UI;
 
 public class SwipeDetection : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class SwipeDetection : MonoBehaviour
     #region Stats Joueur
     [Header("Stats Joueur")]
     [SerializeField] public int m_iPv;
+
+    public Slider m_sSlider;
     #endregion
 
     #region Cooldowns
@@ -75,7 +78,11 @@ public class SwipeDetection : MonoBehaviour
     }
     private void Start()
     {
-        ReferenceManager.SaveLoader.OnLoadSave.AddListener(() => m_iPv = m_playerScript._iPlayerHp());
+        ReferenceManager.SaveLoader.OnLoadSave.AddListener(() => {
+            m_iPv = m_playerScript._iPlayerHp();
+            m_sSlider.maxValue = m_iPv;
+            m_sSlider.value = m_iPv;
+        });
     }
 
     private void OnEnable()
@@ -234,6 +241,7 @@ public class SwipeDetection : MonoBehaviour
         m_iPv = iAmount;
         m_iPv = Mathf.Max(0, m_iPv);
         Debug.Log($"🟥 Le joueur prend {iAmount} dégâts. PV restants : {m_iPv}");
+        m_sSlider.value = m_iPv;
 
         if (m_iPv <= 0 && isAlive)
         {
