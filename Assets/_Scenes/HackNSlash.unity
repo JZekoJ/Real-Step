@@ -5191,9 +5191,8 @@ MonoBehaviour:
   m_goFloatingDamagePrefab: {fileID: 2830899533340866779, guid: 2307166a15965854d8a37867dc3e775f,
     type: 3}
   m_playerAnim: {fileID: 855283516}
-  m_fPv: 100
-  m_fAttaque: 20
-  m_fDefense: 10
+  m_playerScript: {fileID: 713021704}
+  m_iPv: 0
   m_sSlider: {fileID: 2009179907}
   m_fCooldownLegere: 0.7
   m_fCooldownMoyenne: 1.3
