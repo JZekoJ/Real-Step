@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/Main.unity
+    guid: bfa13ce27d2d7114dbf0c2d3088a7cce
+  - enabled: 1
+    path: Assets/_Scenes/HackNSlash.unity
+    guid: f8eead0e05b0278479e0382cf6c05aa2
+  - enabled: 0
+    path: Assets/_Scenes/Map.unity
+    guid: a8540efe2afb3f14c90866f076d2d351
+  m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
+      guid: a0938050518641d42a4f59776123f089, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 82c07ae862dc442429ccbd188d3c997d,
+      type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: b84e097bb606c3447b6646cbc44d87ae, type: 2}
+  m_UseUCBPForAssetBundles: 0
