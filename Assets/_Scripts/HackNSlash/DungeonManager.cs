@@ -94,7 +94,7 @@ public class DungeonManager : MonoBehaviour
 
     private void Update()
     {
-        if(m_csSwipeDetection.m_fPv <= 0)
+        if(m_csSwipeDetection.m_iPv <= 0)
         {
             m_eOnPlayerDead.Invoke();
         }

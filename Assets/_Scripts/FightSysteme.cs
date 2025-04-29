@@ -13,17 +13,21 @@ namespace FightSysteme
         }
         #endregion
 
+        private PlayerScript m_playerScript;
+
         #region Public Functions
-        public float CalculerDegats(float fPv, float fAttaque, float fDefense, TypeAttaque eTypeAttaque)
+        public int CalculerDegats(float fPv, float fAttaque, float fDefense)
         {
             if (fDefense <= 0f) fDefense = 1f;
 
-            float fMultiplicateur = GetMultiplicateur(eTypeAttaque);
-            float fDegats = (fAttaque / (fDefense * 0.5f)) * fMultiplicateur;
+            
+            float fDegats = (fAttaque / (fDefense * 0.5f));
             float fNouveauPv = fPv - fDegats;
 
-            return Mathf.Max(fNouveauPv, 0f);
+            return Mathf.RoundToInt(fNouveauPv);
         }
+
+        
 
         public int GetDegatsInfliges(float fAttaque, float fDefense, TypeAttaque eTypeAttaque)
         {
