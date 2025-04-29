@@ -5194,6 +5194,7 @@ MonoBehaviour:
   m_fPv: 100
   m_fAttaque: 20
   m_fDefense: 10
+  m_sSlider: {fileID: 1850193409}
   m_fCooldownLegere: 0.7
   m_fCooldownMoyenne: 1.3
   m_fCooldownLourde: 1.8
