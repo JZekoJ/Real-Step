@@ -43,7 +43,7 @@ public class AudioSettingsUI : MonoBehaviour
         //masterSlider.onValueChanged.AddListener(AudioManager.Instance.SetMasterVolume);
         musicSlider.onValueChanged.AddListener(AudioManager.Instance.SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
-        //musicSlider.onValueChanged.GetPersistentListenerState(0);//si je rajoute pas cela ça ne fonctionne pas au changement de scène 
+        musicSlider.onValueChanged.GetPersistentListenerState(0);//si je rajoute pas cela ça ne fonctionne pas au changement de scène 
     }
 
     private void Start()

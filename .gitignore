@@ -74,3 +74,4 @@ crashlytics-build.properties
 .erp
 /Assets/ERP
 Assets/ERP.meta
+/.utmp/*
