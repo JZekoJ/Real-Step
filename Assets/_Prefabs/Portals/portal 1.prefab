@@ -161,7 +161,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b8c0fb7f53f05ff45a26e4e778c730de, type: 2}
   - {fileID: 11400000, guid: 16083f8ebc4fec74492df94c054a4047, type: 2}
   - {fileID: 11400000, guid: a1e095efb904b5e4d863d7adc0ddc4d9, type: 2}
-  m_goPortalUIPrefab: {fileID: 1749478230240778643, guid: 917099ea2cbd9d9439710824ba69c549,
+  m_goPortalUIPrefab: {fileID: 1645483807695252745, guid: 129dce31624b90a4dafe7ca4ea917c9f,
     type: 3}
 --- !u!114 &4332809420732439841
 MonoBehaviour:
@@ -175,6 +175,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0507a6756ad453e498b0da19d66a3959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lAvailableEnemyPrefabs:
-  - {fileID: 4328053435137456229, guid: 52e416f1e18f65b4287bf443a555b324, type: 3}
+  m_csEnemyGenerator: {fileID: 0}
   m_iEnemyCount: 4

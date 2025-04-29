@@ -19,6 +19,7 @@ public class SwipeDetection : MonoBehaviour
     [SerializeField] private FightSystem m_csCombatSystem;
     [SerializeField] private GameObject m_goFloatingDamagePrefab;
     [SerializeField] private PlayerAnimation m_playerAnim;
+    private Tools m_csTools;
     #endregion
 
     #region Stats Joueur
@@ -67,7 +68,7 @@ public class SwipeDetection : MonoBehaviour
         m_csCombatSystem = GetComponent<FightSystem>();
         if (m_playerAnim == null)
             m_playerAnim = GetComponentInChildren<PlayerAnimation>();
-
+        m_csTools = FindAnyObjectByType<Tools>();
         m_playerAnim?.PlayIdle();
     }
 
@@ -99,7 +100,10 @@ public class SwipeDetection : MonoBehaviour
     {
         while (true)
         {
-            m_goTrail.transform.position = m_csInputManager.PrimaryPosition();
+            if (!m_csTools.IsPointerOverUIElement())
+            {
+                m_goTrail.transform.position = m_csInputManager.PrimaryPosition();
+            }
             yield return null;
         }
     }
@@ -235,57 +239,60 @@ public class SwipeDetection : MonoBehaviour
     #region Attaque
     private void SwipeDirection(Vector2 vDirection)
     {
-        if (m_csCombatSystem == null)
+        if (!m_csTools.IsPointerOverUIElement())
         {
-            Debug.LogError("CombatSystem non assigné !");
-            return;
-        }
+            if (m_csCombatSystem == null)
+            {
+                Debug.LogError("CombatSystem non assigné !");
+                return;
+            }
 
-        if (m_csCurrentEnemy == null)
-        {
-            Debug.Log("❌ Aucun ennemi actif !");
-            return;
-        }
+            if (m_csCurrentEnemy == null)
+            {
+                Debug.Log("❌ Aucun ennemi actif !");
+                return;
+            }
 
-        if (IsInGlobalDelay())
-        {
-            Debug.Log("⏳ Cooldown en cours !");
-            return;
-        }
+            if (IsInGlobalDelay())
+            {
+                Debug.Log("⏳ Cooldown en cours !");
+                return;
+            }
 
-        if (Vector2.Dot(Vector2.up, vDirection) > m_fDirectionTreshold)
-        {
-            float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
-            m_csCurrentEnemy.TakeDamage(fDegats);
-            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-            SetGlobalDelay(m_fCooldownLegere);
-            m_playerAnim.PlayLightAttack(m_fCooldownLegere);
-            Debug.Log("⚔️ Attaque légère !");
-        }
-        else if (Vector2.Dot(Vector2.down, vDirection) > m_fDirectionTreshold)
-        {
-            float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
-            m_csCurrentEnemy.TakeDamage(fDegats);
-            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-            SetGlobalDelay(m_fCooldownLourde);
-            m_playerAnim.PlayHeavyAttack(m_fCooldownLourde);
-            Debug.Log("💥 Attaque lourde !");
-        }
-        else if (Vector2.Dot(Vector2.right, vDirection) > m_fDirectionTreshold)
-        {
-            float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
-            m_csCurrentEnemy.TakeDamage(fDegats);
-            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-            SetGlobalDelay(m_fCooldownMoyenne);
-            m_playerAnim.PlayMediumAttack(m_fCooldownMoyenne);
-            Debug.Log("🥊 Attaque moyenne !");
-        }
-        else if (Vector2.Dot(Vector2.left, vDirection) > m_fDirectionTreshold)
-        {
-            Debug.Log("⬅️ Swipe gauche — aucune attaque");
-        }
+            if (Vector2.Dot(Vector2.up, vDirection) > m_fDirectionTreshold)
+            {
+                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
+                m_csCurrentEnemy.TakeDamage(fDegats);
+                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+                SetGlobalDelay(m_fCooldownLegere);
+                m_playerAnim.PlayLightAttack(m_fCooldownLegere);
+                Debug.Log("⚔️ Attaque légère !");
+            }
+            else if (Vector2.Dot(Vector2.down, vDirection) > m_fDirectionTreshold)
+            {
+                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
+                m_csCurrentEnemy.TakeDamage(fDegats);
+                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+                SetGlobalDelay(m_fCooldownLourde);
+                m_playerAnim.PlayHeavyAttack(m_fCooldownLourde);
+                Debug.Log("💥 Attaque lourde !");
+            }
+            else if (Vector2.Dot(Vector2.right, vDirection) > m_fDirectionTreshold)
+            {
+                float fDegats = m_csCombatSystem.GetDegatsInfliges(m_fAttaque, m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
+                m_csCurrentEnemy.TakeDamage(fDegats);
+                ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
+                SetGlobalDelay(m_fCooldownMoyenne);
+                m_playerAnim.PlayMediumAttack(m_fCooldownMoyenne);
+                Debug.Log("🥊 Attaque moyenne !");
+            }
+            else if (Vector2.Dot(Vector2.left, vDirection) > m_fDirectionTreshold)
+            {
+                Debug.Log("⬅️ Swipe gauche — aucune attaque");
+            }
 
-        Debug.Log("❤️ PV de l'ennemi : " + m_csCurrentEnemy.GetHealth());
+            Debug.Log("❤️ PV de l'ennemi : " + m_csCurrentEnemy.GetHealth());
+        }
     }
 
     private void ShowFloatingDamage(float fAmount, Vector3 vPosition)

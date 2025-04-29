@@ -39,7 +39,7 @@ public class ItemToBuyUI : MonoBehaviour
             }
             ReferenceManager.Player.PlayerData._iMoney -= _price;
             ReferenceManager.Player.AddItem(_item);
-            GetComponentInChildren<TextMeshProUGUI>().text = "Sold";
+            GetComponentsInChildren<TextMeshProUGUI>()[1].text = "Sold";
             GetComponentsInChildren<Button>()[1].onClick.RemoveAllListeners();
 
         });
