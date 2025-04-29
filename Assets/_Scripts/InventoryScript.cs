@@ -25,7 +25,7 @@ public class InventoryScript : MonoBehaviour
 
     private void Awake()
     {
-        //ReferenceManager.SaveLoader.OnLoadSave.AddListener(InitInventory);
+        ReferenceManager.SaveLoader.OnLoadSave.AddListener(InitInventory);
     }
 
     #region PlayerInventory
@@ -142,8 +142,6 @@ public class InventoryScript : MonoBehaviour
             int diff = item._Stats[i];
             if (_Slots[(int)item._Type].GetComponent<ItemUIScript>()._EquipItem != null)
             {
-                //ReferenceManager.Player.PlayerData.ItemSlot[(int)item._Type]._bIsEquiped = false;
-                Debug.Log("???");
                 diff = item._Stats[i] - _Slots[(int)item._Type].GetComponent<ItemUIScript>()._EquipItem._Stats[i];// ReferenceManager.Player.PlayerData.ItemSlot[(int)item._Type]._Stats[i]
             }
                 string moreless = "";

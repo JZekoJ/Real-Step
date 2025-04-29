@@ -58,5 +58,36 @@ public class PlayerScript : MonoBehaviour
     }
     #endregion
 
+    #region Stat
+    public List<int> GetPlayerStat()
+    {
+        List<int> list = new List<int> { 0, 0, 0, 0, 0, 0 };
+        foreach (Item item in PlayerData.ItemSlot)
+        {
+            for (int i = 0; i < item._Stats.Count; i++)
+            {
+                list[i] += item._Stats[i];
+            }
+        }
+        return list;
+    }
+    //public int _iPlayerAttack(int strenght, int intel, int _char, int dext)
+    //{
+    //    int iPlayerAttack = (strenght / 3) + (intel / 2) + (_char / 3) + (dext / 2);
+    //    return iPlayerAttack;
+    //}
+
+    //public int _iPlayerDefense(int streght, int spirit, int intel, int _char)
+    //{
+    //    int iPlayerDefense = (streght / 3) + (spirit / 2) + (intel / 2) + (_char / 3);
+    //    return iPlayerDefense;
+    //}
+
+    //public int _iPlayerHp(int strenght, int spirit, int vita, int _char)
+    //{
+    //    int iPlayerHp = ((strenght / 3) + (spirit / 2) + vita + (_char / 3)) / 10;
+    //    return iPlayerHp;
+    //}
+    #endregion
 
 }
