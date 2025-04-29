@@ -7,10 +7,10 @@ public class Enemy : MonoBehaviour
 {
     #region Statistiques
     [Header("Statistiques")]
-    [SerializeField] private float m_fMaxHealth = 100f;
-    [SerializeField] private float m_fCurrentHealth;
-    [SerializeField] private float m_fAttackPower = 10f;
-    [SerializeField] private float m_fDefense = 5f;
+    [SerializeField] private int m_fMaxHealth = 100;
+    [SerializeField] private int m_fCurrentHealth;
+    [SerializeField] private int m_fAttackPower = 10;
+    [SerializeField] private int m_fDefense = 5;
     [SerializeField] public bool m_bIsBoss;
     #endregion
 
@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour
         m_cAttackRoutine = StartCoroutine(AttackLoop());
     }
 
-    public void TakeDamage(float fDamage)
+    public void TakeDamage(int fDamage)
     {
         m_fCurrentHealth -= fDamage;
         m_animator.SetTrigger("TriggerTakeDamage"); 

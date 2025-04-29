@@ -27,7 +27,7 @@ public class SaveLoadSystem
             if (File.Exists(playerDataPath))
             {
                 string json = File.ReadAllText(playerDataPath);
-                Debug.Log(json);
+                Debug.Log(playerDataPath);
                 player.PlayerData = JsonConvert.DeserializeObject<PlayerData>(json, new JsonSerializerSettings() { ObjectCreationHandling = ObjectCreationHandling.Replace });
             }
             else

@@ -64,30 +64,32 @@ public class PlayerScript : MonoBehaviour
         List<int> list = new List<int> { 0, 0, 0, 0, 0, 0 };
         foreach (Item item in PlayerData.ItemSlot)
         {
-            for (int i = 0; i < item._Stats.Count; i++)
+            if (item != null)
             {
-                list[i] += item._Stats[i];
+                for (int i = 0; i < item._Stats.Count; i++)
+                {
+                    list[i] += item._Stats[i];
+                }
             }
         }
         return list;
     }
-    //public int _iPlayerAttack(int strenght, int intel, int _char, int dext)
-    //{
-    //    int iPlayerAttack = (strenght / 3) + (intel / 2) + (_char / 3) + (dext / 2);
-    //    return iPlayerAttack;
-    //}
+    public int _iPlayerAttack()
+    {
+        int iPlayerAttack = (GetPlayerStat()[(int)ItemStats.Strength] / 3) + (  GetPlayerStat()[(int)ItemStats.Intel] / 2) + (GetPlayerStat()[(int)ItemStats.Char] / 3) + (GetPlayerStat()[(int)ItemStats.Dext] / 2)+10;
+        return iPlayerAttack;
+    }
+    public int _iPlayerDefense()
+    {
+        int iPlayerDefense = (GetPlayerStat()[(int)ItemStats.Strength] / 3) + (GetPlayerStat()[(int)ItemStats.Intel] / 2) + (GetPlayerStat()[(int)ItemStats.Intel] / 2) + (GetPlayerStat()[(int)ItemStats.Char] / 3)+10;
+        return iPlayerDefense;
+    }
 
-    //public int _iPlayerDefense(int streght, int spirit, int intel, int _char)
-    //{
-    //    int iPlayerDefense = (streght / 3) + (spirit / 2) + (intel / 2) + (_char / 3);
-    //    return iPlayerDefense;
-    //}
-
-    //public int _iPlayerHp(int strenght, int spirit, int vita, int _char)
-    //{
-    //    int iPlayerHp = ((strenght / 3) + (spirit / 2) + vita + (_char / 3)) / 10;
-    //    return iPlayerHp;
-    //}
+    public int _iPlayerHp()
+    {
+        int iPlayerHp = ((GetPlayerStat()[(int)ItemStats.Strength] / 3) + (GetPlayerStat()[(int)ItemStats.Intel] / 2) + GetPlayerStat()[(int)ItemStats.Vita] + (GetPlayerStat()[(int)ItemStats.Char] / 3)) / 10 + 100;
+        return iPlayerHp;
+    }
     #endregion
 
 }
