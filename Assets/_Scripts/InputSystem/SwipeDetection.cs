@@ -320,5 +320,13 @@ public class SwipeDetection : MonoBehaviour
             }
         }
     }
+
+    public void Capacity()
+    {
+        m_csCurrentEnemy.TakeDamage(94);
+        ShowFloatingDamage(92.0f, m_csCurrentEnemy.transform.position + Vector3.up);
+        m_playerAnim.PlayPowerAttack();
+        Debug.Log("(❁´◡`❁) Attaque spéciale !");
+    }
     #endregion
 }
