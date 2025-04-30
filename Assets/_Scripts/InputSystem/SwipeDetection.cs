@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using FightSysteme;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class SwipeDetection : MonoBehaviour
@@ -35,6 +36,13 @@ public class SwipeDetection : MonoBehaviour
     [SerializeField] private float m_fCooldownLegere = 1f;
     [SerializeField] private float m_fCooldownMoyenne = 2f;
     [SerializeField] private float m_fCooldownLourde = 3f;
+    #endregion
+
+    #region SoundEvent
+    [SerializeField] private UnityEvent m_ueSoundAttack;
+    [SerializeField] private UnityEvent m_ueDamageSound;
+    [SerializeField] private UnityEvent m_ueDamageBlockSound;
+    [SerializeField] private UnityEvent m_ueCapacitySound;
     #endregion
 
     #region Private Variables
@@ -83,6 +91,7 @@ public class SwipeDetection : MonoBehaviour
             m_sSlider.maxValue = m_iPv;
             m_sSlider.value = m_iPv;
         });
+
     }
 
     private void OnEnable()
@@ -180,6 +189,7 @@ public class SwipeDetection : MonoBehaviour
         if (IsInGlobalDelay())
         {
             Debug.Log("⛔ Bouclier en cooldown !");
+           
             return;
         }
 
@@ -230,9 +240,10 @@ public class SwipeDetection : MonoBehaviour
         if (m_bIsBlocking)
         {
             Debug.Log("🛡️ Le joueur bloque les dégâts !");
+            m_ueDamageBlockSound.Invoke();
             return;
         }
-
+        m_ueDamageSound.Invoke();
         int iPv = m_iPv;
 
         int iAmount = m_csCombatSystem.CalculerDegats(iPv, iEnemyAttack, m_playerScript._iPlayerDefense());
@@ -248,6 +259,7 @@ public class SwipeDetection : MonoBehaviour
             Debug.Log("☠️ Le joueur est KO !");
             isAlive = false;
             m_playerAnim?.PlayDeath();
+            
         }
     }
     #endregion
@@ -275,30 +287,31 @@ public class SwipeDetection : MonoBehaviour
 
         if (Vector2.Dot(Vector2.up, vDirection) > m_fDirectionTreshold)
         {
-            int fDegats = m_csCombatSystem.GetDegatsInfliges(m_playerScript._iPlayerAttack(), m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
-            m_csCurrentEnemy.TakeDamage(fDegats);
-            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-            SetGlobalDelay(m_fCooldownLegere);
+
             m_playerAnim.PlayLightAttack(m_fCooldownLegere);
-            Debug.Log("⚔️ Attaque légère !");
+            m_ueSoundAttack.Invoke();
+            //m_ueLightAttack.Invoke()
+            SetGlobalDelay(m_fCooldownLegere);
+            Invoke( "LightAttack", 0.5f);
+            
+                
+            
+           
         }
         else if (Vector2.Dot(Vector2.down, vDirection) > m_fDirectionTreshold)
         {
-            int fDegats = m_csCombatSystem.GetDegatsInfliges(m_playerScript._iPlayerAttack(), m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
-            m_csCurrentEnemy.TakeDamage(fDegats);
-            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-            SetGlobalDelay(m_fCooldownLourde);
+
             m_playerAnim.PlayHeavyAttack(m_fCooldownLourde);
-            Debug.Log("💥 Attaque lourde !");
+            SetGlobalDelay(m_fCooldownLourde);
+
+            Invoke("HighAttack", 1.0f);
         }
         else if (Vector2.Dot(Vector2.right, vDirection) > m_fDirectionTreshold)
         {
-            int fDegats = m_csCombatSystem.GetDegatsInfliges(m_playerScript._iPlayerAttack(), m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
-            m_csCurrentEnemy.TakeDamage(fDegats);
-            ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up);
-            SetGlobalDelay(m_fCooldownMoyenne);
+
             m_playerAnim.PlayMediumAttack(m_fCooldownMoyenne);
-            Debug.Log("🥊 Attaque moyenne !");
+            SetGlobalDelay(m_fCooldownMoyenne);
+            Invoke("MediumAttack", 0.5f);
         }
         else if (Vector2.Dot(Vector2.left, vDirection) > m_fDirectionTreshold)
         {
@@ -319,6 +332,56 @@ public class SwipeDetection : MonoBehaviour
                 csFloating.SetDamage(fAmount);
             }
         }
+    }
+
+    private void LightAttack()
+    {
+        int fDegats = m_csCombatSystem.GetDegatsInfliges(m_playerScript._iPlayerAttack(), m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Legere);
+        m_csCurrentEnemy.TakeDamage(fDegats);
+        //m_ueSoundAttack.Invoke();
+        ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up + new Vector3(0, 6, 0));
+        
+        Debug.Log("⚔️ Attaque légère !");
+        Vibrator.Vibrate(100);
+    }
+
+    private void MediumAttack()
+    {
+        int fDegats = m_csCombatSystem.GetDegatsInfliges(m_playerScript._iPlayerAttack(), m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Moyenne);
+        m_csCurrentEnemy.TakeDamage(fDegats);
+        m_ueSoundAttack.Invoke();
+        ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up + new Vector3(0, 6, 0));
+        
+        //m_playerAnim.PlayMediumAttack(m_fCooldownMoyenne);
+        Debug.Log("🥊 Attaque moyenne !");
+        Vibrator.Vibrate(200);
+    }
+
+    private void HighAttack()
+    {
+        m_ueSoundAttack.Invoke();
+        int fDegats = m_csCombatSystem.GetDegatsInfliges(m_playerScript._iPlayerAttack(), m_csCurrentEnemy.GetDefense(), FightSystem.TypeAttaque.Lourde);
+        m_csCurrentEnemy.TakeDamage(fDegats);
+        ShowFloatingDamage(fDegats, m_csCurrentEnemy.transform.position + Vector3.up + new Vector3(0, 6, 0));
+        
+        Debug.Log("💥 Attaque lourde !");
+        Vibrator.Vibrate(300);
+    }
+
+    public void Capacity()
+    {
+        Invoke("DamageCapacity", 0.7f);
+        Invoke("DamageCapacity", 1.1f);
+        Invoke("DamageCapacity", 1.5f);
+        m_playerAnim.PlayPowerAttack();
+        Debug.Log("(❁´◡`❁) Attaque spéciale !");
+    }
+
+    private void DamageCapacity()
+    {
+        m_ueSoundAttack.Invoke();
+        m_csCurrentEnemy.TakeDamage(30);
+        ShowFloatingDamage(30.0f, m_csCurrentEnemy.transform.position + Vector3.up + new Vector3(0,6,0));
     }
     #endregion
 }

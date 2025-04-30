@@ -166,43 +166,17 @@ public class DungeonManager : MonoBehaviour
         if (m_bIsDungeonCompleted)
             return;
 
-        Item csItem = new Item();
-        csItem._iLevel = 1;
-        csItem._Rarity = ItemRarity.A;
-        csItem._Type = ItemType.Weapon;
-        csItem._Stats[(int)ItemStats.Strength] = 20;
+        for(int i = 0; i < Random.Range(1, 3); ++i)
+        {
+            Item csItem = ItemUtils.GenerateRandomItem();
 
-        Item csItem2 = new Item();
-        csItem2._iLevel = 1;
-        csItem2._Rarity = ItemRarity.A;
-        csItem2._Type = ItemType.Weapon;
-        csItem2._Stats[(int)ItemStats.Dext] = 20;
+            GameObject UIBtn = Instantiate(m_gPrefabItem, m_gContentItemObtain.transform);
+            UIBtn.GetComponent<ItemUIScript>()._EquipItem = csItem;
+            UIBtn.GetComponent<ItemUIScript>().Init();
 
-        Item csItem1 = new Item();
-        csItem1._iLevel = 1;
-        csItem1._Rarity = ItemRarity.C;
-        csItem1._Type = ItemType.Legging;
-        csItem1._Stats[(int)ItemStats.Strength] = 5;
-        csItem1._Stats[(int)ItemStats.Vita] = 50;
-
-        //
-        GameObject UIBtn = Instantiate(m_gPrefabItem, m_gContentItemObtain.transform);
-        UIBtn.GetComponent<ItemUIScript>()._EquipItem = csItem;
-        UIBtn.GetComponent<ItemUIScript>().Init();
-
-        ReferenceManager.Player.AddItem(csItem);
-
-        GameObject UIBtn1 = Instantiate(m_gPrefabItem, m_gContentItemObtain.transform);
-        UIBtn1.GetComponent<ItemUIScript>()._EquipItem = csItem1;
-        UIBtn1.GetComponent<ItemUIScript>().Init();
-
-        ReferenceManager.Player.AddItem(csItem1);
-
-        GameObject UIBtn2 = Instantiate(m_gPrefabItem, m_gContentItemObtain.transform);
-        UIBtn2.GetComponent<ItemUIScript>()._EquipItem = csItem2;
-        UIBtn2.GetComponent<ItemUIScript>().Init();
-
-        ReferenceManager.Player.AddItem(csItem2);
+            ReferenceManager.Player.AddItem(csItem);
+        }
+        ReferenceManager.Player.PlayerData._iMoney += 150;
         SaveLoadSystem.Save(ReferenceManager.Player);
 
         m_bIsDungeonCompleted = true;

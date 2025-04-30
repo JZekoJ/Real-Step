@@ -36,7 +36,17 @@ public class SaveLoadSystem
                 PlayerData data = new PlayerData();
                 player.PlayerData = data;
 
-                player.AddItem(12, ItemRarity.S, ItemType.Gauntlet);
+                //player.AddItem(12, ItemRarity.S, ItemType.Gauntlet);
+                player.AddItem(ItemUtils.GenerateRandomItem());
+                Item csItem1 = new Item();
+                csItem1._iLevel = 12;
+                csItem1._Rarity = ItemRarity.S;
+                csItem1._Type = ItemType.Weapon;
+                csItem1._Stats[(int)ItemStats.Strength] = 6;
+                csItem1._Stats[(int)ItemStats.Dext] = 4;
+                csItem1._Stats[(int)ItemStats.Vita] = 2;
+                player.AddItem(csItem1);
+                ReferenceManager.Player.PlayerData._iMoney = 10000;
                 Save(player);
             }
         }

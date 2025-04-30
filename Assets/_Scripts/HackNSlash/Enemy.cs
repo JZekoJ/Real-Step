@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     private Coroutine m_cAttackRoutine;
     private SwipeDetection m_csPlayer;
     private Animator m_animator;
-
+    [SerializeField] private UnityEvent m_acAttackSound;
     #endregion
 
     //—------Unity Events—----
@@ -102,8 +102,9 @@ public class Enemy : MonoBehaviour
 
         while (m_csPlayer != null)
         {
-            m_animator.SetTrigger("TriggerAttack"); 
-            m_csPlayer.ReceiveDamage(m_fAttackPower);
+            m_animator.SetTrigger("TriggerAttack");
+            m_acAttackSound.Invoke();
+            Invoke("DealDamage", 0.5f);
 
             yield return new WaitForSeconds(m_fAttackInterval);
 
@@ -163,6 +164,12 @@ public class Enemy : MonoBehaviour
 
         Debug.LogWarning("Animation 'Death' non trouvée !");
         return 0f;
+    }
+
+    private void DealDamage()
+    {
+        
+        m_csPlayer.ReceiveDamage(m_fAttackPower);
     }
     #endregion
 }
